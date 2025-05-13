@@ -46,7 +46,7 @@
       </ul>
     </nav>
 
-    <div class="flex-1 overflow-auto">
+    <div class="flex-1 overflow-auto select-none">
       <slot />
     </div>
 
@@ -57,34 +57,83 @@
     >
       <i class="fas fa-circle-chevron-up fa-3x text-yellow-500 text-lg"></i>
     </button>
+
+    <footer class="bg-black text-white py-6">
+      <div class="space-y-4 mx-4">
+        <div class="text-lg font-semibold">Contact Information</div>
+        <ul class="space-y-2 w-full">
+          <li class="flex items-center space-x-3">
+            <i class="fas fa-envelope text-gray-400 text-xl w-6"></i>
+            <span>{{ contactInfo.email }}</span>
+          </li>
+          <li class="flex items-center space-x-3">
+            <i class="fas fa-phone text-green-400 text-xl w-6"></i>
+            <span>{{ contactInfo.phone }}</span>
+          </li>
+          <li class="flex items-center space-x-3">
+            <i class="fab fa-facebook text-blue-500 text-xl w-6"></i>
+            <a
+              :href="contactInfo.facebook.url"
+              target="_blank"
+              rel="noopener"
+              class="hover:underline"
+              >{{ contactInfo.facebook.label }}</a
+            >
+          </li>
+          <li class="flex items-center space-x-3">
+            <i class="fab fa-instagram text-pink-400 text-xl w-6"></i>
+            <a
+              :href="contactInfo.instagram.url"
+              target="_blank"
+              rel="noopener"
+              class="hover:underline"
+              >{{ contactInfo.instagram.label }}</a
+            >
+          </li>
+        </ul>
+        <div class="flex justify-center text-xs text-gray-400 mt-4">
+          &copy; {{ new Date().getFullYear() }} Reinhard Esteban. All rights reserved.
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from "vue";
 
-<script>
-export default {
-  name: "DefaultLayout",
-  data() {
-    return {
-      menuOpen: false,
-      showScrollButton: false,
-    };
+const menuOpen = ref(false);
+const showScrollButton = ref(false);
+
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value;
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function handleScroll() {
+  showScrollButton.value = window.scrollY > 200;
+}
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+
+const contactInfo = {
+  email: "rei.nhard3367@gmail.com",
+  phone: "+63 (966) 867-4260",
+  facebook: {
+    url: "https://facebook.com/reinhard.esteban",
+    label: "Facebook",
   },
-  methods: {
-    toggleMenu() {
-      this.menuOpen = !this.menuOpen;
-    },
-    scrollToTop() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    },
-    handleScroll() {
-      this.showScrollButton = window.scrollY > 200;
-    },
-  },
-  mounted() {
-    window.addEventListener("scroll", this.handleScroll);
-  },
-  beforeUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+  instagram: {
+    url: "https://instagram.com/esyyyot",
+    label: "Instagram",
   },
 };
 </script>
