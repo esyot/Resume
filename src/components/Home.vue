@@ -45,7 +45,7 @@ const personalDetails = {
     <header class="flex flex-col items-center mb-12 text-center">
       <div>
         <img
-          :src="'/src/assets/images/' + personalDetails.img"
+          :src="'/public/assets/images/' + personalDetails.img"
           alt="profile image"
           class="w-30 h-30 border-2 border-yellow-500 rounded-full"
         />
