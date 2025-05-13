@@ -13,7 +13,7 @@ const contactInfo = [
   },
   {
     icon: "fas fa-phone text-green-400 text-xl w-6",
-    text: "+63 (963) 3867-4260 (Globe)",
+    text: "+63 (966) 867-4260 (Globe)",
     isLink: false,
   },
   {

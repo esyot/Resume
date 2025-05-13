@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="min-h-screen flex flex-col relative">
-    <!-- Navbar -->
     <nav class="sticky top-0 bg-black select-none z-10">
       <div class="md:hidden flex items-center p-4 text-white">
         <button @click="toggleMenu" class="text-white focus:outline-none">
