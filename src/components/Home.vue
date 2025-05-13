@@ -36,7 +36,7 @@ const projects = [
 
 const personalDetails = {
   name: "Reinhard Esteban",
-  img: "/src/assets/images/profile_img.jpg",
+  img: "profile_img.jpg",
 };
 </script>
 
@@ -45,8 +45,8 @@ const personalDetails = {
     <header class="flex flex-col items-center mb-12 text-center">
       <div>
         <img
-          :src="personalDetails.img"
-          alt=""
+          :src="'/src/assets/images/' + personalDetails.img"
+          alt="profile image"
           class="w-30 h-30 border-2 border-yellow-500 rounded-full"
         />
       </div>

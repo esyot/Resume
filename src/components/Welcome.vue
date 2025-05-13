@@ -35,15 +35,17 @@ onMounted(() => {
       to="/home"
       class="relative hover:scale-90 transition-transform duration-300 ease-in-out hover:drop-shadow-[0_0_10px_rgba(255,255,255,1.0)]"
     >
-      <div class="flex space-x-4 items-top p-2 rounded hover:opacity-50 cursor-pointer">
+      <div
+        class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center sm:items-top p-4 sm:p-2 rounded hover:opacity-50 cursor-pointer"
+      >
         <img
           src="/src/assets/images/profile_img.jpg"
-          class="p-1 bg-white h-30 w-30 rounded-full"
-          alt=""
+          class="p-1 bg-white h-24 w-24 sm:h-30 sm:w-30 rounded-full"
+          alt="profile"
         />
-        <div class="space-y-2">
+        <div class="space-y-2 text-center sm:text-left">
           <h1 class="bg-white rounded-xl">
-            <span class="block p-2 w-90 break-words block">
+            <span class="block p-2 w-full sm:w-90 break-words">
               {{ typedText }} {{ dots }}
             </span>
           </h1>
