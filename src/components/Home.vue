@@ -36,7 +36,7 @@ const projects = [
 
 const personalDetails = {
   name: "Reinhard Esteban",
-  img: "/public/assets/images/profile_img.jpg",
+  img: "/assets/images/profile_img.jpg",
 };
 </script>
 
