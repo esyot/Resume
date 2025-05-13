@@ -27,7 +27,7 @@ onMounted(() => {
 <template>
   <div class="flex fixed inset-0 justify-center items-center z-50 bg-black">
     <img
-      src="/public/assets/images/background.jpg"
+      src="/src/assets/images/background.jpg"
       class="absolute inset-0 w-full h-full object-cover opacity-20"
       alt="background"
     />
@@ -37,7 +37,7 @@ onMounted(() => {
     >
       <div class="flex space-x-4 items-top p-2 rounded hover:opacity-50 cursor-pointer">
         <img
-          src="/public/assets/images/profile_img.jpg"
+          src="/src/assets/images/profile_img.jpg"
           class="p-1 bg-white h-30 w-30 rounded-full"
           alt=""
         />
