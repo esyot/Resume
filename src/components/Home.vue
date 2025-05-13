@@ -51,7 +51,7 @@ const references = [
 ];
 
 const personalDetails = {
-  name: "Reinhard Esteban",
+  name: "Reinhard U. Esteban",
   img: "profile_img.jpg",
 };
 </script>
@@ -68,7 +68,13 @@ const personalDetails = {
           />
         </div>
         <h1 class="text-4xl font-bold">{{ personalDetails.name }}</h1>
-        <p class="text-lg text-gray-400 mt-2">Full Stack Developer</p>
+        <div class="flex items-center space-x-2">
+          <p class="text-lg text-gray-400 mt-2">Full Stack Developer</p>
+          <i
+            title="A full-stack developer is skilled in both front-end and back-end development of web applications. They work on the user interface (using HTML, CSS, JavaScript, and frameworks like React or Vue) and the server-side (using technologies like MySQL, PHP, Node.js, and frameworks like Laravel). They also handle version control, APIs, deployment, and sometimes DevOps, making them capable of managing all layers of a web application."
+            class="fas fa-circle-info hover:opacity-50 cursor-help"
+          ></i>
+        </div>
       </header>
 
       <section class="mb-12">
@@ -93,12 +99,12 @@ const personalDetails = {
 
       <section class="mb-12">
         <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">Skills</h2>
-        <ul class="space-y-4">
+        <ul class="space-y-4 bg-gray-500/20 p-2 rounded-2xl">
           <li
             v-for="skill in skills"
             :key="skill.name"
             :title="'Skill: ' + skill.name + ', Rating: ' + skill.rating"
-            class="flex justify-between items-center hover:bg-gray-800 p-2 cursor-help"
+            class="flex hover:border justify-between items-center hover:scale-95 transition-transform duration-300 ease-in-out p-2 cursor-help"
           >
             <span>{{ skill.name }}</span>
             <div class="flex space-x-1">
