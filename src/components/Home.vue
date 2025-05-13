@@ -80,21 +80,61 @@ const personalDetails = {
       <section class="mb-12">
         <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">Resume</h2>
         <p class="text-gray-300 leading-relaxed mb-4">
-          A highly motivated <span class="font-semibold">fresh graduate</span> with a
+          I am a passionate and results-driven developer,
+          <span class="font-semibold">graduated from Mater Dei College</span> with a
           <span class="font-semibold">Bachelor of Science in Information Technology</span
-          >, eager to apply my skills in real-world projects. I bring hands-on experience
-          in both frontend and backend technologies, including Vue.js, Laravel, Tailwind
-          CSS, and more. I'm passionate about crafting innovative, clean, and responsive
-          web applications that solve real-world problems and make a meaningful impact.
+          >. My expertise spans both frontend and backend development, with hands-on
+          experience in <span class="text-yellow-400">Vue.js</span>,
+          <span class="text-yellow-400">Laravel</span>,
+          <span class="text-yellow-400">Tailwind CSS</span>, and other modern
+          technologies. I thrive on building clean, responsive, and user-centric web
+          applications that deliver real value.
+        </p>
+        <p class="text-gray-300 leading-relaxed mb-4">
+          Throughout my academic and professional journey, I have actively contributed to
+          diverse teams, helping to optimize workflows and achieve project goals. My
+          collaborative approach enables me to bring fresh perspectives, streamline
+          processes, and deliver innovative solutions that make a measurable impact.
+        </p>
+        <p class="text-gray-300 leading-relaxed mb-4">
+          My On-the-Job Training (OJT) provided invaluable real-world experience, allowing
+          me to work alongside industry professionals on live projects. This opportunity
+          sharpened my technical abilities and strengthened my communication and teamwork
+          skills.
+        </p>
+        <p class="text-gray-300 leading-relaxed mb-4">
+          I have also completed specialized training and seminars in web development and
+          software engineering, keeping me up-to-date with the latest industry trends and
+          best practices. My commitment to continuous learning ensures I can quickly adapt
+          to new technologies and deliver high-quality results.
         </p>
         <p class="text-gray-300 leading-relaxed">
-          During my On-the-Job Training at
-          <span class="font-semibold">Mater Dei College</span>, I had the exciting
-          opportunity to contribute to a web application for the Human Resources Office.
-          This project allowed me to help digitize and streamline HR processes, including
-          leave and travel forms, and enhance the maintenance of the Personnel Control
-          System (PCS).
+          I am eager to contribute my skills and enthusiasm to forward-thinking teams,
+          where I can help create impactful digital solutions and continue growing as a
+          developer.
         </p>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">
+          Education
+        </h2>
+        <ul class="space-y-2">
+          <li>
+            <span class="font-bold">JAPeR Memorial High School</span> – TVL-ICT <br />
+            <span class="text-gray-400 text-sm">Graduated: 2016</span>
+          </li>
+          <li>
+            <span class="font-bold">San Agustin National High School</span> – TVL-ICT NC
+            III<br />
+            <span class="text-gray-400 text-sm">Graduated: 2019</span>
+          </li>
+          <li>
+            <span class="font-bold">Mater Dei College</span> – Bachelor of Science in
+            Information Technology<br />
+            <span class="text-gray-400 text-sm">Graduated: 2025</span>
+          </li>
+        </ul>
       </section>
 
       <section class="mb-12">
