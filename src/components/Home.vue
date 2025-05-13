@@ -29,7 +29,7 @@ const projects = [
     name: "MDC SEC",
     link: "https://sec.materdeicollege.com",
     description:
-      "This website was created to assist students and teachers with school events.",
+      "This website was created to assist students and teachers in Mater Dei College with their school events.",
   },
   {
     name: "V-Record",
