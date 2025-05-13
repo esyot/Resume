@@ -6,7 +6,7 @@ const typedText = ref("");
 const dots = ref("");
 onMounted(() => {
   const text =
-    "Hi there! I'm Reinhard Esteban, and I'm a web developer. Click to get to know me";
+    "Hi there! I'm Reinhard Esteban, and I'm a Web Developer. Click to get to know me";
   let index = 0;
 
   const type = () => {
@@ -36,7 +36,7 @@ onMounted(() => {
       class="relative hover:scale-90 transition-transform duration-300 ease-in-out hover:drop-shadow-[0_0_10px_rgba(255,255,255,1.0)]"
     >
       <div
-        class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center sm:items-top p-4 sm:p-2 rounded hover:opacity-50 cursor-pointer"
+        class="flex flex-col sm:flex-row items-center sm:items-start space-x-4 m-4 space-y-4 sm:space-y-0"
       >
         <img
           src="/assets/images/profile_img.jpg"
