@@ -7,23 +7,23 @@ const toast = useToast();
 
 const contactInfo = [
   {
-    icon: "fas fa-envelope text-yellow-400 text-xl w-6",
+    icon: "fas fa-envelope text-grayy-400 text-xl w-6",
     text: "rei.nhard3367@gmail.com",
     isLink: false,
   },
   {
-    icon: "fas fa-phone text-yellow-400 text-xl w-6",
+    icon: "fas fa-phone text-green-400 text-xl w-6",
     text: "+63 (963) 3867-4260 (Globe)",
     isLink: false,
   },
   {
-    icon: "fab fa-facebook text-yellow-500 text-xl w-6",
+    icon: "fab fa-facebook text-blue-500 text-xl w-6",
     text: "/reinhard.esteban",
     link: "https://facebook.com/reinhard.esteban",
     isLink: true,
   },
   {
-    icon: "fab fa-instagram text-yellow-400 text-xl w-6",
+    icon: "fab fa-instagram text-pink-400 text-xl w-6",
     text: "@esyyyot",
     link: "https://instagram.com/esyyyot",
     isLink: true,
@@ -58,7 +58,7 @@ const copyToClipboard = (text) => {
               {{ item.text }}
             </a>
             <button
-              class="ml-auto text-yellow-200 hover:text-white"
+              class="ml-auto text-gray-200 hover:text-white"
               @click="copyToClipboard(item.text)"
             >
               <i class="fas fa-copy"></i>
