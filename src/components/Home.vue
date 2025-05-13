@@ -121,7 +121,7 @@ const personalDetails = {
         </h2>
         <ul class="space-y-2">
           <li>
-            <span class="font-bold">JAPeR Memorial High School</span> – TVL-ICT <br />
+            <span class="font-bold">JAPeR Memorial High School</span> – ICT <br />
             <span class="text-gray-400 text-sm">Graduated: 2016</span>
           </li>
           <li>
@@ -173,7 +173,7 @@ const personalDetails = {
           >
             <a :href="project.link" target="_blank" class="flex flex-col space-x-3">
               <div class="space-x-2">
-                <i class="fas fa-link text-blue-400"></i>
+                <i class="fas fa-link text-yellow-500"></i>
                 <span class="underline">{{ project.name }}</span>
               </div>
 
