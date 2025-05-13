@@ -1,3 +1,8 @@
+<script>
+export default {
+  name: "App",
+};
+</script>
 <template>
   <div id="app">
     <nav class="sticky top-0 bg-black select-none">
@@ -26,9 +31,3 @@
     <router-view />
   </div>
 </template>
-
-<script>
-export default {
-  name: "App",
-};
-</script>
