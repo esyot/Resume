@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useToast } from "vue-toastification";
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "../layouts/DefaultLayout.vue";
 
 const toast = useToast();
 
