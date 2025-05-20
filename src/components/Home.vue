@@ -12,6 +12,7 @@ const skills = [
   { name: "CSS", rating: 4 },
   { name: "JavaScript", rating: 5 },
   { name: "TypeScript", rating: 3 },
+  { name: "Flutter", rating: 4 },
   { name: "JAVA", rating: 4 },
   { name: "PHP", rating: 4 },
   { name: "Blade", rating: 4 },
@@ -117,41 +118,31 @@ const personalDetails = {
       </header>
 
       <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">Resume</h2>
-        <p class="text-gray-300 leading-relaxed mb-4">
-          I am a fresh graduate from Mater Dei College with a
+        <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">
+          Background
+        </h2>
+        <p class="text-gray-300 leading-relaxed mb-2">
+          I recently graduated from <span class="font-semibold">Mater Dei College</span>,
+          earning a
           <span class="font-semibold">Bachelor of Science in Information Technology</span
-          >. While I am new to the professional world, I have built a strong foundation in
-          both frontend and backend development through my academic projects and training.
-          I am comfortable working with <span class="text-yellow-400">Vue.js</span>,
+          >. Throughout my studies, I gained hands-on experience in both frontend and
+          backend development, working with technologies like
+          <span class="text-yellow-400">Vue.js</span>,
           <span class="text-yellow-400">Laravel</span>,
           <span class="text-yellow-400">React</span>,
-          <span class="text-yellow-400">Next.js</span>,
-          <span class="text-yellow-400">Inertia Js</span>, and other modern technologies.
+          <span class="text-yellow-400">Next.js</span>, and
+          <span class="text-yellow-400">Inertia.js</span>.
         </p>
-        <p class="text-gray-300 leading-relaxed mb-4">
-          During my studies, I participated in group projects and school activities that
-          helped me develop teamwork and problem-solving skills. I enjoy learning new
-          things and am always eager to take on challenges and contribute to any team I
-          join.
-        </p>
-        <p class="text-gray-300 leading-relaxed mb-4">
-          My On-the-Job Training (OJT) gave me hands-on experience working on real
-          projects, where I learned how to apply my technical knowledge and communicate
-          effectively with others. During my OJT at Mater Dei College, I was assigned to
-          the Human Resources Department, where I helped develop a digital system to
-          improve the tracking and monitoring of employee's leave and travel forms.
-        </p>
-
-        <p class="text-gray-300 leading-relaxed mb-4">
-          I have also attended seminars and training sessions in web development and
-          software engineering, which helped me stay updated with current trends and best
-          practices.
+        <p class="text-gray-300 leading-relaxed mb-2">
+          During my On-the-Job Training at the Human Resources Department of Mater Dei
+          College, I developed a digital system to help manage and monitor employee leave
+          and travel forms. I also enjoyed working on group projects and attending
+          seminars, which helped me grow my technical skills and learn how to collaborate
+          effectively.
         </p>
         <p class="text-gray-300 leading-relaxed">
-          As a fresh graduate, I am motivated to learn, grow, and prove myself in a real
-          work environment. I am ready to take on tasks, adapt quickly, and do my best to
-          contribute to the success of any team or project.
+          I am enthusiastic about learning new things and look forward to contributing my
+          skills and energy in a professional setting.
         </p>
       </section>
 
