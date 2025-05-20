@@ -71,9 +71,36 @@ const personalDetails = {
         <div class="flex items-center space-x-2">
           <p class="text-lg text-gray-400 mt-2">Full Stack Developer</p>
           <i
+            @click="showPopup = true"
             title="A full-stack developer is skilled in both front-end and back-end development of web applications. They work on the user interface (using HTML, CSS, JavaScript, and frameworks like React or Vue) and the server-side (using technologies like MySQL, PHP, Node.js, and frameworks like Laravel). They also handle version control, APIs, deployment, and sometimes DevOps, making them capable of managing all layers of a web application."
             class="fas fa-circle-info hover:opacity-50 cursor-help"
           ></i>
+          <Teleport to="body">
+            <div
+              v-if="showPopup"
+              class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+              @click.self="showPopup = false"
+            >
+              <div class="bg-white text-black rounded-lg p-6 max-w-md shadow-lg relative">
+                <button
+                  class="absolute top-2 right-2 text-gray-500 hover:text-black"
+                  @click="showPopup = false"
+                  aria-label="Close"
+                >
+                  &times;
+                </button>
+                <div class="text-base">
+                  A full-stack developer is skilled in both front-end and back-end
+                  development of web applications. They work on the user interface (using
+                  HTML, CSS, JavaScript, and frameworks like React or Vue) and the
+                  server-side (using technologies like MySQL, PHP, Node.js, and frameworks
+                  like Laravel). They also handle version control, APIs, deployment, and
+                  sometimes DevOps, making them capable of managing all layers of a web
+                  application.
+                </div>
+              </div>
+            </div>
+          </Teleport>
         </div>
       </header>
 
