@@ -89,6 +89,16 @@
               >{{ contactInfo.instagram.label }}</a
             >
           </li>
+          <li class="flex items-center space-x-3">
+            <i class="fab fa-linkedin text-blue-400 text-xl w-6"></i>
+            <a
+              :href="contactInfo.linkedin.url"
+              target="_blank"
+              rel="noopener"
+              class="hover:underline"
+              >{{ contactInfo.linkedin.label }}</a
+            >
+          </li>
         </ul>
         <div class="flex justify-center text-xs text-gray-400 mt-4">
           &copy; {{ new Date().getFullYear() }} Reinhard Esteban. All rights reserved.
@@ -133,6 +143,10 @@ const contactInfo = {
   instagram: {
     url: "https://instagram.com/esyyyot",
     label: "Instagram",
+  },
+  linkedin: {
+    url: "https://linkedin.com/in/reinhard-esteban",
+    label: "LinkedIn",
   },
 };
 </script>

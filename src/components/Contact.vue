@@ -28,6 +28,12 @@ const contactInfo = [
     link: "https://instagram.com/esyyyot",
     isLink: true,
   },
+  {
+    icon: "fab fa-linkedin text-blue-400 text-xl w-6",
+    text: "/in/reinhard-esteban",
+    link: "https://linkedin.com/in/reinhard-esteban",
+    isLink: true,
+  },
 ];
 
 const copyToClipboard = (text) => {
