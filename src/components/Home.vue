@@ -96,7 +96,7 @@ const personalDetails = {
                   <i class="fas fa-circle-xmark fa-2x text-yellow-500"></i>
                 </button>
                 <p
-                  class="w-90 bg-gray-800 text-yellow-500 text-sm p-2 rounded-lg shadow-xl border border-white"
+                  class="w-90 bg-gray-800 text-yellow-500 text-sm p-2 rounded-lg shadow-xl border border-white text-justify"
                 >
                   A full-stack developer is a versatile professional proficient in both
                   front-end and back-end web development. On the front-end, they build
