@@ -230,10 +230,23 @@ const personalDetails = {
         </h2>
 
         <ul class="space-y-3">
-          <li v-for="(ref, index) in references" :key="index">
-            <span>{{ ref.name }}</span>
-            <span>{{ ref.phone }}</span>
-            <span>{{ ref.email }}</span>
+          <li
+            v-for="(ref, index) in references"
+            :key="index"
+            class="flex flex-col space-y-1"
+          >
+            <span>
+              <i class="fas fa-user text-yellow-500 mr-2"></i>
+              {{ ref.name }}
+            </span>
+            <span v-if="ref.phone">
+              <i class="fas fa-phone text-yellow-500 mr-2"></i>
+              {{ ref.phone }}
+            </span>
+            <span>
+              <i class="fas fa-envelope text-yellow-500 mr-2"></i>
+              {{ ref.email }}
+            </span>
           </li>
         </ul>
       </section>
