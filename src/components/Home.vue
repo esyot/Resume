@@ -48,12 +48,22 @@ const projects = [
 
 const references = [
   {
+    name: "Shryl Enriquez",
+    role: "Proffesor",
+    phone: "09991506636",
+    email: "sherylenriquez30@gmail.com",
+  },
+  {
     name: "Benjie Lenteria",
     role: "Proffesor/Supervisor",
+    phone: "09173035716",
+    email: "hawkmanlentrix@gmail.com",
   },
   {
     name: "Dr. Josefina Pangan",
     role: "CAST Dean/Supervisor",
+    phone: "",
+    email: "j1fina@yahoo.com",
   },
 ];
 
@@ -214,7 +224,7 @@ const personalDetails = {
         </ul>
       </section>
 
-      <!-- <section>
+      <section>
         <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">
           References
         </h2>
@@ -222,9 +232,11 @@ const personalDetails = {
         <ul class="space-y-3">
           <li v-for="(ref, index) in references" :key="index">
             <span>{{ ref.name }}</span>
+            <span>{{ ref.phone }}</span>
+            <span>{{ ref.email }}</span>
           </li>
         </ul>
-      </section> -->
+      </section>
     </div>
   </DefaultLayout>
 </template>
