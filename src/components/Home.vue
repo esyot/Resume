@@ -239,6 +239,10 @@ const personalDetails = {
               <i class="fas fa-user text-yellow-500 mr-2"></i>
               {{ ref.name }}
             </span>
+            <span>
+              <i class="fas fa-briefcase text-yellow-500 mr-2"></i>
+              {{ ref.role }}
+            </span>
             <span v-if="ref.phone">
               <i class="fas fa-phone text-yellow-500 mr-2"></i>
               {{ ref.phone }}
