@@ -46,23 +46,27 @@ const projects = [
   },
 ];
 
+function formatPhone(phone) {
+  return phone.replace(/^(\d{4})(\d{3})(\d{4})$/, "$1-$2-$3");
+}
+
 const references = [
   {
-    name: "Shryl Enriquez",
+    name: "Sheryl Enriquez",
     role: "Proffesor",
-    phone: "09991506636",
+    phone: formatPhone("09991506636"),
     email: "sherylenriquez30@gmail.com",
   },
   {
     name: "Benjie Lenteria",
     role: "Proffesor/Supervisor",
-    phone: "09173035716",
+    phone: formatPhone("09173035716"),
     email: "hawkmanlentrix@gmail.com",
   },
   {
     name: "Dr. Josefina Pangan",
     role: "CAST Dean/Supervisor",
-    phone: "",
+    phone: formatPhone("09239113760"),
     email: "j1fina@yahoo.com",
   },
 ];
