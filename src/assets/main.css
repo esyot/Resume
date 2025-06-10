@@ -1,3 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@keyframes slide-to-bottom {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.slide-to-bottom {
+  animation: slide-to-bottom 0.8s ease forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-to-right {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+.slide-to-right {
+  animation: slide-to-right 0.8s ease forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-to-left {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+.slide-to-left {
+  animation: slide-to-left 0.8s ease forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-to-top {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.slide-to-top {
+  animation: slide-to-top 0.8s ease forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.slide-to-top {
+  animation: slide-to-top 0.8s ease forwards;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+}
+.slide-down-enter-to,
+.slide-down-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

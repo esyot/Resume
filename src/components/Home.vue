@@ -38,12 +38,6 @@ const projects = [
     description:
       "This website was created to assist students and teachers in Mater Dei College with their school events.",
   },
-  {
-    name: "V-Record",
-    link: "https://v-record.resteban.tech",
-    description:
-      "This website was created to help establishments track and monitor vehicles checking in or out of the establishment.",
-  },
 ];
 
 function formatPhone(phone) {
@@ -79,65 +73,71 @@ const personalDetails = {
 
 <template>
   <DefaultLayout>
-    <div class="min-h-screen bg-black/90 text-white font-sans p-6">
-      <header class="flex flex-col items-center mb-12 text-center">
+    <div
+      class="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-yellow-800/80 text-white font-sans p-6"
+    >
+      <header
+        class="slide-to-bottom flex flex-col sm:flex-row sm:items-start items-center justify-center space-x-4 mb-12 text-center"
+      >
         <div>
           <img
             :src="'/assets/images/' + personalDetails.img"
             alt="profile image"
-            class="w-30 h-30 border-2 border-yellow-500 rounded-full"
+            class="w-30 h-30 border-2 border-yellow-500 sm:rounded rounded-full"
           />
         </div>
-        <h1 class="text-4xl font-bold">{{ personalDetails.name }}</h1>
-        <div class="flex items-center space-x-2">
-          <p class="text-lg text-gray-400 mt-2">Full Stack Developer</p>
-          <div class="relative">
-            <i
-              @click="togglePopup"
-              title="A full-stack developer is skilled in both front-end and back-end development of web applications. They work on the user interface (using HTML, CSS, JavaScript, and frameworks like React or Vue) and the server-side (using technologies like MySQL, PHP, Node.js, and frameworks like Laravel). They also handle version control, APIs, deployment, and sometimes DevOps, making them capable of managing all layers of a web application."
-              class="fas fa-circle-info hover:opacity-50 cursor-help"
-            ></i>
 
-            <div
-              v-if="isShowPopup"
-              class="flex fixed inset-0 justify-center items-center"
-              @click.self="togglePopup"
-            >
-              <div class="space-y-3">
-                <button
-                  @click="togglePopup"
-                  class="rounded-full bg-white hover:opacity-50 cursor-pointer"
+        <div class="flex flex-col items-center sm:items-start space-x-2">
+          <h1 class="text-4xl font-bold">{{ personalDetails.name }}</h1>
+          <div class="flex items-center space-x-2">
+            <div>
+              <p class="text-lg text-gray-400">Full Stack Web Developer</p>
+            </div>
+
+            <div class="relative">
+              <i
+                @click="togglePopup"
+                title="A full-stack developer is skilled in both front-end and back-end development of web applications. They work on the user interface (using HTML, CSS, JavaScript, and frameworks like React or Vue) and the server-side (using technologies like MySQL, PHP, Node.js, and frameworks like Laravel). They also handle version control, APIs, deployment, and sometimes DevOps, making them capable of managing all layers of a web application."
+                class="fas fa-circle-info hover:opacity-50 cursor-help"
+              ></i>
+
+              <div
+                v-if="isShowPopup"
+                class="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50"
+                @click.self="togglePopup"
+              >
+                <div
+                  class="space-y-3 bg-gray-900 p-6 rounded-xl shadow-2xl border border-yellow-500 max-w-lg w-full"
                 >
-                  <i class="fas fa-circle-xmark fa-2x text-yellow-500"></i>
-                </button>
-                <p
-                  class="w-90 bg-gray-800 text-yellow-500 text-sm p-2 rounded-lg shadow-xl border border-white text-justify"
-                >
-                  A full-stack developer is a versatile professional proficient in both
-                  front-end and back-end web development. On the front-end, they build
-                  user interfaces using technologies like HTML, CSS, JavaScript, and
-                  frameworks such as Vue.js or React. On the back-end, they develop
-                  server-side logic, manage databases, and create APIs using tools like
-                  PHP, Node.js, Laravel, or MySQL. Full-stack developers are also familiar
-                  with version control systems (e.g., Git), deployment processes, and
-                  often basic DevOps practices. Their broad skill set enables them to
-                  design, implement, and maintain complete web applications from start to
-                  finish, bridging the gap between user experience and server
-                  functionality.
-                </p>
+                  <button @click="togglePopup" class="">
+                    <i class="fas fa-circle-xmark fa-2x text-yellow-500"></i>
+                  </button>
+                  <p class="text-yellow-500 text-sm p-2 rounded-lg text-justify">
+                    A full-stack developer is a versatile professional proficient in both
+                    front-end and back-end web development. On the front-end, they build
+                    user interfaces using technologies like HTML, CSS, JavaScript, and
+                    frameworks such as Vue.js or React. On the back-end, they develop
+                    server-side logic, manage databases, and create APIs using tools like
+                    PHP, Node.js, Laravel, or MySQL. Full-stack developers are also
+                    familiar with version control systems (e.g., Git), deployment
+                    processes, and often basic DevOps practices. Their broad skill set
+                    enables them to design, implement, and maintain complete web
+                    applications from start to finish, bridging the gap between user
+                    experience and server functionality.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">
+      <section class="slide-to-left mb-12">
+        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
           Background
         </h2>
         <p class="text-gray-300 leading-relaxed mb-2">
-          I recently graduated from <span class="font-semibold">Mater Dei College</span>,
-          earning a
+          I graduated from <span class="font-semibold">Mater Dei College</span>, earned a
           <span class="font-semibold">Bachelor of Science in Information Technology</span
           >. Throughout my studies, I gained hands-on experience in both frontend and
           backend development, working with technologies like
@@ -160,8 +160,8 @@ const personalDetails = {
         </p>
       </section>
 
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">
+      <section class="slide-to-right mb-12">
+        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
           Education
         </h2>
         <ul class="space-y-2">
@@ -182,9 +182,11 @@ const personalDetails = {
         </ul>
       </section>
 
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">Skills</h2>
-        <ul class="space-y-4 bg-gray-500/20 p-2 rounded-2xl">
+      <section class="slide-to-top mb-12">
+        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
+          Skills
+        </h2>
+        <ul class="space-y-4 bg-gray-500/20 p-2 rounded-2xl shadow-md">
           <li
             v-for="skill in skills"
             :key="skill.name"
@@ -206,15 +208,15 @@ const personalDetails = {
         </ul>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">
+      <section class="slide-to-left">
+        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
           Sample Projects
         </h2>
         <ul class="space-y-3">
           <li
             v-for="project in projects"
             :key="project.name"
-            class="hover:bg-gray-800 p-3 rounded-lg transition"
+            class="hover:bg-gray-800/50 p-3 rounded-lg transition"
           >
             <a :href="project.link" target="_blank" class="flex flex-col space-x-3">
               <div class="space-x-2">
@@ -228,35 +230,44 @@ const personalDetails = {
         </ul>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-semibold mb-4 border-b border-gray-700 pb-2">
+      <section class="slide-to-right">
+        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
           References
         </h2>
 
-        <ul class="space-y-3">
-          <li
-            v-for="(ref, index) in references"
-            :key="index"
-            class="flex flex-col space-y-1"
-          >
-            <span>
-              <i class="fas fa-user text-yellow-500 mr-2"></i>
-              {{ ref.name }}
-            </span>
-            <span>
-              <i class="fas fa-briefcase text-yellow-500 mr-2"></i>
-              {{ ref.role }}
-            </span>
-            <span v-if="ref.phone">
-              <i class="fas fa-phone text-yellow-500 mr-2"></i>
-              {{ ref.phone }}
-            </span>
-            <span>
-              <i class="fas fa-envelope text-yellow-500 mr-2"></i>
-              {{ ref.email }}
-            </span>
-          </li>
-        </ul>
+        <div class="overflow-x-auto">
+          <div class="flex space-x-6">
+            <div
+              v-for="(ref, index) in references"
+              :key="index"
+              class="min-w-[250px] bg-gradient-to-br from-yellow-900/80 via-gray-800/90 to-yellow-700/60 rounded-2xl shadow-2xl p-6 flex-shrink-0 flex flex-col space-y-3 border-2 border-yellow-400 hover:scale-90 transition-transform duration-300 relative overflow-hidden"
+            >
+              <div
+                class="absolute -top-4 -right-4 opacity-20 text-7xl pointer-events-none"
+              >
+                <i class="fas fa-id-card"></i>
+              </div>
+              <span
+                class="font-extrabold text-xl flex items-center text-yellow-300 drop-shadow"
+              >
+                <i class="fas fa-user-tie text-yellow-400 mr-2"></i>
+                {{ ref.name }}
+              </span>
+              <span class="flex items-center text-yellow-200 font-semibold">
+                <i class="fas fa-briefcase text-yellow-400 mr-2"></i>
+                {{ ref.role }}
+              </span>
+              <span v-if="ref.phone" class="flex items-center text-gray-200">
+                <i class="fas fa-phone text-yellow-400 mr-2"></i>
+                {{ ref.phone }}
+              </span>
+              <span class="flex items-center text-gray-200">
+                <i class="fas fa-envelope text-yellow-400 mr-2"></i>
+                {{ ref.email }}
+              </span>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </DefaultLayout>
