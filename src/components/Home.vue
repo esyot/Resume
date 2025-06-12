@@ -53,18 +53,21 @@ function formatPhone(phone) {
 const references = [
   {
     name: "Sheryl Enriquez",
+    sex: "female",
     role: "Proffesor",
     phone: formatPhone("09991506636"),
     email: "sherylenriquez30@gmail.com",
   },
   {
     name: "Benjie Lenteria",
+    sex: "male",
     role: "Proffesor/Supervisor",
     phone: formatPhone("09173035716"),
     email: "hawkmanlentrix@gmail.com",
   },
   {
-    name: "Dr. Josefina Pangan",
+    name: "Josefina J. Pangan",
+    sex: "female",
     role: "CAST Dean/Supervisor",
     phone: formatPhone("09239113760"),
     email: "j1fina@yahoo.com",
@@ -261,19 +264,21 @@ const personalDetails = {
               <span
                 class="font-extrabold text-xl flex items-center text-yellow-300 drop-shadow"
               >
-                <i class="fas fa-user-tie text-yellow-400 mr-2"></i>
+                <i
+                  :class="'freecon' + ' icon-user-' + ref.sex + ' icon-yellow-400 mr-2'"
+                ></i>
                 {{ ref.name }}
               </span>
               <span class="flex items-center text-yellow-200 font-semibold">
-                <i class="fas fa-briefcase text-yellow-400 mr-2"></i>
+                <i class="freecon icon-briefcase icon-yellow-400 mr-2"></i>
                 {{ ref.role }}
               </span>
               <span v-if="ref.phone" class="flex items-center text-gray-200">
-                <i class="fas fa-phone text-yellow-400 mr-2"></i>
+                <i class="freecon icon-phone icon-yellow-400 mr-2"></i>
                 {{ ref.phone }}
               </span>
               <span class="flex items-center text-gray-200">
-                <i class="fas fa-envelope text-yellow-400 mr-2"></i>
+                <i class="freecon icon-envelope icon-yellow-400 mr-2"></i>
                 {{ ref.email }}
               </span>
             </div>
