@@ -97,7 +97,7 @@ const personalDetails = {
             <i
               @click="togglePopup"
               title="A full-stack developer is skilled in both front-end and back-end development of web applications. They work on the user interface (using HTML, CSS, JavaScript, and frameworks like React or Vue) and the server-side (using technologies like MySQL, PHP, Node.js, and frameworks like Laravel). They also handle version control, APIs, deployment, and sometimes DevOps, making them capable of managing all layers of a web application."
-              class="fas fa-circle-info hover:opacity-50 cursor-help"
+              class="freecon icon-info icon-hover-fade cursor-help"
             ></i>
           </div>
         </div>
@@ -202,8 +202,8 @@ const personalDetails = {
                 v-for="i in 5"
                 :key="i"
                 :class="[
-                  'fas fa-star',
-                  i <= skill.rating ? 'text-yellow-400' : 'text-gray-600',
+                  'freecon icon-star icon-xl',
+                  i <= skill.rating ? 'icon-yellow-500' : 'icon-gray-600',
                 ]"
               ></i>
             </div>
@@ -246,9 +246,9 @@ const personalDetails = {
               class="min-w-[250px] bg-gay-800 rounded-2xl shadow-2xl p-6 flex-shrink-0 flex flex-col space-y-3 border-2 border-yellow-400 hover:scale-90 transition-transform duration-300 relative overflow-hidden"
             >
               <div
-                class="absolute top-0 right-0 m-2 w-5 h-5 bg-gray-800 text-yellow-500 border border-yellow-500 rounded-full flex items-center justify-center pointer-events-none"
+                class="absolute top-0 right-0 m-2 flex items-center justify-center pointer-events-none"
               >
-                <i class="fas fa-info text-sm"></i>
+                <i class="freecon icon-info icon-yellow-500"></i>
               </div>
 
               <span

@@ -58,15 +58,15 @@ import Navbar from "../components/Navbar.vue";
       <div class="space-y-4 mx-4">
         <ul class="flex sm:flex-row flex-col justify-around space-y-2 w-full">
           <li class="flex items-center space-x-3">
-            <i class="fas fa-envelope text-gray-700 text-xl w-6"></i>
+            <i class="freecon icon-envelope icon-lg"></i>
             <span>{{ contactInfo.email }}</span>
           </li>
           <li class="flex items-center space-x-3">
-            <i class="fas fa-phone text-gray-700 text-xl w-6"></i>
+            <i class="freecon icon-phone icon-lg"></i>
             <span>{{ contactInfo.phone }}</span>
           </li>
           <li class="flex items-center space-x-3">
-            <i class="fab fa-facebook text-gray-700 text-xl w-6"></i>
+            <i class="freecon brand-facebook icon-lg"></i>
             <a
               :href="contactInfo.facebook.url"
               target="_blank"
@@ -76,7 +76,7 @@ import Navbar from "../components/Navbar.vue";
             >
           </li>
           <li class="flex items-center space-x-3">
-            <i class="fab fa-instagram text-gray-700 text-xl w-6"></i>
+            <i class="freecon brand-instagram icon-lg"></i>
             <a
               :href="contactInfo.instagram.url"
               target="_blank"
@@ -86,7 +86,7 @@ import Navbar from "../components/Navbar.vue";
             >
           </li>
           <li class="flex items-center space-x-3">
-            <i class="fab fa-linkedin text-gray-700 text-xl w-6"></i>
+            <i class="freecon brand-linkedin icon-lg"></i>
             <a
               :href="contactInfo.linkedin.url"
               target="_blank"

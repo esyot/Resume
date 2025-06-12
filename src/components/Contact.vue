@@ -7,29 +7,29 @@ const toast = useToast();
 
 const contactInfo = [
   {
-    icon: "fas fa-envelope text-grayy-400 text-xl w-6",
+    icon: "freecon icon-envelope text-grayy-400 text-xl w-6",
     text: "rei.nhard3367@gmail.com",
     isLink: false,
   },
   {
-    icon: "fas fa-phone text-green-400 text-xl w-6",
+    icon: "freecon icon-phone text-green-400 text-xl w-6",
     text: "+63 (966) 867-4260 (Globe)",
     isLink: false,
   },
   {
-    icon: "fab fa-facebook text-blue-500 text-xl w-6",
+    icon: "freecon brand-facebook text-blue-500 text-xl w-6",
     text: "/reinhard.esteban",
     link: "https://facebook.com/reinhard.esteban",
     isLink: true,
   },
   {
-    icon: "fab fa-instagram text-pink-400 text-xl w-6",
+    icon: "freecon brand-instagram text-pink-400 text-xl w-6",
     text: "@esyyyot",
     link: "https://instagram.com/esyyyot",
     isLink: true,
   },
   {
-    icon: "fab fa-linkedin text-blue-400 text-xl w-6",
+    icon: "freecon brand-linkedin text-blue-400 text-xl w-6",
     text: "/in/reinhard-esteban",
     link: "https://linkedin.com/in/reinhard-esteban",
     isLink: true,
@@ -67,7 +67,7 @@ const copyToClipboard = (text) => {
               class="ml-auto text-gray-200 hover:text-white"
               @click="copyToClipboard(item.text)"
             >
-              <i class="fas fa-copy"></i>
+              <i class="freecon fa-copy"></i>
             </button>
           </li>
         </ul>
