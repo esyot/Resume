@@ -38,6 +38,12 @@ const projects = [
     description:
       "This website was created to assist students and teachers in Mater Dei College with their school events.",
   },
+  {
+    name: "FREECON",
+    link: "https://freecon-one.vercel.app",
+    description:
+      "FREECON is a user-friendly and flexible open-source icon library designed for developers",
+  },
 ];
 
 function formatPhone(phone) {
@@ -220,6 +226,7 @@ const personalDetails = {
             v-for="project in projects"
             :key="project.name"
             class="hover:bg-gray-800/50 p-3 rounded-lg transition"
+            :title="project.description + ' Click to view.'"
           >
             <a :href="project.link" target="_blank" class="flex flex-col space-x-3">
               <div class="space-x-2">
