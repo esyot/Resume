@@ -222,7 +222,7 @@ const personalDetails = {
 
       <section class="slide-to-left">
         <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
-          Sample Projects
+          Built/Collab Projects
         </h2>
         <ul class="space-y-3">
           <li
