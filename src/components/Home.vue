@@ -8,15 +8,15 @@ const togglePopup = () => {
 };
 
 const skills = [
-  { name: "HTML5", rating: 5 },
+  { name: "HTML5", rating: 4 },
   { name: "CSS", rating: 4 },
-  { name: "JavaScript", rating: 5 },
+  { name: "JavaScript", rating: 4 },
   { name: "TypeScript", rating: 3 },
   { name: "Flutter", rating: 4 },
   { name: "JAVA", rating: 4 },
   { name: "PHP", rating: 4 },
   { name: "Blade", rating: 4 },
-  { name: "Vue.js", rating: 5 },
+  { name: "Vue.js", rating: 4 },
   { name: "Tailwind CSS", rating: 4 },
   { name: "Laravel", rating: 4 },
   { name: "MySQL", rating: 4 },
@@ -37,6 +37,12 @@ const projects = [
     link: "https://sec.materdeicollege.com",
     description:
       "This website was created to assist students and teachers in Mater Dei College with their school events.",
+  },
+  {
+    name: "MDC HR",
+    link: "https://hr.materdeicollege.com",
+    description:
+      "This website was created to assist the Human Resource Office in Mater Dei College.",
   },
   {
     name: "FREECON",
@@ -106,7 +112,7 @@ const personalDetails = {
             <i
               @click="togglePopup"
               title="A full-stack developer is skilled in both front-end and back-end development of web applications. They work on the user interface (using HTML, CSS, JavaScript, and frameworks like React or Vue) and the server-side (using technologies like MySQL, PHP, Node.js, and frameworks like Laravel). They also handle version control, APIs, deployment, and sometimes DevOps, making them capable of managing all layers of a web application."
-              class="freecon icon-info icon-hover-fade cursor-help"
+              class="freecon icon-info-circle cursor-help"
             ></i>
           </div>
         </div>
@@ -149,26 +155,20 @@ const personalDetails = {
           Background
         </h2>
         <p class="text-gray-300 leading-relaxed mb-2">
-          I graduated from <span class="font-semibold">Mater Dei College</span>, earned a
+          I am a web developer with five years of professional experience. I graduated
+          from Mater Dei College with a
           <span class="font-semibold">Bachelor of Science in Information Technology</span
-          >. Throughout my studies, I gained hands-on experience in both frontend and
-          backend development, working with technologies like
-          <span class="text-yellow-400">Vue.js</span>,
-          <span class="text-yellow-400">Laravel</span>,
-          <span class="text-yellow-400">React</span>,
-          <span class="text-yellow-400">Next.js</span>, and
+          >. I possess expertise in both frontend and backend development and working them
+          together using <span class="text-yellow-400">Laravel </span>(backend) and
+          <span class="text-yellow-400">Vue </span> (Front-end) or
+          <span class="text-yellow-400">React </span>(Front-end) , using
           <span class="text-yellow-400">Inertia.js</span>.
         </p>
-        <p class="text-gray-300 leading-relaxed mb-2">
-          During my On-the-Job Training at the Human Resources Department of Mater Dei
-          College, I developed a digital system to help manage and monitor employee leave
-          and travel forms. I also enjoyed working on group projects and attending
-          seminars, which helped me grow my technical skills and learn how to collaborate
-          effectively.
-        </p>
+
         <p class="text-gray-300 leading-relaxed">
-          I am enthusiastic about learning new things and look forward to contributing my
-          skills and energy in a professional setting.
+          I am highly motivated to learn new technologies and am eager to contribute my
+          skills and enthusiasm in a professional environment. Also open to taking on web
+          development projects and would be happy to discuss potential collaborations.
         </p>
       </section>
 
@@ -258,7 +258,7 @@ const personalDetails = {
               <div
                 class="absolute top-0 right-0 m-2 flex items-center justify-center pointer-events-none"
               >
-                <i class="freecon icon-info icon-yellow-500"></i>
+                <i class="freecon icon-info-circle icon-yellow-500"></i>
               </div>
 
               <span
