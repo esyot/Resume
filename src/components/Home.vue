@@ -26,6 +26,7 @@ const skills = [
   { name: "Inertia v2.js", rating: 4 },
   { name: "Nuxt.js", rating: 3 },
   { name: "Next.js", rating: 3 },
+  { name: "WordPress", rating: 3 },
 ];
 
 const projects = [
