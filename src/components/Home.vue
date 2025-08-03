@@ -16,13 +16,16 @@ const skills = [
   { name: "JAVA", rating: 4 },
   { name: "PHP", rating: 4 },
   { name: "Blade", rating: 4 },
-  { name: "Vue.js", rating: 4 },
+  { name: "Vue3.js", rating: 4 },
   { name: "Tailwind CSS", rating: 4 },
   { name: "Laravel", rating: 4 },
   { name: "MySQL", rating: 4 },
+  { name: "Firebase", rating: 4 },
   { name: "React", rating: 3 },
   { name: "Next.js", rating: 3 },
-  { name: "Inertia.js", rating: 4 },
+  { name: "Inertia v2.js", rating: 4 },
+  { name: "Nuxt.js", rating: 3 },
+  { name: "Next.js", rating: 3 },
 ];
 
 const projects = [
@@ -44,6 +47,7 @@ const projects = [
     description:
       "This website was created to assist the Human Resource Office in Mater Dei College.",
   },
+
   {
     name: "FREECON",
     link: "https://freecon-one.vercel.app",
@@ -112,7 +116,7 @@ const personalDetails = {
             <i
               @click="togglePopup"
               title="A full-stack developer is skilled in both front-end and back-end development of web applications. They work on the user interface (using HTML, CSS, JavaScript, and frameworks like React or Vue) and the server-side (using technologies like MySQL, PHP, Node.js, and frameworks like Laravel). They also handle version control, APIs, deployment, and sometimes DevOps, making them capable of managing all layers of a web application."
-              class="freecon icon-info-circle cursor-help"
+              class="freecon icon-info-circle cursor-help hover:opacity-50"
             ></i>
           </div>
         </div>
@@ -155,13 +159,11 @@ const personalDetails = {
           Background
         </h2>
         <p class="text-gray-300 leading-relaxed mb-2">
-          I am a web developer with five years of professional experience. I graduated
-          from Mater Dei College with a
-          <span class="font-semibold">Bachelor of Science in Information Technology</span
-          >. I possess expertise in both frontend and backend development and working them
-          together using <span class="text-yellow-400">Laravel </span>(backend) and
-          <span class="text-yellow-400">Vue </span> (Front-end) or
-          <span class="text-yellow-400">React </span>(Front-end) , using
+          I’m a web developer with 3 years of freelance experience, specializing in both
+          frontend and backend development. I often work on full-stack projects using
+          <span class="text-yellow-400">Laravel</span> for the backend and
+          <span class="text-yellow-400">Vue</span> or
+          <span class="text-yellow-400">React</span> for the frontend, connected through
           <span class="text-yellow-400">Inertia.js</span>.
         </p>
 
@@ -182,8 +184,8 @@ const personalDetails = {
             <span class="text-gray-400 text-sm">Graduated: 2016</span>
           </li>
           <li>
-            <span class="font-bold">San Agustin National High School</span> – TVL-ICT NC
-            III<br />
+            <span class="font-bold">San Agustin National High School</span> – NC III
+            Programming & Animation<br />
             <span class="text-gray-400 text-sm">Graduated: 2019</span>
           </li>
           <li>
@@ -222,7 +224,7 @@ const personalDetails = {
 
       <section class="slide-to-left">
         <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
-          Built/Collab Projects
+          Built Projects
         </h2>
         <ul class="space-y-3">
           <li
