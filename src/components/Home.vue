@@ -25,28 +25,39 @@ const skills = [
   { name: "Next.js", rating: 3 },
   { name: "Inertia v2.js", rating: 4 },
   { name: "Nuxt.js", rating: 3 },
-  { name: "Next.js", rating: 3 },
+  { name: "Next.js", rating: 4 },
   { name: "WordPress", rating: 3 },
 ];
 
 const projects = [
   {
+    name: "CG's Travellers Inn",
+    link: "https://travellers-inn.candgph.com/",
+    description:
+      "This website was created to digitalize room reservations for guests in Panglao, Bohol.",
+    tech_stack: ["Laravel", "Vue", "Inertia Js"],
+  },
+
+  {
     name: "MDC PRMS",
     link: "https://prop.materdeicollege.com",
     description:
       "This website was created to help Mater Dei College with their property reservations.",
+    tech_stack: ["Laravel", "Blade"],
   },
   {
     name: "MDC SEC",
     link: "https://sec.materdeicollege.com",
     description:
       "This website was created to assist students and teachers in Mater Dei College with their school events.",
+    tech_stack: ["Laravel", "Vue", "Inertia"],
   },
   {
     name: "MDC HR",
     link: "https://hr.materdeicollege.com",
     description:
       "This website was created to assist the Human Resource Office in Mater Dei College.",
+    tech_stack: ["Laravel", "Vue", "Inertia"],
   },
 
   {
@@ -54,6 +65,7 @@ const projects = [
     link: "https://freecon-one.vercel.app",
     description:
       "FREECON is a user-friendly and flexible open-source icon library designed for developers",
+    tech_stack: ["HTML"],
   },
 ];
 
@@ -134,16 +146,17 @@ const personalDetails = {
           <p
             class="whitespace-normal max-w-100 text-yellow-500 text-sm p-2 rounded-lg text-justify"
           >
-            A full-stack developer is a versatile professional proficient in both
-            front-end and back-end web development. On the front-end, they build user
-            interfaces using technologies like HTML, CSS, JavaScript, and frameworks such
-            as Vue.js or React. On the back-end, they develop server-side logic, manage
-            databases, and create APIs using tools like PHP, Node.js, Laravel, or MySQL.
-            Full-stack developers are also familiar with version control systems (e.g.,
-            Git), deployment processes, and often basic DevOps practices. Their broad
-            skill set enables them to design, implement, and maintain complete web
-            applications from start to finish, bridging the gap between user experience
-            and server functionality.
+            A full-stack developer is a versatile professional proficient in
+            both front-end and back-end web development. On the front-end, they
+            build user interfaces using technologies like HTML, CSS, JavaScript,
+            and frameworks such as Vue.js or React. On the back-end, they
+            develop server-side logic, manage databases, and create APIs using
+            tools like PHP, Node.js, Laravel, or MySQL. Full-stack developers
+            are also familiar with version control systems (e.g., Git),
+            deployment processes, and often basic DevOps practices. Their broad
+            skill set enables them to design, implement, and maintain complete
+            web applications from start to finish, bridging the gap between user
+            experience and server functionality.
           </p>
 
           <button
@@ -156,49 +169,58 @@ const personalDetails = {
       </div>
 
       <section class="slide-to-left mb-12">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
+        <h2
+          class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2"
+        >
           Background
         </h2>
         <p class="text-gray-300 leading-relaxed mb-2">
-          I’m a web developer with 3 years of freelance experience, specializing in both
-          frontend and backend development. I often work on full-stack projects using
+          I’m a web developer with 3 years of freelance experience, specializing
+          in both frontend and backend development. I often work on full-stack
+          projects using
           <span class="text-yellow-400">Laravel</span> for the backend and
           <span class="text-yellow-400">Vue</span> or
-          <span class="text-yellow-400">React</span> for the frontend, connected through
-          <span class="text-yellow-400">Inertia.js</span>.
+          <span class="text-yellow-400">React</span> for the frontend, connected
+          through <span class="text-yellow-400">Inertia.js</span>.
         </p>
 
         <p class="text-gray-300 leading-relaxed">
-          I am highly motivated to learn new technologies and am eager to contribute my
-          skills and enthusiasm in a professional environment. Also open to taking on web
-          development projects and would be happy to discuss potential collaborations.
+          I am highly motivated to learn new technologies and am eager to
+          contribute my skills and enthusiasm in a professional environment.
+          Also open to taking on web development projects and would be happy to
+          discuss potential collaborations.
         </p>
       </section>
 
       <section class="slide-to-right mb-12">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
+        <h2
+          class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2"
+        >
           Education
         </h2>
         <ul class="space-y-2">
           <li>
-            <span class="font-bold">JAPeR Memorial High School</span> – ICT <br />
+            <span class="font-bold">JAPeR Memorial High School</span> – ICT
+            <br />
             <span class="text-gray-400 text-sm">Graduated: 2016</span>
           </li>
           <li>
-            <span class="font-bold">San Agustin National High School</span> – NC III
-            Programming & Animation<br />
+            <span class="font-bold">San Agustin National High School</span> – NC
+            III Programming & Animation<br />
             <span class="text-gray-400 text-sm">Graduated: 2019</span>
           </li>
           <li>
-            <span class="font-bold">Mater Dei College</span> – Bachelor of Science in
-            Information Technology<br />
+            <span class="font-bold">Mater Dei College</span> – Bachelor of
+            Science in Information Technology<br />
             <span class="text-gray-400 text-sm">Graduated: 2025</span>
           </li>
         </ul>
       </section>
 
       <section class="slide-to-top mb-12">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
+        <h2
+          class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2"
+        >
           Skills
         </h2>
         <ul class="space-y-4 bg-gray-500/20 p-2 rounded-2xl shadow-md">
@@ -224,30 +246,56 @@ const personalDetails = {
       </section>
 
       <section class="slide-to-left">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
+        <h2
+          class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2"
+        >
           Built Projects
         </h2>
+
         <ul class="space-y-3">
           <li
             v-for="project in projects"
             :key="project.name"
-            class="hover:bg-gray-800/50 p-3 rounded-lg transition"
+            class="hover:bg-gray-800/50 p-4 rounded-lg transition"
             :title="project.description + ' Click to view.'"
           >
-            <a :href="project.link" target="_blank" class="flex flex-col space-x-3">
-              <div class="space-x-2">
+            <a
+              :href="project.link"
+              target="_blank"
+              class="flex flex-col space-y-2"
+            >
+              <!-- Project title -->
+              <div class="flex items-center space-x-2">
                 <i class="fas fa-link text-yellow-500"></i>
-                <span class="underline">{{ project.name }}</span>
+                <span class="underline font-medium">
+                  {{ project.name }}
+                </span>
               </div>
 
-              <i class="text-gray-500">{{ project.description }}</i>
+              <!-- Description -->
+              <i class="text-gray-400 text-sm">
+                {{ project.description }}
+              </i>
+
+              <!-- Tech stack -->
+              <div class="flex flex-wrap gap-2 pt-1">
+                <span
+                  v-for="tech in project.tech_stack"
+                  :key="tech"
+                  class="text-xs px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-400/20 hover:bg-yellow-500/20 transition"
+                >
+                  {{ tech }}
+                </span>
+              </div>
             </a>
           </li>
         </ul>
       </section>
 
       <section class="slide-to-right">
-        <h2 class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2">
+        <h2
+          class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2"
+        >
           References
         </h2>
 
@@ -268,7 +316,12 @@ const personalDetails = {
                 class="font-extrabold text-xl flex items-center text-yellow-300 drop-shadow"
               >
                 <i
-                  :class="'freecon' + ' icon-user-' + ref.sex + ' icon-yellow-400 mr-2'"
+                  :class="
+                    'freecon' +
+                    ' icon-user-' +
+                    ref.sex +
+                    ' icon-yellow-400 mr-2'
+                  "
                 ></i>
                 {{ ref.name }}
               </span>
