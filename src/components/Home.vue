@@ -35,7 +35,7 @@ const projects = [
     link: "https://travellers-inn.candgph.com/",
     description:
       "This website was created to digitalize room reservations for guests in Panglao, Bohol.",
-    tech_stack: ["Laravel", "Vue", "Inertia Js"],
+    tech_stack: ["Laravel", "Vue", "Inertia"],
   },
 
   {
@@ -71,6 +71,19 @@ const projects = [
 
 function formatPhone(phone) {
   return phone.replace(/^(\d{4})(\d{3})(\d{4})$/, "$1-$2-$3");
+}
+
+const yearStarted = new Date("2022-01-01");
+const today = new Date();
+
+let years = today.getFullYear() - yearStarted.getFullYear();
+
+if (
+  today.getMonth() < yearStarted.getMonth() ||
+  (today.getMonth() === yearStarted.getMonth() &&
+    today.getDate() < yearStarted.getDate())
+) {
+  years--;
 }
 
 const references = [
@@ -175,9 +188,9 @@ const personalDetails = {
           Background
         </h2>
         <p class="text-gray-300 leading-relaxed mb-2">
-          I’m a web developer with 3 years of freelance experience, specializing
-          in both frontend and backend development. I often work on full-stack
-          projects using
+          I’m a web developer with {{ years }} years of freelance experience,
+          specializing in both frontend and backend development. I often work on
+          full-stack projects using
           <span class="text-yellow-400">Laravel</span> for the backend and
           <span class="text-yellow-400">Vue</span> or
           <span class="text-yellow-400">React</span> for the frontend, connected
@@ -264,7 +277,6 @@ const personalDetails = {
               target="_blank"
               class="flex flex-col space-y-2"
             >
-              <!-- Project title -->
               <div class="flex items-center space-x-2">
                 <i class="fas fa-link text-yellow-500"></i>
                 <span class="underline font-medium">
@@ -272,12 +284,10 @@ const personalDetails = {
                 </span>
               </div>
 
-              <!-- Description -->
               <i class="text-gray-400 text-sm">
                 {{ project.description }}
               </i>
 
-              <!-- Tech stack -->
               <div class="flex flex-wrap gap-2 pt-1">
                 <span
                   v-for="tech in project.tech_stack"
