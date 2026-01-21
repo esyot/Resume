@@ -11,19 +11,21 @@ const skills = [
   { name: "HTML5", rating: 4 },
   { name: "CSS", rating: 4 },
   { name: "JavaScript", rating: 4 },
-  { name: "TypeScript", rating: 3 },
+  { name: "TypeScript", rating: 4 },
+  { name: "GIT", rating: 4 },
   { name: "Flutter", rating: 4 },
   { name: "JAVA", rating: 4 },
   { name: "PHP", rating: 4 },
   { name: "Blade", rating: 4 },
-  { name: "Vue3.js", rating: 4 },
+  { name: "Vue", rating: 4 },
+  { name: "React", rating: 4 },
   { name: "Tailwind CSS", rating: 4 },
   { name: "Laravel", rating: 4 },
   { name: "MySQL", rating: 4 },
   { name: "Firebase", rating: 4 },
-  { name: "React", rating: 3 },
   { name: "Next.js", rating: 3 },
-  { name: "Inertia v2.js", rating: 4 },
+  { name: "Node.js", rating: 3 },
+  { name: "Inertia", rating: 4 },
   { name: "Nuxt.js", rating: 3 },
   { name: "Next.js", rating: 4 },
   { name: "WordPress", rating: 3 },
@@ -88,12 +90,20 @@ if (
 
 const references = [
   {
+    name: "Julio Lopez",
+    sex: "male",
+    role: "Contractor/Developer/CEO",
+    phone: formatPhone("09075121814"),
+    email: "juliolopez241997@gmail.com",
+  },
+  {
     name: "Sheryl Enriquez",
     sex: "female",
     role: "Proffesor",
     phone: formatPhone("09991506636"),
     email: "sherylenriquez30@gmail.com",
   },
+
   {
     name: "Benjie Lenteria",
     sex: "male",
@@ -188,20 +198,12 @@ const personalDetails = {
           Background
         </h2>
         <p class="text-gray-300 leading-relaxed mb-2">
-          I’m a web developer with {{ years }} years of freelance experience,
-          specializing in both frontend and backend development. I often work on
-          full-stack projects using
-          <span class="text-yellow-400">Laravel</span> for the backend and
-          <span class="text-yellow-400">Vue</span> or
-          <span class="text-yellow-400">React</span> for the frontend, connected
-          through <span class="text-yellow-400">Inertia.js</span>.
-        </p>
-
-        <p class="text-gray-300 leading-relaxed">
-          I am highly motivated to learn new technologies and am eager to
-          contribute my skills and enthusiasm in a professional environment.
-          Also open to taking on web development projects and would be happy to
-          discuss potential collaborations.
+          I’m a software developer with years of experience creating web,
+          mobile, and desktop applications. I love turning ideas into fully
+          functional, user-friendly software that helps businesses grow and
+          succeed. Highly motivated to learn new technologies, I’m always eager
+          to contribute my skills and collaborate on exciting projects. Let’s
+          build something great together!
         </p>
       </section>
 
@@ -262,7 +264,7 @@ const personalDetails = {
         <h2
           class="text-2xl font-semibold mb-4 border-b border-yellow-100/20 pb-2"
         >
-          Built Projects
+          Built Solo Projects
         </h2>
 
         <ul class="space-y-3">
