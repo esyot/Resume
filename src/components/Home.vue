@@ -39,27 +39,34 @@ const projects = [
       "This website was created to digitalize room reservations for guests in Panglao, Bohol.",
     tech_stack: ["Laravel", "Vue", "Inertia"],
   },
+  {
+    name: "ScratchSQL",
+    link: "https://scratch-sql.vercel.app/",
+    description:
+      "A collaborative canvas where senior teams discuss database architecture. Drag tables, map relations, and watch your discussion turn into Laravel migrations or raw SQL.",
+    tech_stack: ["Next.js", "Prisma", "Tailwind", "Shadcn/ui", "Supabase"],
+  },
 
   {
     name: "MDC PRMS",
     link: "https://prop.materdeicollege.com",
     description:
       "This website was created to help Mater Dei College with their property reservations.",
-    tech_stack: ["Laravel", "Blade"],
+    tech_stack: ["Laravel", "Blade", "Tailwind"],
   },
   {
     name: "MDC SEC",
     link: "https://sec.materdeicollege.com",
     description:
       "This website was created to assist students and teachers in Mater Dei College with their school events.",
-    tech_stack: ["Laravel", "Vue", "Inertia"],
+    tech_stack: ["Laravel", "Vue", "Inertia", "Tailwind"],
   },
   {
     name: "MDC HR",
     link: "https://hr.materdeicollege.com",
     description:
       "This website was created to assist the Human Resource Office in Mater Dei College.",
-    tech_stack: ["Laravel", "Vue", "Inertia"],
+    tech_stack: ["Laravel", "Vue", "Inertia", "Talwind"],
   },
 
   {
