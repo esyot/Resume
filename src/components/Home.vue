@@ -33,6 +33,14 @@ const skills = [
 
 const projects = [
   {
+    name: "C&G Trading and Warehousing",
+    link: "https://ministrative-quincy-frettiest.ngrok-free.dev/",
+    description:
+      "This website was created to help their business Warehousing and POS System in one system ",
+    tech_stack: ["Laravel", "Vue", "Inertia"],
+    note: "This project is in UAT mode, you can try, user: admin , password: password",
+  },
+  {
     name: "CG's Travellers Inn",
     link: "https://travellers-inn.candgph.com/",
     description:
@@ -46,7 +54,6 @@ const projects = [
       "A collaborative canvas where senior teams discuss database architecture. Drag tables, map relations, and watch your discussion turn into Laravel migrations or raw SQL.",
     tech_stack: ["Next.js", "Prisma", "Tailwind", "Shadcn/ui", "Supabase"],
   },
-
   {
     name: "MDC PRMS",
     link: "https://prop.materdeicollege.com",
@@ -68,7 +75,6 @@ const projects = [
       "This website was created to assist the Human Resource Office in Mater Dei College.",
     tech_stack: ["Laravel", "Vue", "Inertia", "Talwind"],
   },
-
   {
     name: "FREECON",
     link: "https://freecon-one.vercel.app",
@@ -84,7 +90,6 @@ function formatPhone(phone) {
 
 const yearStarted = new Date("2022-01-01");
 const today = new Date();
-
 let years = today.getFullYear() - yearStarted.getFullYear();
 
 if (
@@ -110,7 +115,6 @@ const references = [
     phone: formatPhone("09991506636"),
     email: "sherylenriquez30@gmail.com",
   },
-
   {
     name: "Benjie Lenteria",
     sex: "male",
@@ -148,17 +152,14 @@ const personalDetails = {
             class="w-30 h-30 border-2 border-yellow-500 sm:rounded rounded-full"
           />
         </div>
-
         <div class="flex flex-col items-center sm:items-start space-x-2">
           <h1 class="text-4xl font-bold">{{ personalDetails.name }}</h1>
           <div class="flex items-center space-x-2">
             <div>
               <p class="text-lg text-gray-400">Full Stack Web Developer</p>
             </div>
-
             <i
               @click="togglePopup"
-              title="A full-stack developer is skilled in both front-end and back-end development of web applications. They work on the user interface (using HTML, CSS, JavaScript, and frameworks like React or Vue) and the server-side (using technologies like MySQL, PHP, Node.js, and frameworks like Laravel). They also handle version control, APIs, deployment, and sometimes DevOps, making them capable of managing all layers of a web application."
               class="freecon icon-info-circle cursor-help hover:opacity-50"
             ></i>
           </div>
@@ -188,7 +189,6 @@ const personalDetails = {
             web applications from start to finish, bridging the gap between user
             experience and server functionality.
           </p>
-
           <button
             @click="togglePopup"
             class="px-4 py-2 bg-yellow-500 rounded hover:opacity-50 cursor-pointer"
@@ -273,7 +273,6 @@ const personalDetails = {
         >
           Built Solo Projects
         </h2>
-
         <ul class="space-y-3">
           <li
             v-for="project in projects"
@@ -288,15 +287,15 @@ const personalDetails = {
             >
               <div class="flex items-center space-x-2">
                 <i class="fas fa-link text-yellow-500"></i>
-                <span class="underline font-medium">
-                  {{ project.name }}
-                </span>
+                <span class="underline font-medium">{{ project.name }}</span>
               </div>
-
-              <i class="text-gray-400 text-sm">
-                {{ project.description }}
-              </i>
-
+              <i class="text-gray-400 text-sm">{{ project.description }}</i>
+              <div
+                v-if="project.note"
+                class="text-xs text-yellow-500/90 bg-yellow-500/10 p-2 rounded border-l-2 border-yellow-500 italic"
+              >
+                <strong>Note:</strong> {{ project.note }}
+              </div>
               <div class="flex flex-wrap gap-2 pt-1">
                 <span
                   v-for="tech in project.tech_stack"
@@ -317,7 +316,6 @@ const personalDetails = {
         >
           References
         </h2>
-
         <div class="overflow-x-auto">
           <div class="flex space-x-6">
             <div
@@ -330,7 +328,6 @@ const personalDetails = {
               >
                 <i class="freecon icon-info-circle icon-yellow-500"></i>
               </div>
-
               <span
                 class="font-extrabold text-xl flex items-center text-yellow-300 drop-shadow"
               >
