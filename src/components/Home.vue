@@ -38,7 +38,7 @@ const projects = [
     description:
       "This website was created to help their business Warehousing and POS System in one system ",
     tech_stack: ["Laravel", "Vue", "Inertia"],
-    note: "This project is in UAT mode, you can try, user: admin , password: password",
+    // note: "This project is in UAT mode, you can try, user: admin , password: password",
   },
   {
     name: "CG's Travellers Inn",
