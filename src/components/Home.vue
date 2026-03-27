@@ -38,7 +38,14 @@ const projects = [
     description:
       "This website was created to help their business Warehousing and POS System in one system ",
     tech_stack: ["Laravel", "React", "Inertia"],
-    // note: "This project is in UAT mode, you can try, user: admin , password: password",
+  },
+
+  {
+    name: "Keith Kurlander",
+    link: "https://keithkurlander.com/",
+    description:
+      "A professional brand platform designed to showcase coaching services, manage client bookings, and facilitate direct book sales.",
+    tech_stack: ["WordPress", "Elementor"],
   },
   {
     name: "CG's Travellers Inn",
