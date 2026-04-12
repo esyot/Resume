@@ -33,11 +33,32 @@ const skills = [
 
 const projects = [
   {
+    name: "CG's Travellers Inn",
+    link: "https://travellers-inn.candgph.com/",
+    description:
+      "This website was created to digitalize room reservations for guests in Panglao, Bohol.",
+    tech_stack: ["Laravel", "Vue", "Inertia", "Currently on Staging"],
+  },
+  {
     name: "C&G Trading and Warehousing",
     link: "https://ministrative-quincy-frettiest.ngrok-free.dev/",
     description:
       "This website was created to help their business Warehousing and POS System in one system ",
-    tech_stack: ["Laravel", "React", "Inertia"],
+    tech_stack: ["Laravel", "React", "Inertia", "Currently on Staging"],
+  },
+  {
+    name: "ScratchSQL",
+    link: "https://scratch-sql.vercel.app/",
+    description:
+      "A collaborative canvas where senior teams discuss database architecture. Drag tables, map relations, and watch your discussion turn into Laravel migrations or raw SQL.",
+    tech_stack: [
+      "Next.js",
+      "Prisma",
+      "Tailwind",
+      "Shadcn/ui",
+      "Supabase",
+      "Shipped",
+    ],
   },
 
   {
@@ -45,49 +66,36 @@ const projects = [
     link: "https://keithkurlander.com/",
     description:
       "A professional brand platform designed to showcase coaching services, manage client bookings, and facilitate direct book sales.",
-    tech_stack: ["WordPress", "Elementor"],
+    tech_stack: ["WordPress", "Elementor", "Shipped"],
   },
-  {
-    name: "CG's Travellers Inn",
-    link: "https://travellers-inn.candgph.com/",
-    description:
-      "This website was created to digitalize room reservations for guests in Panglao, Bohol.",
-    tech_stack: ["Laravel", "Vue", "Inertia"],
-  },
-  {
-    name: "ScratchSQL",
-    link: "https://scratch-sql.vercel.app/",
-    description:
-      "A collaborative canvas where senior teams discuss database architecture. Drag tables, map relations, and watch your discussion turn into Laravel migrations or raw SQL.",
-    tech_stack: ["Next.js", "Prisma", "Tailwind", "Shadcn/ui", "Supabase"],
-  },
+
   {
     name: "MDC PRMS",
     link: "https://prop.materdeicollege.com",
     description:
       "This website was created to help Mater Dei College with their property reservations.",
-    tech_stack: ["Laravel", "Blade", "Tailwind"],
+    tech_stack: ["Laravel", "Blade", "Tailwind", "Shipped"],
   },
   {
     name: "MDC SEC",
     link: "https://sec.materdeicollege.com",
     description:
       "This website was created to assist students and teachers in Mater Dei College with their school events.",
-    tech_stack: ["Laravel", "Vue", "Inertia", "Tailwind"],
+    tech_stack: ["Laravel", "Vue", "Inertia", "Tailwind", "Shipped"],
   },
   {
     name: "MDC HR",
     link: "https://hr.materdeicollege.com",
     description:
       "This website was created to assist the Human Resource Office in Mater Dei College.",
-    tech_stack: ["Laravel", "Vue", "Inertia", "Talwind"],
+    tech_stack: ["Laravel", "Vue", "Inertia", "Tailwind", "Shipped"],
   },
   {
     name: "FREECON",
     link: "https://freecon-one.vercel.app",
     description:
       "FREECON is a user-friendly and flexible open-source icon library designed for developers",
-    tech_stack: ["HTML"],
+    tech_stack: ["HTML", "Shipped"],
   },
 ];
 
