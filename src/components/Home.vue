@@ -19,6 +19,7 @@ const skills = [
   { name: "Blade", rating: 4 },
   { name: "Vue", rating: 4 },
   { name: "React", rating: 4 },
+  { name: "React Native", rating: 4 },
   { name: "Tailwind CSS", rating: 4 },
   { name: "Laravel", rating: 4 },
   { name: "SQL", rating: 4 },
