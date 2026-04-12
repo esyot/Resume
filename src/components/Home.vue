@@ -241,17 +241,17 @@ const personalDetails = {
           <li>
             <span class="font-bold">JAPeR Memorial High School</span> – ICT
             <br />
-            <span class="text-gray-400 text-sm">Graduated: 2016</span>
+            <!-- <span class="text-gray-400 text-sm">Graduated: 2016</span> -->
           </li>
           <li>
             <span class="font-bold">San Agustin National High School</span> – NC
             III Programming & Animation<br />
-            <span class="text-gray-400 text-sm">Graduated: 2019</span>
+            <!-- <span class="text-gray-400 text-sm">Graduated: 2019</span> -->
           </li>
           <li>
             <span class="font-bold">Mater Dei College</span> – Bachelor of
             Science in Information Technology<br />
-            <span class="text-gray-400 text-sm">Graduated: 2025</span>
+            <!-- <span class="text-gray-400 text-sm">Graduated: 2025</span> -->
           </li>
         </ul>
       </section>
