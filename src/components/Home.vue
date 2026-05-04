@@ -31,6 +31,7 @@ import {
   ExternalLink,
 } from "lucide-vue-next";
 import MouseTail from "./MouseTail.vue";
+import AnimatedNumber from "./AnimatedNumber.vue";
 
 const isShowPopup = ref(false);
 const togglePopup = () => {
@@ -262,9 +263,9 @@ const personalDetails = {
 };
 
 const stats = [
-  { value: `${years}+`, label: "Years of Experience" },
-  { value: `${projects.length}+`, label: "Projects Delivered" },
-  { value: `${skills.length}+`, label: "Technologies Mastered" },
+  { value: years, label: "Years of Experience" },
+  { value: projects.length, label: "Projects Delivered" },
+  { value: skills.length, label: "Technologies Mastered" },
 ];
 
 const statusColors = {
@@ -356,19 +357,18 @@ const statusColors = {
             >
               "{{ personalDetails.tagline }}"
             </p>
-            <div class="flex flex-wrap gap-10 justify-center md:justify-start">
+            <div class="flex flex-wrap gap-10">
               <div
                 v-for="stat in stats"
                 :key="stat.label"
                 class="flex flex-col"
               >
-                <span class="text-4xl font-black text-[#d4af37] font-display">{{
-                  stat.value
+                <span class="text-6xl font-black text-[#d4af37]">
+                  <AnimatedNumber :value="stat.value" />{{ stat.suffix }}
+                </span>
+                <span class="text-[0.7rem] uppercase tracking-widest">{{
+                  stat.label
                 }}</span>
-                <span
-                  class="text-[0.7rem] text-[#5a6275] uppercase tracking-widest mt-1 font-bold"
-                  >{{ stat.label }}</span
-                >
               </div>
             </div>
           </div>
