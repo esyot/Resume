@@ -255,7 +255,7 @@ const references = [
 ];
 
 const personalDetails = {
-  name: "Reinhard U. Esteban",
+  name: "Reinhard Esteban",
   img: "profile_img.jpg",
   title: "Full Stack Developer",
   tagline: "Crafting digital experiences that scale, delight, and endure.",
@@ -459,7 +459,7 @@ const statusColors = {
                     'Based in': 'Philippines 🇵🇭',
                     Focus: 'Web & Mobile Apps',
                     Experience: years + '+ Years',
-                    Stack: 'Laravel · Vue · React · React Native',
+                    Stack: 'Laravel · Vue · React',
                   }"
                   :key="key"
                   class="flex justify-between items-center border-b border-white/5 pb-4"
@@ -860,7 +860,9 @@ const statusColors = {
         <div
           class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-24 bg-[#d4af37]/10 blur-[50px] pointer-events-none"
         ></div>
-        <p class="text-lg text-[#5a6275]">
+        <p
+          class="text-lg text-[#5a6275] flex justify-center flex-col sm:flex-row gap-4"
+        >
           Designed & Built by
           <strong class="text-[#d4af37]">Reinhard U. Esteban</strong>
         </p>
