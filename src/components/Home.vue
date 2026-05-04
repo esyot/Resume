@@ -43,10 +43,18 @@ const projects = [
   },
   {
     name: "C&G Trading and Warehousing",
-    link: "https://ministrative-quincy-frettiest.ngrok-free.dev/",
+    link: "https://candg-pos.onrender.com/",
     description:
       "This website was created to help their business Warehousing and POS System in one system ",
     tech_stack: ["Laravel", "React", "Inertia", "Currently on Staging"],
+  },
+
+  {
+    name: "Ace Farms",
+    link: "https://ace-farms.vercel.app/",
+    description:
+      "This website was created to help their business Warehousing and POS System in one system ",
+    tech_stack: ["Laravel", "React", "Inertia", "Currently on Development"],
   },
   {
     name: "ScratchSQL",
