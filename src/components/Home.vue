@@ -763,9 +763,9 @@ const statusColors = {
                     Email Me
                   </p>
                   <a
-                    href="mailto:estebanreinhard7@gmail.com"
+                    href="mailto:rei.nhard3367@gmail.com"
                     class="text-white font-bold hover:text-[#d4af37] transition-colors"
-                    >estebanreinhard7@gmail.com</a
+                    >rei.nhard3367@gmail.com</a
                   >
                 </div>
               </div>
@@ -782,9 +782,9 @@ const statusColors = {
                     Call Me
                   </p>
                   <a
-                    href="tel:09635324317"
+                    href="tel:+639668674260"
                     class="text-white font-bold hover:text-[#d4af37] transition-colors"
-                    >0963-532-4317</a
+                    >+63 966 867 4260</a
                   >
                 </div>
               </div>
