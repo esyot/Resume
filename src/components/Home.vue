@@ -130,7 +130,7 @@ const projects = [
     name: "Ace Farms",
     link: "https://ace-farms.vercel.app/",
     description:
-      "A digital storefront built to amplify Ace Farms' market reach — turning fresh produce into a seamless online experience.",
+      "Transitioned a traditional agricultural operation into the digital space, eliminating supply chain friction and opening a direct-to-consumer online revenue channel.",
     tech_stack: ["Next.js", "Tailwind", "Shadcn/ui", "Supabase"],
     status: "In Development",
     statusColor: "amber",
@@ -139,7 +139,7 @@ const projects = [
     name: "CG's Travellers Inn",
     link: "https://travellers-inn.candgph.com/",
     description:
-      "Bringing Panglao, Bohol's charm online — a smooth room reservation platform that puts paradise one click away.",
+      "Replaced manual booking headaches with an automated, high-conversion room reservation system that captures direct tourist bookings 24/7 without third-party fees.",
     tech_stack: ["Laravel", "Vue", "Inertia"],
     status: "Staging",
     statusColor: "blue",
@@ -148,7 +148,7 @@ const projects = [
     name: "C&G Trading & Warehousing",
     link: "https://candg-pos.onrender.com/",
     description:
-      "An all-in-one operations hub merging warehousing management and POS into a unified, powerful business system.",
+      "Architected the migration of a legacy COBOL-based enterprise system into a modern web ecosystem—unifying fragmented warehouse logistics and real-time point-of-sale into a secure, single source of truth.",
     tech_stack: ["Laravel", "React", "Inertia"],
     status: "Staging",
     statusColor: "blue",
@@ -157,7 +157,7 @@ const projects = [
     name: "ScratchSQL",
     link: "https://scratch-sql.vercel.app/",
     description:
-      "A collaborative canvas where dev teams architect databases visually — drag tables, map relations, and export to Laravel migrations or raw SQL instantly.",
+      "Solved the bottleneck of tedious database design by turning visual canvas schemas directly into production-ready Laravel migrations and raw SQL instantly.",
     tech_stack: ["Next.js", "Prisma", "Tailwind", "Shadcn/ui", "Supabase"],
     status: "Shipped",
     statusColor: "green",
@@ -166,7 +166,7 @@ const projects = [
     name: "Keith Kurlander",
     link: "https://keithkurlander.com/",
     description:
-      "A premium personal brand platform engineered to showcase coaching services, drive client bookings, and boost direct book sales.",
+      "Engineered a high-performance personal brand platform that removed friction from the client onboarding funnel, directly scaling coaching inquiries and automated book sales.",
     tech_stack: ["WordPress", "Elementor"],
     status: "Shipped",
     statusColor: "green",
@@ -175,7 +175,7 @@ const projects = [
     name: "MDC PRMS",
     link: "https://prop.materdeicollege.com",
     description:
-      "Streamlining Mater Dei College's property reservation workflow with a clean, intuitive management system.",
+      "Eliminated chaotic paperwork and scheduling conflicts by building a digital property reservation system that automates campus asset approval workflows.",
     tech_stack: ["Laravel", "Blade", "Tailwind"],
     status: "Shipped",
     statusColor: "green",
@@ -184,7 +184,7 @@ const projects = [
     name: "MDC SEC",
     link: "https://sec.materdeicollege.com",
     description:
-      "A centralized event coordination platform empowering students and faculty at Mater Dei College.",
+      "Replaced disjointed communication channels with a centralized event coordination platform, preventing logistical clashes between student groups and administration.",
     tech_stack: ["Laravel", "Vue", "Inertia", "Tailwind"],
     status: "Shipped",
     statusColor: "green",
@@ -193,7 +193,7 @@ const projects = [
     name: "MDC HR",
     link: "https://hr.materdeicollege.com",
     description:
-      "Modernizing Human Resource operations at Mater Dei College with a streamlined, digital-first HR suite.",
+      "Digitized a legacy, paper-heavy Human Resources department, drastically reducing manual data entry errors and speeding up administrative employee requests.",
     tech_stack: ["Laravel", "Vue", "Inertia", "Tailwind"],
     status: "Shipped",
     statusColor: "green",
@@ -202,7 +202,7 @@ const projects = [
     name: "FREECON",
     link: "https://freecon-one.vercel.app",
     description:
-      "A flexible, open-source icon library crafted for developers who demand freedom of expression without licensing headaches.",
+      "Created an open-source icon library to bypass restrictive assets licensing and heavy dependencies, giving developers a zero-overhead UI toolkit.",
     tech_stack: ["HTML"],
     status: "Shipped",
     statusColor: "green",
@@ -366,7 +366,7 @@ const statusColors = {
                 <span class="text-6xl font-black text-[#d4af37]">
                   <AnimatedNumber :value="stat.value" />{{ stat.suffix }}
                 </span>
-                <span class="text-[0.7rem] uppercase tracking-widest">{{
+                <span clas~s="text-[0.7rem] uppercase tracking-widest">{{
                   stat.label
                 }}</span>
               </div>
@@ -435,14 +435,14 @@ const statusColors = {
               <strong class="text-[#d4af37] font-semibold text-xl"
                 >{{ years }}+ years</strong
               >
-              of hands-on experience building web, mobile, and desktop
-              applications that actually ship.
+              of experience turning complex technical bottlenecks into smooth,
+              scalable user experiences across web, mobile, and desktop.
             </p>
             <p>
-              Endlessly curious about emerging technologies, I thrive in
-              collaborative environments where craft meets ambition. My goal is
-              always to build clean, maintainable codebases that solve
-              real-world problems.
+              I don't just write clean code—I build architecture that scales
+              with your user base. Whether optimizing real-time data pipelines
+              or streamlining legacy systems, my focus is always on shipping
+              high-performance software that solves critical business problems.
             </p>
           </div>
           <div
