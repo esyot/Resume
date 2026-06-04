@@ -97,7 +97,7 @@ onUnmounted(() => {
   <!-- z-[9999] keeps it on top, pointer-events-none makes it "ghost" -->
   <canvas
     ref="canvasRef"
-    class="fixed inset-0 pointer-events-none z-[9999] mix-blend-screen"
+    class="fixed inset-0 pointer-events-none z-[9999] mix-blend-screen hidden sm:flex"
   ></canvas>
 </template>
 
