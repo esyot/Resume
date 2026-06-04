@@ -53,7 +53,7 @@ const handleMouseMove = (e) => {
 };
 
 const handleCardTilt = (e, el) => {
-  if (!el) return;
+  if (!el || window.matchMedia("(max-width: 768px)").matches) return;
   const rect = el.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
@@ -366,7 +366,7 @@ const statusColors = {
                 <span class="text-6xl font-black text-[#d4af37]">
                   <AnimatedNumber :value="stat.value" />{{ stat.suffix }}
                 </span>
-                <span clas~s="text-[0.7rem] uppercase tracking-widest">{{
+                <span class="text-[0.7rem] uppercase tracking-widest">{{
                   stat.label
                 }}</span>
               </div>
@@ -841,8 +841,8 @@ const statusColors = {
                 <div
                   class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                 ></div>
-                <span class="relative flex items-center gap-3">
-                  <Send :size="18" /> Compose in Gmail
+                <span class="relative z-10 flex items-center gap-2">
+                  Send Message <Send :size="16" />
                 </span>
               </button>
 
