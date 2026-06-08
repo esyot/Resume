@@ -12,11 +12,6 @@ const contactInfo = [
     isLink: false,
   },
   {
-    icon: "freecon icon-phone icon-green-400",
-    text: "+63 (966) 867-4260 (Globe)",
-    isLink: false,
-  },
-  {
     icon: "freecon brand-facebook icon-blue-500",
     text: "/reinhard.esteban",
     link: "https://facebook.com/reinhard.esteban",
@@ -54,7 +49,9 @@ const copyToClipboard = (text) => {
             class="flex items-center space-x-4"
           >
             <i :class="item.icon"></i>
-            <span v-if="!item.isLink" class="text-yellow-400">{{ item.text }}</span>
+            <span v-if="!item.isLink" class="text-yellow-400">{{
+              item.text
+            }}</span>
             <a
               v-else
               :href="item.link"

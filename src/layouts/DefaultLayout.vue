@@ -21,7 +21,6 @@ onBeforeUnmount(() => {
 
 const contactInfo = {
   email: "rei.nhard3367@gmail.com",
-  phone: "+63 (966) 867-4260",
   facebook: {
     url: "https://facebook.com/reinhard.esteban",
     label: "Facebook",
@@ -62,10 +61,6 @@ import Navbar from "../components/Navbar.vue";
             <span>{{ contactInfo.email }}</span>
           </li>
           <li class="flex items-center space-x-3">
-            <i class="freecon icon-phone icon-lg"></i>
-            <span>{{ contactInfo.phone }}</span>
-          </li>
-          <li class="flex items-center space-x-3">
             <i class="freecon brand-facebook icon-lg"></i>
             <a
               :href="contactInfo.facebook.url"
@@ -97,7 +92,8 @@ import Navbar from "../components/Navbar.vue";
           </li>
         </ul>
         <div class="flex justify-center text-xs text-gray-400 mt-4">
-          &copy; {{ new Date().getFullYear() }} Reinhard Esteban. All rights reserved.
+          &copy; {{ new Date().getFullYear() }} Reinhard Esteban. All rights
+          reserved.
         </div>
       </div>
     </footer>

@@ -23,7 +23,6 @@ import {
   Link as LinkIcon,
   Lightbulb,
   FileText,
-  Phone,
   Mail,
   HelpCircle,
   ArrowRight,
@@ -209,9 +208,43 @@ const projects = [
   },
 ];
 
-function formatPhone(phone) {
-  return phone.replace(/^(\d{4})(\d{3})(\d{4})$/, "$1-$2-$3");
-}
+const careerHistory = [
+  {
+    title: "Senior Software Engineer",
+    company: "Hashed.IT",
+    link: "https://hashed.it.com",
+    period: "May 2025 - May 2026",
+    duration: "1 year 1 month",
+    description:
+      "As a Web Developer at Hashed.IT, I build the intelligent systems powering the next generation of local industries. From AI integrations and custom enterprise software to automation workflows for utilities and schools, I help transform complex business demands into streamlined digital solutions.",
+  },
+  {
+    title: "Web Developer",
+    company: "Brandetize",
+    link: "https://brandetize.com",
+    period: "Dec 2025 - Mar 2026",
+    duration: "4 months",
+    description: `As a developer at Brandetize , I build and optimize the high-performing digital architecture that drives growth. My focus centers on engineering seamless marketing funnels, scaling lead generation systems, and managing robust platform maintenance to ensure flawless digital experiences for clients.`,
+  },
+  {
+    title: "Web Developer",
+    company: "Onda Fit",
+    link: "https://onda.fit",
+    period: "Jun 2025 - Dec 2025",
+    duration: "7 months",
+    description:
+      "As one of the pioneer developers behind Onda Fit , I helped build the go-to management platform and 'operating system' for Philippine sports and wellness hubs. From pickleball courts to Pilates studios, the platform optimizes local businesses by streamlining scheduling, driving membership retention, and integrating seamless digital payments via GCash and Maya.",
+  },
+  {
+    title: "Software Developer (Thesis Project)",
+    company: "Mater Dei College - Bohol",
+    link: "",
+    period: "Jan 2025 - Apr 2025",
+    duration: "4 months",
+    description:
+      "Developed the Mater Dei College Enterprise Management Platform including an Asset Management Engine to digitize leasing and borrowing workflows, an HR & Leave Automation module for secure leave requests and approvals, and a Performance Evaluation System to manage teacher performance ratings.",
+  },
+];
 
 const yearStarted = new Date("2022-01-01");
 const today = new Date();
@@ -229,28 +262,24 @@ const references = [
     name: "Julio Lopez",
     sex: "male",
     role: "Contractor / Developer / CEO",
-    phone: formatPhone("09075121814"),
     email: "juliolopez241997@gmail.com",
   },
   {
     name: "Sheryl Enriquez",
     sex: "female",
     role: "Professor",
-    phone: formatPhone("09991506636"),
     email: "sherylenriquez30@gmail.com",
   },
   {
     name: "Benjie Lenteria",
     sex: "male",
     role: "Professor / Supervisor",
-    phone: formatPhone("09173035716"),
     email: "hawkmanlentrix@gmail.com",
   },
   {
     name: "Josefina J. Pangan",
     sex: "female",
     role: "CAST Dean / Supervisor",
-    phone: formatPhone("09239113760"),
     email: "j1fina@yahoo.com",
   },
 ];
@@ -459,7 +488,7 @@ const statusColors = {
                     'Based in': 'Philippines 🇵🇭',
                     Focus: 'Web & Mobile Apps',
                     Experience: years + '+ Years',
-                    Stack: 'Laravel · Vue · React',
+                    Stack: 'PHP · JavaScript · Node  · Python',
                   }"
                   :key="key"
                   class="flex justify-between items-center border-b border-white/5 pb-4"
@@ -486,6 +515,51 @@ const statusColors = {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
+      >
+        <div class="flex flex-col mb-12">
+          <span
+            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
+            >04.5 — Career History</span
+          >
+          <h2 class="text-4xl font-bold text-white font-display">
+            Career History
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+          <div
+            v-for="(job, idx) in careerHistory"
+            :key="idx"
+            class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
+          >
+            <div class="flex items-start justify-between mb-3 gap-4">
+              <div>
+                <h3 class="text-xl font-bold text-white">{{ job.title }}</h3>
+                <a
+                  v-if="job.link"
+                  :href="job.link"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-sm text-[#d4af37] hover:underline block"
+                >
+                  {{ job.company }}
+                </a>
+                <span v-else class="text-sm text-[#d4af37] block">{{
+                  job.company
+                }}</span>
+              </div>
+              <div class="text-right text-sm text-[#8891a4]">
+                <div>{{ job.period }}</div>
+                <div class="font-bold text-white">{{ job.duration }}</div>
+              </div>
+            </div>
+            <p class="text-[#8891a4] leading-relaxed">{{ job.description }}</p>
           </div>
         </div>
       </section>
@@ -713,12 +787,6 @@ const statusColors = {
             </p>
             <div class="space-y-3 mt-auto">
               <a
-                :href="`tel:${ref.phone}`"
-                class="flex items-center gap-3 text-sm text-[#8891a4] hover:text-[#d4af37] transition-colors"
-              >
-                <Phone :size="14" /> {{ ref.phone }}
-              </a>
-              <a
                 :href="`mailto:${ref.email}`"
                 class="flex items-center gap-3 text-sm text-[#8891a4] hover:text-[#d4af37] transition-colors break-all"
               >
@@ -766,25 +834,6 @@ const statusColors = {
                     href="mailto:rei.nhard3367@gmail.com"
                     class="text-white font-bold hover:text-[#d4af37] transition-colors"
                     >rei.nhard3367@gmail.com</a
-                  >
-                </div>
-              </div>
-              <div class="flex items-center gap-6 group">
-                <div
-                  class="w-12 h-12 rounded-2xl bg-[#d4af37]/10 border border-[#d4af37]/20 flex items-center justify-center text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#080b12] transition-all"
-                >
-                  <Phone :size="20" />
-                </div>
-                <div>
-                  <p
-                    class="text-xs font-bold text-[#5a6275] uppercase tracking-widest mb-1"
-                  >
-                    Call Me
-                  </p>
-                  <a
-                    href="tel:+639668674260"
-                    class="text-white font-bold hover:text-[#d4af37] transition-colors"
-                    >+63 966 867 4260</a
                   >
                 </div>
               </div>
