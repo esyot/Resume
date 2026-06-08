@@ -210,6 +210,21 @@ const projects = [
 
 const careerHistory = [
   {
+    title: "Freelance Software Engineer",
+    company: "Show Techs Projects",
+    link: "https://resteban-resume.vercel.app",
+    period: "May 2022 - Today",
+    duration: `${new Date().getFullYear() - 2022} years`,
+    description: `Architected and deployed
+     scalable web applications using modern JavaScript frameworks, 
+     optimizing performance and user experience while collaborating closely with clients to
+      translate business requirements into clean, maintainable code. Integrated third-party APIs, 
+      database solutions, and cloud services to deliver robust, end-to-end digital solutions.
+       Managed full project lifecycles independently, ensuring on-time delivery and adherence to high-quality
+        software standards.`,
+  },
+
+  {
     title: "Senior Software Engineer",
     company: "Hashed.IT",
     link: "https://hashed.it.com",
