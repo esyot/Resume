@@ -27,7 +27,6 @@ import {
   HelpCircle,
   ArrowRight,
   Send,
-  ExternalLink,
 } from "lucide-vue-next";
 import MouseTail from "./MouseTail.vue";
 import AnimatedNumber from "./AnimatedNumber.vue";
@@ -126,15 +125,6 @@ const skills = [
 
 const projects = [
   {
-    name: "Ace Farms",
-    link: "https://ace-farms.vercel.app/",
-    description:
-      "Transitioned a traditional agricultural operation into the digital space, eliminating supply chain friction and opening a direct-to-consumer online revenue channel.",
-    tech_stack: ["Next.js", "Tailwind", "Shadcn/ui", "Supabase"],
-    status: "In Development",
-    statusColor: "amber",
-  },
-  {
     name: "CG's Travellers Inn",
     link: "https://travellers-inn.candgph.com/",
     description:
@@ -213,12 +203,13 @@ const careerHistory = [
     title: "Freelance Software Engineer",
     company: "Show Techs Projects",
     link: "https://resteban-resume.vercel.app",
+    employment_type: "Freelance",
     period: "May 2022 - Today",
     duration: `${new Date().getFullYear() - 2022} years`,
     description: `Architected and deployed
-     scalable web applications using modern JavaScript frameworks, 
+     scalable web applications using modern JavaScript frameworks,
      optimizing performance and user experience while collaborating closely with clients to
-      translate business requirements into clean, maintainable code. Integrated third-party APIs, 
+      translate business requirements into clean, maintainable code. Integrated third-party APIs,
       database solutions, and cloud services to deliver robust, end-to-end digital solutions.
        Managed full project lifecycles independently, ensuring on-time delivery and adherence to high-quality
         software standards.`,
@@ -228,6 +219,7 @@ const careerHistory = [
     title: "Senior Software Engineer",
     company: "Hashed.IT",
     link: "https://hashed.it.com",
+    employment_type: "Contract Based",
     period: "May 2025 - May 2026",
     duration: "1 year 1 month",
     description:
@@ -237,6 +229,7 @@ const careerHistory = [
     title: "Web Developer",
     company: "Brandetize",
     link: "https://brandetize.com",
+    employment_type: "Contract Based",
     period: "Dec 2025 - Mar 2026",
     duration: "4 months",
     description: `As a developer at Brandetize , I build and optimize the high-performing digital architecture that drives growth. My focus centers on engineering seamless marketing funnels, scaling lead generation systems, and managing robust platform maintenance to ensure flawless digital experiences for clients.`,
@@ -245,6 +238,7 @@ const careerHistory = [
     title: "Web Developer",
     company: "Onda Fit",
     link: "https://onda.fit",
+    employment_type: "Contract Based",
     period: "Jun 2025 - Dec 2025",
     duration: "7 months",
     description:
@@ -254,6 +248,7 @@ const careerHistory = [
     title: "Software Developer (Thesis Project)",
     company: "Mater Dei College - Bohol",
     link: "",
+    employment_type: "On The Job Training",
     period: "Jan 2025 - Apr 2025",
     duration: "4 months",
     description:
@@ -261,16 +256,8 @@ const careerHistory = [
   },
 ];
 
-const yearStarted = new Date("2022-01-01");
-const today = new Date();
-let years = today.getFullYear() - yearStarted.getFullYear();
-if (
-  today.getMonth() < yearStarted.getMonth() ||
-  (today.getMonth() === yearStarted.getMonth() &&
-    today.getDate() < yearStarted.getDate())
-) {
-  years--;
-}
+const years =
+  new Date(new Date() - new Date("2022-01-01")).getFullYear() - 1970;
 
 const references = [
   {
@@ -401,7 +388,7 @@ const statusColors = {
             >
               "{{ personalDetails.tagline }}"
             </p>
-            <div class="flex flex-wrap gap-10">
+            <div class="grid grid-cols-3 gap-10">
               <div
                 v-for="stat in stats"
                 :key="stat.label"
@@ -555,19 +542,27 @@ const statusColors = {
           >
             <div class="flex items-start justify-between mb-3 gap-4">
               <div>
-                <h3 class="text-xl font-bold text-white">{{ job.title }}</h3>
-                <a
-                  v-if="job.link"
-                  :href="job.link"
-                  target="_blank"
-                  rel="noopener"
-                  class="text-sm text-[#d4af37] hover:underline block"
-                >
-                  {{ job.company }}
-                </a>
-                <span v-else class="text-sm text-[#d4af37] block">{{
-                  job.company
-                }}</span>
+                <h3 class="text-xl font-bold text-white mb-1">
+                  {{ job.title }}
+                </h3>
+                <div class="flex items-center gap-3">
+                  <a
+                    v-if="job.link"
+                    :href="job.link"
+                    target="_blank"
+                    rel="noopener"
+                    class="text-sm text-[#d4af37] hover:underline"
+                  >
+                    {{ job.company }}
+                  </a>
+                  <span v-else class="text-sm text-[#d4af37]">{{
+                    job.company
+                  }}</span>
+                  <span
+                    class="text-xs text-white/50 bg-white/10 px-2 py-0.5 rounded-full font-medium"
+                    >{{ job.employment_type }}</span
+                  >
+                </div>
               </div>
               <div class="text-right text-sm text-[#8891a4]">
                 <div>{{ job.period }}</div>
