@@ -30,6 +30,7 @@ import {
 } from "lucide-vue-next";
 import MouseTail from "./MouseTail.vue";
 import AnimatedNumber from "./AnimatedNumber.vue";
+import { projects } from "../data/projects.js";
 
 const isShowPopup = ref(false);
 const togglePopup = () => {
@@ -121,81 +122,6 @@ const skills = [
   { name: "Inertia", rating: 4, icon: LinkIcon },
   { name: "Nuxt.js", rating: 3, icon: Lightbulb },
   { name: "WordPress", rating: 3, icon: FileText },
-];
-
-const projects = [
-  {
-    name: "CG's Travellers Inn",
-    link: "https://travellers-inn.candgph.com/",
-    description:
-      "Replaced manual booking headaches with an automated, high-conversion room reservation system that captures direct tourist bookings 24/7 without third-party fees.",
-    tech_stack: ["Laravel", "Vue", "Inertia"],
-    status: "Staging",
-    statusColor: "blue",
-  },
-  {
-    name: "C&G Trading & Warehousing",
-    link: "https://candg-pos.onrender.com/",
-    description:
-      "Architected the migration of a legacy COBOL-based enterprise system into a modern web ecosystem—unifying fragmented warehouse logistics and real-time point-of-sale into a secure, single source of truth.",
-    tech_stack: ["Laravel", "React", "Inertia"],
-    status: "Staging",
-    statusColor: "blue",
-  },
-  {
-    name: "ScratchSQL",
-    link: "https://scratch-sql.vercel.app/",
-    description:
-      "Solved the bottleneck of tedious database design by turning visual canvas schemas directly into production-ready Laravel migrations and raw SQL instantly.",
-    tech_stack: ["Next.js", "Prisma", "Tailwind", "Shadcn/ui", "Supabase"],
-    status: "Shipped",
-    statusColor: "green",
-  },
-  {
-    name: "Keith Kurlander",
-    link: "https://keithkurlander.com/",
-    description:
-      "Engineered a high-performance personal brand platform that removed friction from the client onboarding funnel, directly scaling coaching inquiries and automated book sales.",
-    tech_stack: ["WordPress", "Elementor"],
-    status: "Shipped",
-    statusColor: "green",
-  },
-  {
-    name: "MDC PRMS",
-    link: "https://prop.materdeicollege.com",
-    description:
-      "Eliminated chaotic paperwork and scheduling conflicts by building a digital property reservation system that automates campus asset approval workflows.",
-    tech_stack: ["Laravel", "Blade", "Tailwind"],
-    status: "Shipped",
-    statusColor: "green",
-  },
-  {
-    name: "MDC SEC",
-    link: "https://sec.materdeicollege.com",
-    description:
-      "Replaced disjointed communication channels with a centralized event coordination platform, preventing logistical clashes between student groups and administration.",
-    tech_stack: ["Laravel", "Vue", "Inertia", "Tailwind"],
-    status: "Shipped",
-    statusColor: "green",
-  },
-  {
-    name: "MDC HR",
-    link: "https://hr.materdeicollege.com",
-    description:
-      "Digitized a legacy, paper-heavy Human Resources department, drastically reducing manual data entry errors and speeding up administrative employee requests.",
-    tech_stack: ["Laravel", "Vue", "Inertia", "Tailwind"],
-    status: "Shipped",
-    statusColor: "green",
-  },
-  {
-    name: "FREECON",
-    link: "https://freecon-one.vercel.app",
-    description:
-      "Created an open-source icon library to bypass restrictive assets licensing and heavy dependencies, giving developers a zero-overhead UI toolkit.",
-    tech_stack: ["HTML"],
-    status: "Shipped",
-    statusColor: "green",
-  },
 ];
 
 const careerHistory = [
@@ -318,6 +244,13 @@ const statusColors = {
     border: "border-amber-500/30",
     dot: "bg-amber-400",
   },
+};
+
+const toSlug = (name) => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
 };
 </script>
 
@@ -701,9 +634,8 @@ const statusColors = {
             @mouseleave="(e) => resetCardTilt($event.currentTarget)"
             class="group bg-white/[0.02] border border-white/[0.08] rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:border-[#d4af37]/30 hover:bg-white/[0.04] preserve-3d"
           >
-            <a
-              :href="project.link"
-              target="_blank"
+            <router-link
+              :to="'/project/' + toSlug(project.name)"
               class="p-8 h-full flex flex-col"
             >
               <div class="flex justify-between items-start mb-6">
@@ -753,7 +685,7 @@ const statusColors = {
               >
                 Explore Project <ArrowRight :size="16" />
               </div>
-            </a>
+            </router-link>
           </div>
         </div>
       </section>
