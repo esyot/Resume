@@ -575,52 +575,7 @@ const toSlug = (name) => {
         <div class="flex flex-col mb-12">
           <span
             class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >03 — Expertise</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            Skills & Technologies
-          </h2>
-        </div>
-        <div
-          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
-        >
-          <div
-            v-for="skill in skills"
-            :key="skill.name"
-            @mousemove="(e) => handleCardTilt(e, $event.currentTarget)"
-            @mouseleave="(e) => resetCardTilt($event.currentTarget)"
-            class="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5 group transition-all duration-300 hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5 hover:shadow-xl hover:shadow-[#d4af37]/5 preserve-3d"
-          >
-            <component
-              :is="skill.icon"
-              class="text-[#d4af37]/50 group-hover:text-[#d4af37] transition-all duration-500 mb-4 group-hover:scale-110"
-              :size="32"
-            />
-            <p class="text-sm font-bold text-[#c8cdd8] mb-3">
-              {{ skill.name }}
-            </p>
-            <div class="flex gap-1">
-              <span
-                v-for="i in 5"
-                :key="i"
-                :class="[
-                  'text-[10px]',
-                  i <= skill.rating ? 'text-[#d4af37]' : 'text-white/10',
-                ]"
-                >★</span
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >04 — Work</span
+            >03 — Projects I've Built</span
           >
           <h2 class="text-4xl font-bold text-white font-display">
             Projects I've Shipped
@@ -686,6 +641,51 @@ const toSlug = (name) => {
                 Explore Project <ArrowRight :size="16" />
               </div>
             </router-link>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
+      >
+        <div class="flex flex-col mb-12">
+          <span
+            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
+            >04 — Expertise</span
+          >
+          <h2 class="text-4xl font-bold text-white font-display">
+            Skills & Technologies
+          </h2>
+        </div>
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+        >
+          <div
+            v-for="skill in skills"
+            :key="skill.name"
+            @mousemove="(e) => handleCardTilt(e, $event.currentTarget)"
+            @mouseleave="(e) => resetCardTilt($event.currentTarget)"
+            class="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5 group transition-all duration-300 hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5 hover:shadow-xl hover:shadow-[#d4af37]/5 preserve-3d"
+          >
+            <component
+              :is="skill.icon"
+              class="text-[#d4af37]/50 group-hover:text-[#d4af37] transition-all duration-500 mb-4 group-hover:scale-110"
+              :size="32"
+            />
+            <p class="text-sm font-bold text-[#c8cdd8] mb-3">
+              {{ skill.name }}
+            </p>
+            <div class="flex gap-1">
+              <span
+                v-for="i in 5"
+                :key="i"
+                :class="[
+                  'text-[10px]',
+                  i <= skill.rating ? 'text-[#d4af37]' : 'text-white/10',
+                ]"
+                >★</span
+              >
+            </div>
           </div>
         </div>
       </section>
