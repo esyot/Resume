@@ -460,122 +460,7 @@ const toSlug = (name) => {
         <div class="flex flex-col mb-12">
           <span
             class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >04.5 — Career History</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            Career History
-          </h2>
-        </div>
-
-        <div class="space-y-6">
-          <div
-            v-for="(job, idx) in careerHistory"
-            :key="idx"
-            class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
-          >
-            <div class="flex items-start justify-between mb-3 gap-4">
-              <div>
-                <h3 class="text-xl font-bold text-white mb-1">
-                  {{ job.title }}
-                </h3>
-                <div class="flex items-center gap-3">
-                  <a
-                    v-if="job.link"
-                    :href="job.link"
-                    target="_blank"
-                    rel="noopener"
-                    class="text-sm text-[#d4af37] hover:underline"
-                  >
-                    {{ job.company }}
-                  </a>
-                  <span v-else class="text-sm text-[#d4af37]">{{
-                    job.company
-                  }}</span>
-                  <span
-                    class="text-xs text-white/50 bg-white/10 px-2 py-0.5 rounded-full font-medium"
-                    >{{ job.employment_type }}</span
-                  >
-                </div>
-              </div>
-              <div class="text-right text-sm text-[#8891a4]">
-                <div>{{ job.period }}</div>
-                <div class="font-bold text-white">{{ job.duration }}</div>
-              </div>
-            </div>
-            <p class="text-[#8891a4] leading-relaxed">{{ job.description }}</p>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >02 — Education</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            Academic Journey
-          </h2>
-        </div>
-        <div
-          class="relative border-l-2 border-[#d4af37]/20 ml-4 space-y-12 py-4"
-        >
-          <div
-            v-for="(edu, idx) in [
-              {
-                school: 'JAPeR Memorial High School',
-                desc: 'ICT Track — Foundation in Information and Communications Technology',
-                active: false,
-              },
-              {
-                school: 'San Agustin National High School',
-                desc: 'NC III — Programming & Animation',
-                active: false,
-              },
-              {
-                school: 'Mater Dei College',
-                desc: 'Bachelor of Science in Information Technology',
-                active: true,
-                tag: 'BSIT Graduate',
-              },
-            ]"
-            :key="idx"
-            class="relative pl-10 group"
-          >
-            <div
-              :class="[
-                'absolute -left-[11px] top-1 w-5 h-5 rounded-full border-4 border-[#080b12] transition-colors duration-500',
-                edu.active
-                  ? 'bg-[#d4af37] shadow-[0_0_15px_#d4af37]'
-                  : 'bg-[#2a2f3e] border-[#d4af37]/40',
-              ]"
-            ></div>
-            <h3
-              class="text-xl font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors"
-            >
-              {{ edu.school }}
-            </h3>
-            <p class="text-[#8891a4] leading-relaxed max-w-2xl">
-              {{ edu.desc }}
-            </p>
-            <span
-              v-if="edu.tag"
-              class="inline-block mt-4 text-xs font-bold text-[#d4af37] bg-[#d4af37]/10 border border-[#d4af37]/20 px-4 py-1.5 rounded-full"
-              >{{ edu.tag }}</span
-            >
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >03 — Projects I've Built</span
+            >02 — Projects I've Built</span
           >
           <h2 class="text-4xl font-bold text-white font-display">
             Projects I've Shipped
@@ -651,7 +536,122 @@ const toSlug = (name) => {
         <div class="flex flex-col mb-12">
           <span
             class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >04 — Expertise</span
+            >03 — History</span
+          >
+          <h2 class="text-4xl font-bold text-white font-display">
+            Career History
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+          <div
+            v-for="(job, idx) in careerHistory"
+            :key="idx"
+            class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
+          >
+            <div class="flex items-start justify-between mb-3 gap-4">
+              <div>
+                <h3 class="text-xl font-bold text-white mb-1">
+                  {{ job.title }}
+                </h3>
+                <div class="flex items-center gap-3">
+                  <a
+                    v-if="job.link"
+                    :href="job.link"
+                    target="_blank"
+                    rel="noopener"
+                    class="text-sm text-[#d4af37] hover:underline"
+                  >
+                    {{ job.company }}
+                  </a>
+                  <span v-else class="text-sm text-[#d4af37]">{{
+                    job.company
+                  }}</span>
+                  <span
+                    class="text-xs text-white/50 bg-white/10 px-2 py-0.5 rounded-full font-medium"
+                    >{{ job.employment_type }}</span
+                  >
+                </div>
+              </div>
+              <div class="text-right text-sm text-[#8891a4]">
+                <div>{{ job.period }}</div>
+                <div class="font-bold text-white">{{ job.duration }}</div>
+              </div>
+            </div>
+            <p class="text-[#8891a4] leading-relaxed">{{ job.description }}</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
+      >
+        <div class="flex flex-col mb-12">
+          <span
+            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
+            >04 — Education</span
+          >
+          <h2 class="text-4xl font-bold text-white font-display">
+            Academic Journey
+          </h2>
+        </div>
+        <div
+          class="relative border-l-2 border-[#d4af37]/20 ml-4 space-y-12 py-4"
+        >
+          <div
+            v-for="(edu, idx) in [
+              {
+                school: 'JAPeR Memorial High School',
+                desc: 'ICT Track — Foundation in Information and Communications Technology',
+                active: false,
+              },
+              {
+                school: 'San Agustin National High School',
+                desc: 'NC III — Programming & Animation',
+                active: false,
+              },
+              {
+                school: 'Mater Dei College',
+                desc: 'Bachelor of Science in Information Technology',
+                active: true,
+                tag: 'BSIT Graduate',
+              },
+            ]"
+            :key="idx"
+            class="relative pl-10 group"
+          >
+            <div
+              :class="[
+                'absolute -left-[11px] top-1 w-5 h-5 rounded-full border-4 border-[#080b12] transition-colors duration-500',
+                edu.active
+                  ? 'bg-[#d4af37] shadow-[0_0_15px_#d4af37]'
+                  : 'bg-[#2a2f3e] border-[#d4af37]/40',
+              ]"
+            ></div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors"
+            >
+              {{ edu.school }}
+            </h3>
+            <p class="text-[#8891a4] leading-relaxed max-w-2xl">
+              {{ edu.desc }}
+            </p>
+            <span
+              v-if="edu.tag"
+              class="inline-block mt-4 text-xs font-bold text-[#d4af37] bg-[#d4af37]/10 border border-[#d4af37]/20 px-4 py-1.5 rounded-full"
+              >{{ edu.tag }}</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
+      >
+        <div class="flex flex-col mb-12">
+          <span
+            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
+            >05 — Expertise</span
           >
           <h2 class="text-4xl font-bold text-white font-display">
             Skills & Technologies
@@ -696,7 +696,7 @@ const toSlug = (name) => {
         <div class="flex flex-col mb-12">
           <span
             class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >05 — References</span
+            >06 — References</span
           >
           <h2 class="text-4xl font-bold text-white font-display">
             People Who Know My Work
@@ -745,7 +745,7 @@ const toSlug = (name) => {
         <div class="flex flex-col mb-12">
           <span
             class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >06 — Contact</span
+            >07 — Contact</span
           >
           <h2 class="text-4xl font-bold text-white font-display">
             Get In Touch
