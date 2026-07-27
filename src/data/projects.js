@@ -14,7 +14,7 @@ export const projects = [
 • **Robust Admin Panel**: A centralized dashboard designed for property owners to manage active reservations, handle customer messages in real-time, adjust room availability, and view performance analytics.
 
 Leveraging the Inertia.js monolith bridge, this platform delivers the lightning-fast, reactive user experience of a single-page Vue application alongside the robust security and database integrity of Laravel.`,
-    status: "Staging",
+    status: "Shipped",
     statusColor: "blue",
     images: [
       "assets/images/projects/cgs-travellers-inn/1.png",
