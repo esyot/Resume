@@ -21,6 +21,17 @@
           {{ tech }}
         </span>
       </div>
+      <a
+        v-if="project.link"
+        :href="project.link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-5 py-3 mb-8 bg-[#d4af37] text-[#080b12] rounded-xl font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-[#d4af37]/10"
+      >
+        Visit Site
+        <ExternalLink class="w-4 h-4" />
+      </a>
+
       <div
         v-html="formattedDetailsHtml"
         class="text-lg text-[#8891a4] leading-relaxed mb-16 [&_strong]:text-white [&_strong]:font-semibold [&_strong]:font-display"
@@ -155,21 +166,7 @@
                 <div
                   class="w-12 h-12 rounded-2xl bg-[#d4af37]/10 border border-[#d4af37]/20 flex items-center justify-center text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#080b12] transition-all duration-300"
                 >
-                  <!-- Custom Calendar SVG -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    class="w-5 h-5"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
-                    />
-                  </svg>
+                  <CalendarDays />
                 </div>
                 <div>
                   <p
@@ -239,20 +236,7 @@
                 ></div>
                 <span class="relative z-10 flex items-center gap-2">
                   Request Demo
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    class="w-4 h-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
-                    />
-                  </svg>
+                  <Send class="w-4 h-4" />
                 </span>
               </button>
 
@@ -267,14 +251,12 @@
       </section>
     </div>
 
-    <!-- Immersive Fullscreen Glassmorphic Lightbox -->
     <transition name="lightbox-fade">
       <div
         v-if="isLightboxOpen"
         class="fixed inset-0 z-50 flex flex-col justify-between p-6 bg-[#04060b]/98 backdrop-blur-md"
         @click.self="closeLightbox"
       >
-        <!-- Dynamic Header -->
         <div
           class="flex items-center justify-between text-white/60 max-w-7xl mx-auto w-full select-none"
         >
@@ -287,20 +269,7 @@
             class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white transition-all duration-200"
             aria-label="Close Lightbox"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <X class="w-6 h-6" />
           </button>
         </div>
 
@@ -312,20 +281,7 @@
             @click="prevImage"
             class="absolute left-0 p-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:border-[#d4af37] transition-all duration-300"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
-            </svg>
+            <ChevronLeft />
           </button>
 
           <img
@@ -339,20 +295,7 @@
             @click="nextImage"
             class="absolute right-0 p-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:border-[#d4af37] transition-all duration-300"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
+            <ChevronRight />
           </button>
         </div>
 
@@ -395,6 +338,14 @@
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import { projects } from "../data/projects.js";
+import {
+  ExternalLink,
+  ChevronRight,
+  ChevronLeft,
+  CalendarDays,
+  Send,
+  X,
+} from "lucide-vue-next";
 
 const route = useRoute();
 const slug = route.params.slug;
@@ -443,7 +394,6 @@ const openBookingGmail = () => {
   window.open(gmailUrl, "_blank");
 };
 
-// Image navigation handlers
 const prevImage = () => {
   if (!project.value?.images?.length) return;
   activeIndex.value =
