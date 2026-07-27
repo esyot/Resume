@@ -15,7 +15,7 @@ export const projects = [
 
 Leveraging the Inertia.js monolith bridge, this platform delivers the lightning-fast, reactive user experience of a single-page Vue application alongside the robust security and database integrity of Laravel.`,
     status: "Shipped",
-    statusColor: "blue",
+    statusColor: "green",
     images: [
       "assets/images/projects/cgs-travellers-inn/1.png",
       "assets/images/projects/cgs-travellers-inn/2.png",
