@@ -27,15 +27,15 @@ Leveraging the Inertia.js monolith bridge, this platform delivers the lightning-
       "assets/images/projects/cgs-travellers-inn/8.png",
     ],
   },
-  {
-    name: "C&G Trading POS & Warehousing",
-    link: "https://candg-pos.onrender.com/",
-    description:
-      "Architected the migration of a legacy COBOL-based enterprise system into a modern web ecosystem—unifying fragmented warehouse logistics and real-time point-of-sale into a secure, single source of truth.",
-    tech_stack: ["Laravel", "React", "Inertia"],
-    status: "Staging",
-    statusColor: "blue",
-  },
+  // {
+  //   name: "C&G Trading POS & Warehousing",
+  //   link: "https://candg-pos.onrender.com/",
+  //   description:
+  //     "Architected the migration of a legacy COBOL-based enterprise system into a modern web ecosystem—unifying fragmented warehouse logistics and real-time point-of-sale into a secure, single source of truth.",
+  //   tech_stack: ["Laravel", "React", "Inertia"],
+  //   status: "Staging",
+  //   statusColor: "blue",
+  // },
   {
     name: "ScratchSQL",
     link: "https://scratch-sql.vercel.app/",
