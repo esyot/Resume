@@ -139,18 +139,19 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div class="space-y-6 text-lg text-[#8891a4] leading-relaxed">
             <p>
-              I'm a software developer with
+              I’m a software developer with
               <strong class="text-[#d4af37] font-semibold text-xl"
                 >{{ years }}+ years</strong
               >
-              of experience turning complex technical bottlenecks into smooth,
-              scalable user experiences across web, mobile, and desktop.
+              of experience turning tricky technical puzzles into smooth,
+              performant user experiences across web, mobile, and desktop.
             </p>
             <p>
-              I don't just write clean code—I build architecture that scales
-              with your user base. Whether optimizing real-time data pipelines
-              or streamlining legacy systems, my focus is always on shipping
-              high-performance software that solves critical business problems.
+              Beyond writing clean code, I enjoy designing thoughtful
+              architectures that grow alongside your product. Whether it's
+              fine-tuning real-time data flows or modernizing legacy setups, my
+              goal is simple: ship reliable software that genuinely helps your
+              business thrive.
             </p>
           </div>
           <div
@@ -796,7 +797,7 @@ const careerHistory = [
 ];
 
 const years =
-  new Date(new Date() - new Date("2022-01-01")).getFullYear() - 1970;
+  new Date(new Date() - new Date("2021-01-01")).getFullYear() - 1970;
 
 const references = [
   {
