@@ -41,9 +41,25 @@ Leveraging the Inertia.js monolith bridge, this platform delivers the lightning-
     link: "https://scratch-sql.vercel.app/",
     description:
       "Solved the bottleneck of tedious database design by turning visual canvas schemas directly into production-ready Laravel migrations and raw SQL instantly.",
+    full_details: `A collaborative AI canvas designed for senior development teams to visually architect, discuss, and refine database structures in real time. Key features include:
+
+• **Interactive ERD Canvas**: A flexible drag-and-drop workspace to build entity-relationship diagrams, complete with customizable table boxes, field data types, constraints, and visual relationship connectors.
+• **AI Schema Copilot**: An intelligent assistant that generates, optimizes, and refines complex database schemas on the fly based on natural language prompts and design discussions.
+• **Instant Code Export**: A multi-format code generator that transforms your visual diagram into clean, ready-to-deploy Laravel migrations, raw SQL scripts, and schema definitions in seconds.
+• **Real-Time Team Collaboration**: A shared canvas environment enabling engineering leads and architects to map relationships, resolve design bottlenecks, and align on database architecture together.
+• **Granular Schema Control**: Full precision over table attributes, primary/foreign key indexes, nullable constraints, and cascade behaviors with an intuitive control panel.
+
+Engineered to bridge high-level architecture discussions and code generation, Scratch SQL turns database modeling into a seamless visual and AI-assisted workflow.`,
     tech_stack: ["Next.js", "Prisma", "Tailwind", "Shadcn/ui", "Supabase"],
     status: "Shipped",
     statusColor: "green",
+    images: [
+      "assets/images/projects/scratch-sql/1.png",
+      "assets/images/projects/scratch-sql/2.png",
+      "assets/images/projects/scratch-sql/3.png",
+      "assets/images/projects/scratch-sql/4.png",
+      "assets/images/projects/scratch-sql/5.png",
+    ],
   },
   {
     name: "Keith Kurlander",
