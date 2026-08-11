@@ -1,5 +1,23 @@
 export const projects = [
   {
+    name: "Chicky",
+    link: "https://chicky-drab.vercel.app/",
+    description:
+      "A granular, multi-tenant poultry farm management system built to digitize multi-location site tracking, nested cage housing, bird-level records, and daily egg yield grading.",
+    tech_stack: ["Next.js", "Prisma", "PostgreSQL", "Tailwind CSS"],
+    full_details: `A comprehensive multi-site poultry management application engineered to replace manual farm logs with precise, relational tracking across sites, cages, individual birds, and egg yields. Key features include:
+
+• **Multi-Tenant Farm Isolation**: Enables users to create and manage isolated operational sites mapped directly to specific locations and site codes.
+• **Nested Cage & Door Matrix**: Implements a granular structural hierarchy mapping physical facility units (\`Cage\`) to individual door compartments (\`CageDoor\`) for precise bird housing assignment.
+• **Individual Bird Tracking**: Tracks individual chickens via unique registration codes, assigning them to specific cage doors alongside lifecycle delivery timestamps and configurable age brackets (\`ChickenAge\`).
+• **Granular Egg Yield Logging**: Features real-time yield tracking per cage door, allowing operators to log collections by timestamp, quality status, and customizable size classifications (\`EggSize\`).
+• **Role-Based Onboarding & Access Control**: Built-in authentication framework with distinct roles (\`ADMIN\`, \`USER\`) and an automated access request pipeline for onboarding farm operators.
+
+Powered by Next.js and Prisma ORM over a relational PostgreSQL architecture, this system ensures strict data integrity across complex nested relationships while maintaining lightning-fast performance for field operations.`,
+    status: "Shipped",
+    statusColor: "green",
+  },
+  {
     name: "CG's Travellers Inn",
     link: "https://travellers-inn.candgph.com/",
     description:
