@@ -1,4 +1,29 @@
 export const projects = [
+{
+  name: "Buzyness",
+  link: "https://buzyness.netlify.app/",
+  description:
+    "A privacy-first multi-business financial dashboard that consolidates sales and expenses across multiple applications via read-only public APIs.",
+  tech_stack: [
+    "React",
+    "TanStack Start",
+    "Tailwind CSS",
+    "Shadcn/UI",
+    "Neon",
+
+  ],
+  full_details: `A centralized financial monitoring workspace designed for founders and multi-app operators to track revenue streams and operational costs without compromising sensitive data. Key features include:
+
+• **Unified Portfolio Dashboard**: Aggregates total net revenue, combined expenses, and active venture metrics into a single real-time overview.
+• **Privacy-First API Integration**: Connects directly via read-only public Sales and Expenses API endpoints, eliminating the need for database credentials or sensitive banking access.
+• **Multi-Business Sync**: Streamlines tracking across diverse apps, e-commerce stores, and SaaS products in under two minutes per connection.
+• **Comparative Financial Insights**: Monitors daily cash flow, combined overhead, and profit margins to optimize resource allocation across all connected ventures.
+• **Streamlined 3-Step Setup**: Features a frictionless workflow to expose public endpoints, link API keys to workspace dashboards, and instantly view consolidated financial analytics.
+
+Built with TanStack Router, React, and Shadcn/UI components, the application delivers a modern, responsive interface with high-performance visualization capabilities.`,
+  status: "Shipped",
+  statusColor: "green",
+},
   {
     name: "Chicky",
     link: "https://chicky-drab.vercel.app/",
