@@ -1,650 +1,5 @@
-<template>
-  <MouseTail />
-  <div
-    class="min-h-screen bg-[#080b12] text-[#e8eaf0] font-sans relative overflow-x-hidden selection:bg-[#d4af37]/30 selection:text-white"
-  >
-    <div
-      class="fixed inset-0 z-0 pointer-events-none bg-[linear-gradient(rgba(212,175,55,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.04)_1px,transparent_1px)] bg-[size:60px_60px]"
-    ></div>
-    <div
-      class="fixed top-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-[#d4af37]/10 blur-[120px] animate-pulse z-0 pointer-events-none"
-    ></div>
-    <div
-      class="fixed bottom-[200px] left-[-200px] w-[500px] h-[500px] rounded-full bg-blue-500/5 blur-[120px] animate-pulse delay-700 z-0 pointer-events-none"
-    ></div>
-
-    <div class="relative z-10 max-w-[1100px] mx-auto px-6 pb-20">
-      <header
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 py-24 md:py-32"
-      >
-        <div
-          class="flex flex-col md:flex-row items-center gap-14 text-center md:text-left"
-        >
-          <div class="relative flex-shrink-0 group">
-            <div
-              class="absolute inset-[-6px] rounded-[2rem] bg-gradient-to-tr from-[#d4af37] via-transparent to-[#d4af37] animate-[spin_6s_linear_infinite] opacity-70"
-            ></div>
-            <img
-              :src="'/assets/images/' + personalDetails.img"
-              alt="Reinhard Esteban"
-              class="relative z-10 w-40 h-40 rounded-[1.8rem] object-cover border-[3px] border-[#080b12]"
-            />
-            <div
-              class="absolute inset-0 rounded-[1.8rem] shadow-[0_0_60px_rgba(212,175,55,0.3)] group-hover:shadow-[0_0_80px_rgba(212,175,55,0.5)] transition-shadow duration-500"
-            ></div>
-          </div>
-          <div class="flex-1">
-            <div
-              class="inline-flex items-center gap-2 text-[13px] text-[#a3e635] bg-[#a3e635]/10 border border-[#a3e635]/20 px-4 py-1.5 rounded-full mb-6 tracking-wide mx-auto md:mx-0"
-            >
-              <span
-                class="w-2 h-2 rounded-full bg-[#a3e635] animate-pulse"
-              ></span>
-              Available for opportunities
-            </div>
-            <h1
-              class="text-5xl md:text-7xl font-black leading-tight tracking-tight bg-gradient-to-br from-white via-white to-[#d4af37] bg-clip-text text-transparent mb-4 font-display"
-            >
-              {{ personalDetails.name }}
-            </h1>
-            <div
-              class="flex items-center justify-center md:justify-start gap-3 mb-4"
-            >
-              <p class="text-xl text-[#d4af37] font-semibold tracking-wide">
-                {{ personalDetails.title }}
-              </p>
-              <button
-                @click="togglePopup"
-                class="w-6 h-6 rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] flex items-center justify-center transition-all hover:bg-[#d4af37]/30 hover:scale-110 active:scale-95"
-              >
-                <HelpCircle :size="14" />
-              </button>
-            </div>
-            <p
-              class="text-lg text-[#8891a4] italic mb-10 max-w-[480px] leading-relaxed"
-            >
-              "{{ personalDetails.tagline }}"
-            </p>
-            <div class="grid grid-cols-3 gap-10">
-              <div
-                v-for="stat in stats"
-                :key="stat.label"
-                class="flex flex-col"
-              >
-                <span class="text-6xl font-black text-[#d4af37]">
-                  <AnimatedNumber :value="stat.value" />{{ stat.suffix }}
-                </span>
-                <span class="text-[0.7rem] uppercase tracking-widest">{{
-                  stat.label
-                }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <Teleport to="body">
-        <transition
-          enter-active-class="transition duration-300 ease-out"
-          enter-from-class="opacity-0 scale-95"
-          enter-to-class="opacity-100 scale-100"
-          leave-active-class="transition duration-200 ease-in"
-          leave-from-class="opacity-100 scale-100"
-          leave-to-class="opacity-0 scale-95"
-        >
-          <div
-            v-if="isShowPopup"
-            class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[100] p-6"
-            @click.self="togglePopup"
-          >
-            <div
-              class="bg-[#10151f] border border-[#d4af37]/30 rounded-[2rem] p-10 max-w-[500px] w-full shadow-2xl transform transition-all"
-            >
-              <div class="flex items-center gap-4 mb-6">
-                <div class="p-3 bg-[#d4af37]/10 rounded-2xl">
-                  <HelpCircle class="text-[#d4af37]" :size="32" />
-                </div>
-                <h3 class="text-2xl font-bold text-white font-display">
-                  What is a Full Stack Developer?
-                </h3>
-              </div>
-              <p class="text-[#8891a4] leading-relaxed text-lg mb-8">
-                A full-stack developer bridges the gap between what users see
-                and what powers it behind the scenes. From crafting
-                pixel-perfect interfaces with frameworks like Vue or React, to
-                engineering robust server-side logic and databases with PHP,
-                Laravel, or Node.js.
-              </p>
-              <button
-                @click="togglePopup"
-                class="w-full py-4 bg-[#d4af37] text-[#080b12] rounded-2xl font-bold text-lg hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-[#d4af37]/20"
-              >
-                Understood
-              </button>
-            </div>
-          </div>
-        </transition>
-      </Teleport>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >01 — About</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">Background</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6 text-lg text-[#8891a4] leading-relaxed">
-  <p>
-    I’m a software developer with
-    <strong class="text-[#d4af37] font-semibold text-xl"
-      >{{ years }}+ years</strong
-    >
-    of experience turning tricky technical puzzles into smooth,
-    performant user experiences across web, mobile, and desktop.
-  </p>
-  <p>
-    Beyond writing clean code, I enjoy designing thoughtful
-    architectures that grow alongside your product. Whether it's
-    fine-tuning real-time data flows or modernizing legacy setups, my
-    goal is simple: ship reliable software that genuinely helps your
-    business thrive.
-  </p>
-
-  <!-- Social Links -->
-  <div class="flex flex-wrap items-center gap-3 pt-2">
-    <a
-      href="https://github.com/esyot"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#080b12] text-xs font-medium text-[#d4af37] hover:border-[#d4af37] hover:bg-[#d4af37] hover:text-[#080b12] transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.15)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)]"
-    >
-      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-        <path
-          d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
-        />
-      </svg>
-      <span>GitHub</span>
-    </a>
-
-    <a
-      href="https://www.linkedin.com/in/reinhard-esteban/"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#080b12] text-xs font-medium text-[#d4af37] hover:border-[#d4af37] hover:bg-[#d4af37] hover:text-[#080b12] transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.15)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)]"
-    >
-      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-        <path
-          d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-        />
-      </svg>
-      <span>LinkedIn</span>
-    </a>
-  </div>
-</div>
-          <div
-            class="relative group"
-            @mousemove="(e) => handleCardTilt(e, $event.currentTarget)"
-            @mouseleave="(e) => resetCardTilt($event.currentTarget)"
-          >
-            <div
-              class="bg-gradient-to-br from-[#d4af37]/15 to-transparent border border-[#d4af37]/20 rounded-[2rem] p-8 transition-transform duration-200 ease-out preserve-3d"
-            >
-              <div class="space-y-5">
-                <div
-                  v-for="(val, key) in {
-                    'Based in': 'Philippines 🇵🇭',
-                    Focus: 'Web & Mobile Apps',
-                    Experience: years + '+ Years',
-                    Stack: 'PHP · JavaScript · Node  · Python',
-                  }"
-                  :key="key"
-                  class="flex justify-between items-center border-b border-white/5 pb-4"
-                >
-                  <span
-                    class="text-[#5a6275] font-medium uppercase text-xs tracking-wider"
-                    >{{ key }}</span
-                  >
-                  <span class="text-white font-semibold">{{ val }}</span>
-                </div>
-                <div class="flex justify-between items-center pt-2">
-                  <span
-                    class="text-[#5a6275] font-medium uppercase text-xs tracking-wider"
-                    >Status</span
-                  >
-                  <span
-                    class="text-[#a3e635] font-bold flex items-center gap-2"
-                  >
-                    <span
-                      class="w-2 h-2 rounded-full bg-[#a3e635] animate-pulse"
-                    ></span>
-                    Open to Work
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >02 — Projects I've Built</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            Projects I've Shipped
-          </h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div
-            v-for="project in projects"
-            :key="project.name"
-            @mousemove="(e) => handleCardTilt(e, $event.currentTarget)"
-            @mouseleave="(e) => resetCardTilt($event.currentTarget)"
-            class="group bg-white/[0.02] border border-white/[0.08] rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:border-[#d4af37]/30 hover:bg-white/[0.04] preserve-3d"
-          >
-            <router-link
-              :to="'/project/' + toSlug(project.name)"
-              class="p-8 h-full flex flex-col"
-            >
-              <div class="flex justify-between items-start mb-6">
-                <div
-                  class="p-3 bg-[#d4af37]/10 rounded-2xl group-hover:scale-110 transition-transform duration-500"
-                >
-                  <Box class="text-[#d4af37]" :size="24" />
-                </div>
-                <span
-                  :class="[
-                    'text-[10px] font-bold px-3 py-1 rounded-full border flex items-center gap-2 uppercase tracking-tighter',
-                    statusColors[project.statusColor].bg,
-                    statusColors[project.statusColor].text,
-                    statusColors[project.statusColor].border,
-                  ]"
-                >
-                  <span
-                    :class="[
-                      'w-1.5 h-1.5 rounded-full',
-                      statusColors[project.statusColor].dot,
-                    ]"
-                  ></span>
-                  {{ project.status }}
-                </span>
-              </div>
-              <h3
-                class="text-2xl font-bold text-white mb-4 group-hover:text-[#d4af37] transition-colors"
-              >
-                {{ project.name }}
-              </h3>
-              <p
-                class="text-[#8891a4] leading-relaxed mb-8 flex-1 line-clamp-3 italic"
-              >
-                "{{ project.description }}"
-              </p>
-              <div class="flex flex-wrap gap-2 mb-6">
-                <span
-                  v-for="tech in project.tech_stack"
-                  :key="tech"
-                  class="text-[10px] font-bold px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-white/60"
-                >
-                  {{ tech }}
-                </span>
-              </div>
-              <div
-                class="flex items-center gap-2 text-[#d4af37] font-bold text-sm opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0"
-              >
-                Explore Project <ArrowRight :size="16" />
-              </div>
-            </router-link>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >03 — History</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            Career History
-          </h2>
-        </div>
-
-        <div class="space-y-6">
-          <div
-            v-for="(job, idx) in careerHistory"
-            :key="idx"
-            class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
-          >
-            <div class="flex items-start justify-between mb-3 gap-4">
-              <div>
-                <h3 class="text-xl font-bold text-white mb-1">
-                  {{ job.title }}
-                </h3>
-                <div class="flex items-center gap-3">
-                  <a
-                    v-if="job.link"
-                    :href="job.link"
-                    target="_blank"
-                    rel="noopener"
-                    class="text-sm text-[#d4af37] hover:underline"
-                  >
-                    {{ job.company }}
-                  </a>
-                  <span v-else class="text-sm text-[#d4af37]">{{
-                    job.company
-                  }}</span>
-                  <span
-                    class="text-xs text-white/50 bg-white/10 px-2 py-0.5 rounded-full font-medium"
-                    >{{ job.employment_type }}</span
-                  >
-                </div>
-              </div>
-              <div class="text-right text-sm text-[#8891a4]">
-                <div>{{ job.period }}</div>
-                <div class="font-bold text-white">{{ job.duration }}</div>
-              </div>
-            </div>
-            <p class="text-[#8891a4] leading-relaxed">{{ job.description }}</p>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >04 — Education</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            Academic Journey
-          </h2>
-        </div>
-        <div
-          class="relative border-l-2 border-[#d4af37]/20 ml-4 space-y-12 py-4"
-        >
-          <div
-            v-for="(edu, idx) in [
-              {
-                school: 'JAPeR Memorial High School',
-                desc: 'ICT Track — Foundation in Information and Communications Technology',
-                active: false,
-              },
-              {
-                school: 'San Agustin National High School',
-                desc: 'NC III — Programming & Animation',
-                active: false,
-              },
-              {
-                school: 'Mater Dei College',
-                desc: 'Bachelor of Science in Information Technology',
-                active: true,
-                tag: 'BSIT Graduate',
-              },
-            ]"
-            :key="idx"
-            class="relative pl-10 group"
-          >
-            <div
-              :class="[
-                'absolute -left-[11px] top-1 w-5 h-5 rounded-full border-4 border-[#080b12] transition-colors duration-500',
-                edu.active
-                  ? 'bg-[#d4af37] shadow-[0_0_15px_#d4af37]'
-                  : 'bg-[#2a2f3e] border-[#d4af37]/40',
-              ]"
-            ></div>
-            <h3
-              class="text-xl font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors"
-            >
-              {{ edu.school }}
-            </h3>
-            <p class="text-[#8891a4] leading-relaxed max-w-2xl">
-              {{ edu.desc }}
-            </p>
-            <span
-              v-if="edu.tag"
-              class="inline-block mt-4 text-xs font-bold text-[#d4af37] bg-[#d4af37]/10 border border-[#d4af37]/20 px-4 py-1.5 rounded-full"
-              >{{ edu.tag }}</span
-            >
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >05 — Expertise</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            Skills & Technologies
-          </h2>
-        </div>
-        <div
-          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
-        >
-          <div
-            v-for="skill in skills"
-            :key="skill.name"
-            @mousemove="(e) => handleCardTilt(e, $event.currentTarget)"
-            @mouseleave="(e) => resetCardTilt($event.currentTarget)"
-            class="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5 group transition-all duration-300 hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5 hover:shadow-xl hover:shadow-[#d4af37]/5 preserve-3d"
-          >
-            <component
-              :is="skill.icon"
-              class="text-[#d4af37]/50 group-hover:text-[#d4af37] transition-all duration-500 mb-4 group-hover:scale-110"
-              :size="32"
-            />
-            <p class="text-sm font-bold text-[#c8cdd8] mb-3">
-              {{ skill.name }}
-            </p>
-            <div class="flex gap-1">
-              <span
-                v-for="i in 5"
-                :key="i"
-                :class="[
-                  'text-[10px]',
-                  i <= skill.rating ? 'text-[#d4af37]' : 'text-white/10',
-                ]"
-                >★</span
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >06 — References</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            People Who Know My Work
-          </h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div
-            v-for="(ref, index) in references"
-            :key="index"
-            @mousemove="(e) => handleCardTilt(e, $event.currentTarget)"
-            @mouseleave="(e) => resetCardTilt($event.currentTarget)"
-            class="bg-white/[0.03] border border-white/[0.08] rounded-[2rem] p-8 flex flex-col hover:border-[#d4af37]/40 transition-all duration-300 group preserve-3d"
-          >
-            <div
-              class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#d4af37] to-amber-200/20 flex items-center justify-center text-[#080b12] font-black text-xl mb-6 shadow-lg shadow-[#d4af37]/10 group-hover:scale-110 transition-transform"
-            >
-              {{
-                ref.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")
-                  .slice(0, 2)
-              }}
-            </div>
-            <h3 class="text-lg font-bold text-white mb-1">{{ ref.name }}</h3>
-            <p
-              class="text-[#d4af37] text-xs font-bold uppercase tracking-widest mb-6"
-            >
-              {{ ref.role }}
-            </p>
-            <div class="space-y-3 mt-auto">
-              <a
-                :href="`mailto:${ref.email}`"
-                class="flex items-center gap-3 text-sm text-[#8891a4] hover:text-[#d4af37] transition-colors break-all"
-              >
-                <Mail :size="14" /> {{ ref.email }}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="reveal opacity-0 translate-y-10 transition-all duration-1000 mb-32"
-      >
-        <div class="flex flex-col mb-12">
-          <span
-            class="text-[#d4af37] uppercase tracking-[0.3em] text-xs font-bold mb-2"
-            >07 — Contact</span
-          >
-          <h2 class="text-4xl font-bold text-white font-display">
-            Get In Touch
-          </h2>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div class="space-y-8">
-            <p class="text-lg text-[#8891a4] leading-relaxed">
-              Have a project in mind or just want to chat? Fill out the details
-              here, and it will automatically prepare a Gmail draft for you.
-            </p>
-
-            <div class="space-y-6">
-              <div class="flex items-center gap-6 group">
-                <div
-                  class="w-12 h-12 rounded-2xl bg-[#d4af37]/10 border border-[#d4af37]/20 flex items-center justify-center text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#080b12] transition-all"
-                >
-                  <Mail :size="20" />
-                </div>
-                <div>
-                  <p
-                    class="text-xs font-bold text-[#5a6275] uppercase tracking-widest mb-1"
-                  >
-                    Email Me
-                  </p>
-                  <a
-                    href="mailto:rei.nhard3367@gmail.com"
-                    class="text-white font-bold hover:text-[#d4af37] transition-colors"
-                    >rei.nhard3367@gmail.com</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="bg-white/[0.02] border border-white/10 rounded-[2.5rem] p-8 md:p-10"
-          >
-            <div class="space-y-6">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-2">
-                  <label
-                    class="text-xs font-bold text-[#5a6275] uppercase tracking-widest ml-1"
-                    >Your Name</label
-                  >
-                  <input
-                    v-model="form.name"
-                    type="text"
-                    placeholder="John Doe"
-                    class="w-full bg-[#10151f] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#d4af37]/50 transition-all placeholder:text-white/20"
-                  />
-                </div>
-                <div class="space-y-2">
-                  <label
-                    class="text-xs font-bold text-[#5a6275] uppercase tracking-widest ml-1"
-                    >Subject</label
-                  >
-                  <input
-                    v-model="form.email"
-                    type="text"
-                    placeholder="Project Inquiry"
-                    class="w-full bg-[#10151f] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#d4af37]/50 transition-all placeholder:text-white/20"
-                  />
-                </div>
-              </div>
-              <div class="space-y-2">
-                <label
-                  class="text-xs font-bold text-[#5a6275] uppercase tracking-widest ml-1"
-                  >Message</label
-                >
-                <textarea
-                  v-model="form.message"
-                  rows="4"
-                  placeholder="Briefly describe your project..."
-                  class="w-full bg-[#10151f] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#d4af37]/50 transition-all placeholder:text-white/20 resize-none"
-                ></textarea>
-              </div>
-
-              <button
-                @click="openGmail"
-                class="group relative flex items-center justify-center gap-3 w-full py-5 bg-[#d4af37] text-[#080b12] rounded-xl font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-[#d4af37]/10 overflow-hidden"
-              >
-                <div
-                  class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-                ></div>
-                <span class="relative z-10 flex items-center gap-2">
-                  Send Message <Send :size="16" />
-                </span>
-              </button>
-
-              <p
-                class="text-[10px] text-[#5a6275] text-center uppercase tracking-widest mt-4"
-              >
-                Clicking will open a new tab with your message ready to send.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer class="pt-20 border-t border-white/10 relative text-center">
-        <div
-          class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-24 bg-[#d4af37]/10 blur-[50px] pointer-events-none"
-        ></div>
-        <p
-          class="text-lg text-[#5a6275] flex justify-center flex-col sm:flex-row gap-4"
-        >
-          Designed & Built by
-          <strong class="text-[#d4af37]">Reinhard U. Esteban</strong>
-        </p>
-        <p
-          class="text-xs text-[#3a3f50] mt-4 font-bold tracking-[0.2em] uppercase"
-        >
-          © {{ new Date().getFullYear() }} — Digital Craftsmanship
-        </p>
-      </footer>
-    </div>
-  </div>
-</template>
-
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, defineAsyncComponent, onMounted, onUnmounted } from "vue";
 import {
   Globe,
   Palette,
@@ -673,9 +28,35 @@ import {
   ArrowRight,
   Send,
 } from "lucide-vue-next";
-import MouseTail from "./MouseTail.vue";
-import AnimatedNumber from "./AnimatedNumber.vue";
+
 import { projects } from "../data/projects.js";
+
+// Theme Switcher State
+const themes = [
+  { id: 'sci-fi', name: 'Sci-Fi' },
+  { id: 'cli', name: 'CLI' },
+  { id: 'doodle', name: 'Doodle' },
+  { id: 'graffiti', name: 'Graffiti' },
+  { id: 'vintage', name: 'Vintage' }
+];
+
+const currentTheme = ref('vintage'); // Default to vintage if you want it first
+
+// Dynamic Component Resolution for Versions
+const activeComponent = computed(() => {
+  switch (currentTheme.value) {
+    case 'sci-fi':
+      return defineAsyncComponent(() => import('./versions/sci-fi.vue'));
+    case 'cli':
+      return defineAsyncComponent(() => import('./versions/cli.vue'));
+    case 'doodle':
+      return defineAsyncComponent(() => import('./versions/doodle.vue'));
+    case 'graffiti':
+      return defineAsyncComponent(() => import('./versions/graffiti.vue'));
+    case 'vintage':
+      return defineAsyncComponent(() => import('./versions/vintage.vue'));
+  }
+});
 
 const isShowPopup = ref(false);
 const togglePopup = () => {
@@ -777,15 +158,8 @@ const careerHistory = [
     employment_type: "Freelance",
     period: "May 2022 - Today",
     duration: `${new Date().getFullYear() - 2022} years`,
-    description: `Architected and deployed
-     scalable web applications using modern JavaScript frameworks,
-     optimizing performance and user experience while collaborating closely with clients to
-      translate business requirements into clean, maintainable code. Integrated third-party APIs,
-      database solutions, and cloud services to deliver robust, end-to-end digital solutions.
-       Managed full project lifecycles independently, ensuring on-time delivery and adherence to high-quality
-        software standards.`,
+    description: `Architected and deployed scalable web applications using modern JavaScript frameworks, optimizing performance and user experience while collaborating closely with clients to translate business requirements into clean, maintainable code. Integrated third-party APIs, database solutions, and cloud services to deliver robust, end-to-end digital solutions. Managed full project lifecycles independently, ensuring on-time delivery and adherence to high-quality software standards.`,
   },
-
   {
     title: "Senior Software Engineer",
     company: "Hashed.IT",
@@ -803,7 +177,7 @@ const careerHistory = [
     employment_type: "Contract Based",
     period: "Dec 2025 - Mar 2026",
     duration: "4 months",
-    description: `As a developer at Brandetize , I build and optimize the high-performing digital architecture that drives growth. My focus centers on engineering seamless marketing funnels, scaling lead generation systems, and managing robust platform maintenance to ensure flawless digital experiences for clients.`,
+    description: `As a developer at Brandetize, I build and optimize the high-performing digital architecture that drives growth. My focus centers on engineering seamless marketing funnels, scaling lead generation systems, and managing robust platform maintenance to ensure flawless digital experiences for clients.`,
   },
   {
     title: "Web Developer",
@@ -813,7 +187,7 @@ const careerHistory = [
     period: "Jun 2025 - Dec 2025",
     duration: "7 months",
     description:
-      "As one of the pioneer developers behind Onda Fit , I helped build the go-to management platform and 'operating system' for Philippine sports and wellness hubs. From pickleball courts to Pilates studios, the platform optimizes local businesses by streamlining scheduling, driving membership retention, and integrating seamless digital payments via GCash and Maya.",
+      "As one of the pioneer developers behind Onda Fit, I helped build the go-to management platform and 'operating system' for Philippine sports and wellness hubs. From pickleball courts to Pilates studios, the platform optimizes local businesses by streamlining scheduling, driving membership retention, and integrating seamless digital payments via GCash and Maya.",
   },
   {
     title: "Software Developer (Thesis Project)",
@@ -865,9 +239,9 @@ const personalDetails = {
 };
 
 const stats = [
-  { value: years, label: "Years of Experience" },
-  { value: projects.length, label: "Projects Delivered" },
-  { value: skills.length, label: "Technologies Mastered" },
+  { value: years, label: "Years of Experience", suffix: "" },
+  { value: projects.length, label: "Projects Delivered", suffix: "" },
+  { value: skills.length, label: "Technologies Mastered", suffix: "" },
 ];
 
 const statusColors = {
@@ -898,6 +272,47 @@ const toSlug = (name) => {
     .replace(/(^-|-$)+/g, "");
 };
 </script>
+
+<template>
+  <div class="relative min-h-screen">
+    <!-- Floating Theme Switcher Navigation Bar -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[999] bg-slate-950/80 backdrop-blur-xl border border-white/20 p-2 rounded-full shadow-2xl flex items-center gap-1.5 overflow-x-auto max-w-[95vw]">
+      <button
+        v-for="theme in themes"
+        :key="theme.id"
+        @click="currentTheme = theme.id"
+        :class="[
+          'px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 whitespace-nowrap cursor-pointer',
+          currentTheme === theme.id
+            ? 'bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 font-bold shadow-[0_0_15px_rgba(6,182,212,0.5)]'
+            : 'text-slate-300 hover:text-white hover:bg-white/10'
+        ]"
+      >
+        {{ theme.name }}
+      </button>
+    </div>
+
+ 
+    <component
+      :is="activeComponent"
+      :personalDetails="personalDetails"
+      :stats="stats"
+      :skills="skills"
+      :careerHistory="careerHistory"
+      :references="references"
+      :projects="projects"
+      :form="form"
+      :isShowPopup="isShowPopup"
+      :togglePopup="togglePopup"
+      :openGmail="openGmail"
+      :toSlug="toSlug"
+      :years="years"
+      :statusColors="statusColors"
+      :handleCardTilt="handleCardTilt"
+      :resetCardTilt="resetCardTilt"
+    />
+  </div>
+</template>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&display=swap");
