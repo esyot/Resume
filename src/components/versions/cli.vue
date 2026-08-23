@@ -379,6 +379,7 @@ defineProps({
   skills: Array,
   careerHistory: Array,
   references: Array,
+  projects: Array, 
   form: Object,
   isShowPopup: Boolean,
   togglePopup: Function,
@@ -388,5 +389,5 @@ defineProps({
   statusColors: Object,
   handleCardTilt: Function,
   resetCardTilt: Function
-})
+});
 </script>

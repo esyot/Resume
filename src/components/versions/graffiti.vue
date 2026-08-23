@@ -352,11 +352,16 @@ defineProps({
   stats: Array,
   skills: Array,
   careerHistory: Array,
+  references: Array,
+  projects: Array, 
   form: Object,
   isShowPopup: Boolean,
   togglePopup: Function,
   openGmail: Function,
   toSlug: Function,
   years: Number,
+  statusColors: Object,
+  handleCardTilt: Function,
+  resetCardTilt: Function
 });
 </script>
