@@ -1,335 +1,320 @@
 <template>
   <div
     v-if="project"
-    class="bg-[#080b12] text-[#e8eaf0] min-h-screen font-sans"
+    class="bg-[#fffef9] text-zinc-900 min-h-screen font-doodle p-4 sm:p-8 md:p-12 relative overflow-x-hidden selection:bg-amber-200"
   >
-    <div class="max-w-[1100px] mx-auto px-6 py-20">
-      <router-link
-        to="/home"
-        class="text-[#d4af37] hover:underline mb-8 inline-block"
-        >&larr; Back to Home</router-link
-      >
-      <h1 class="text-5xl font-bold text-white font-display mb-4">
-        {{ project.name }}
-      </h1>
-      <div class="flex flex-wrap gap-2 mb-6">
-        <span
-          v-for="tech in project.tech_stack"
-          :key="tech"
-          class="text-xs font-bold px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-white/60"
+    <!-- Background Hand-drawn Grid -->
+    <div
+      class="fixed inset-0 pointer-events-none bg-[radial-gradient(#d4cebe_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-60 z-0"
+    ></div>
+
+    <div class="max-w-[980px] mx-auto w-full relative z-10 space-y-10">
+      
+      <!-- Back Link -->
+      <div>
+        <router-link
+          to="/"
+          class="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-200 border-2 border-zinc-900 rounded-xl font-bold text-xs shadow-[2px_2px_0px_0px_#18181b] hover:bg-amber-300 transition-all font-hand"
         >
-          {{ tech }}
-        </span>
+          &larr; Back to Portfolio
+        </router-link>
       </div>
-      <a
-        v-if="project.link"
-        :href="project.link"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-5 py-3 mb-8 bg-[#d4af37] text-[#080b12] rounded-xl font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-[#d4af37]/10"
+
+      <!-- Main Header Card -->
+      <header
+        class="bg-white border-3 border-zinc-900 rounded-[28px] p-6 sm:p-10 shadow-[6px_6px_0px_0px_#18181b] relative transform -rotate-1"
       >
-        Visit Site
-        <ExternalLink class="w-4 h-4" />
-      </a>
+        <!-- Tape Banner -->
+        <div
+          class="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-6 bg-amber-100/90 border-y border-zinc-400 rotate-1 opacity-90 pointer-events-none shadow-sm"
+        ></div>
 
-      <div
-        v-html="formattedDetailsHtml"
-        class="text-lg text-[#8891a4] leading-relaxed mb-16 [&_strong]:text-white [&_strong]:font-semibold [&_strong]:font-display"
-      ></div>
+        <h1
+          class="text-3xl sm:text-5xl font-black text-zinc-900 font-hand tracking-tight mb-4"
+        >
+          {{ project.name }}
+        </h1>
 
-      <div v-if="project.images && project.images.length > 0" class="mb-24">
-        <h2 class="text-3xl font-bold text-white font-display mb-8">
-          Project Gallery
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span
+            v-for="tech in project.tech_stack"
+            :key="tech"
+            class="text-[11px] font-bold px-3 py-1 bg-amber-50 border-2 border-zinc-900 rounded-lg text-zinc-900 shadow-[1.5px_1.5px_0px_0px_#18181b]"
+          >
+            {{ tech }}
+          </span>
+        </div>
+
+        <a
+          v-if="project.link"
+          :href="project.link"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-300 border-2 border-zinc-900 text-zinc-900 rounded-xl font-bold hover:bg-emerald-400 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_0px_#18181b] transition-all text-xs font-hand"
+        >
+          Visit Live Site
+          <ExternalLink class="w-4 h-4" />
+        </a>
+      </header>
+
+      <!-- Project Specifications Container -->
+      <section
+        class="bg-white border-3 border-zinc-900 rounded-[28px] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#18181b] space-y-4"
+      >
+        <h2 class="text-xl font-black text-zinc-900 font-hand border-b-2 border-zinc-900 pb-2">
+          Project Overview
+        </h2>
+        <div
+          v-html="formattedDetailsHtml"
+          class="text-sm text-zinc-800 leading-relaxed [&_strong]:text-zinc-900 [&_strong]:font-black [&_strong]:font-hand [&_ul]:space-y-3 [&_ul]:my-4 [&_li]:flex [&_li]:items-start [&_li]:gap-2"
+        ></div>
+      </section>
+
+      <!-- Gallery Carousel -->
+      <section
+        v-if="project.images && project.images.length > 0"
+        class="space-y-4"
+      >
+        <h2 class="text-2xl font-black text-zinc-900 font-hand flex items-center gap-2">
+          <span>🎨</span> Project Showcase
         </h2>
 
-        <div class="relative group">
+        <div
+          class="bg-white border-3 border-zinc-900 rounded-[28px] p-4 sm:p-6 shadow-[6px_6px_0px_0px_#18181b] space-y-4 relative"
+        >
+          <!-- Main Stage -->
           <div
-            class="absolute -inset-1.5 bg-gradient-to-r from-[#d4af37] to-blue-600 rounded-2xl blur-2xl opacity-15 group-hover:opacity-25 transition duration-1000"
-          ></div>
-
-          <div
-            class="relative bg-white/5 border border-white/10 rounded-2xl p-3 backdrop-blur-sm"
+            @click="openLightbox"
+            class="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-zinc-100 border-2 border-zinc-900 cursor-zoom-in group"
           >
+            <transition name="gallery-fade" mode="out-in">
+              <img
+                :key="activeIndex"
+                :src="'/' + project.images[activeIndex].replace('public/', '')"
+                :alt="project.name + ' slide ' + (activeIndex + 1)"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+            </transition>
+
+            <!-- Frame Indicator -->
             <div
-              @click="openLightbox"
-              class="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-[#03060a] cursor-zoom-in group/stage"
+              class="absolute top-3 left-3 bg-white border-2 border-zinc-900 px-3 py-1 rounded-lg text-xs font-bold text-zinc-900 font-hand shadow-[2px_2px_0px_0px_#18181b] select-none"
             >
-              <transition name="gallery-fade" mode="out-in">
-                <img
-                  :key="activeIndex"
-                  :src="
-                    '/' + project.images[activeIndex].replace('public/', '')
-                  "
-                  :alt="project.name + ' slide ' + (activeIndex + 1)"
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover/stage:scale-[1.03]"
-                />
-              </transition>
-
-              <div
-                class="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-white/10 text-xs font-mono text-white/90 tracking-widest select-none"
-              >
-                {{ String(activeIndex + 1).padStart(2, "0") }} /
-                {{ String(project.images.length).padStart(2, "0") }}
-              </div>
-
-              <div
-                v-if="project.images.length > 1"
-                class="absolute inset-y-0 inset-x-4 flex items-center justify-between pointer-events-none"
-              >
-                <button
-                  @click.stop="prevImage"
-                  class="pointer-events-auto p-3.5 rounded-xl bg-black/60 hover:bg-black/95 border border-white/10 hover:border-[#d4af37] text-white/80 hover:text-white transition-all duration-300 transform -translate-x-2 group-hover/stage:translate-x-0 opacity-0 group-hover/stage:opacity-100"
-                  aria-label="Previous Image"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2.5"
-                    stroke="currentColor"
-                    class="w-5 h-5"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M15.75 19.5L8.25 12l7.5-7.5"
-                    />
-                  </svg>
-                </button>
-                <button
-                  @click.stop="nextImage"
-                  class="pointer-events-auto p-3.5 rounded-xl bg-black/60 hover:bg-black/95 border border-white/10 hover:border-[#d4af37] text-white/80 hover:text-white transition-all duration-300 transform translate-x-2 group-hover/stage:translate-x-0 opacity-0 group-hover/stage:opacity-100"
-                  aria-label="Next Image"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2.5"
-                    stroke="currentColor"
-                    class="w-5 h-5"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
-                </button>
-              </div>
+              Frame {{ String(activeIndex + 1).padStart(2, "0") }} /
+              {{ String(project.images.length).padStart(2, "0") }}
             </div>
 
+            <!-- Controls -->
             <div
               v-if="project.images.length > 1"
-              class="mt-4 flex gap-3 overflow-x-auto py-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent"
+              class="absolute inset-y-0 inset-x-3 flex items-center justify-between pointer-events-none"
             >
               <button
-                v-for="(image, index) in project.images"
-                :key="index"
-                @click="setActiveImage(index)"
-                class="relative flex-shrink-0 w-24 aspect-[16/9] rounded-lg overflow-hidden border transition-all duration-300 transform focus:outline-none"
-                :class="
-                  activeIndex === index
-                    ? 'border-[#d4af37] scale-[1.04] ring-4 ring-[#d4af37]/20 z-10'
-                    : 'border-white/10 opacity-50 hover:opacity-100 hover:border-white/30'
-                "
+                @click.stop="prevImage"
+                class="pointer-events-auto p-2.5 rounded-xl bg-amber-200 border-2 border-zinc-900 text-zinc-900 hover:bg-amber-300 transition-all shadow-[2px_2px_0px_0px_#18181b]"
+                aria-label="Previous Image"
               >
-                <img
-                  :src="'/' + image.replace('public/', '')"
-                  class="w-full h-full object-cover"
-                  alt="Thumbnail navigation"
-                />
+                <ChevronLeft class="w-5 h-5" />
+              </button>
+              <button
+                @click.stop="nextImage"
+                class="pointer-events-auto p-2.5 rounded-xl bg-amber-200 border-2 border-zinc-900 text-zinc-900 hover:bg-amber-300 transition-all shadow-[2px_2px_0px_0px_#18181b]"
+                aria-label="Next Image"
+              >
+                <ChevronRight class="w-5 h-5" />
               </button>
             </div>
           </div>
-        </div>
-      </div>
 
-      <section class="border-t border-white/10 pt-20 mb-20">
-        <div class="flex flex-col mb-12">
-          <h2 class="text-4xl font-bold text-white font-display">
-            Book a Demo
-          </h2>
+          <!-- Thumbnails Track -->
+          <div
+            v-if="project.images.length > 1"
+            class="flex gap-3 overflow-x-auto py-2 scrollbar-thin"
+          >
+            <button
+              v-for="(image, index) in project.images"
+              :key="index"
+              @click="setActiveImage(index)"
+              class="relative flex-shrink-0 w-24 aspect-[16/9] rounded-xl overflow-hidden border-2 border-zinc-900 transition-all focus:outline-none"
+              :class="
+                activeIndex === index
+                  ? 'ring-2 ring-amber-400 scale-[1.03] shadow-[2px_2px_0px_0px_#18181b]'
+                  : 'opacity-60 hover:opacity-100'
+              "
+            >
+              <img
+                :src="'/' + image.replace('public/', '')"
+                class="w-full h-full object-cover"
+                alt="Thumbnail"
+              />
+            </button>
+          </div>
         </div>
+      </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div class="space-y-8">
-            <p class="text-lg text-[#8891a4] leading-relaxed">
-              Interested in seeing how
-              <strong class="text-white">{{ project.name }}</strong> can be
-              customized or scaled for your business needs? Provide your details
-              to instantly prepare a personalized demo request.
+      <!-- Booking / Demo Section -->
+      <section class="space-y-4 pt-4">
+        <h2 class="text-2xl font-black text-zinc-900 font-hand flex items-center gap-2">
+          <CalendarDays class="w-6 h-6 text-amber-600" /> Request Demo & Walkthrough
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Direct Inquiry Info -->
+          <div
+            class="bg-amber-50 border-3 border-zinc-900 rounded-[28px] p-6 shadow-[6px_6px_0px_0px_#18181b] space-y-4 rotate-1"
+          >
+            <p class="text-xs text-zinc-800 leading-relaxed font-medium">
+              Want to see how <strong class="text-zinc-900 font-bold font-hand">{{ project.name }}</strong> can be configured or expanded for your specific workflow? Submit your request details to setup a direct demo call.
             </p>
 
-            <div class="space-y-6">
-              <div class="flex items-center gap-6 group">
-                <div
-                  class="w-12 h-12 rounded-2xl bg-[#d4af37]/10 border border-[#d4af37]/20 flex items-center justify-center text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#080b12] transition-all duration-300"
-                >
-                  <CalendarDays />
-                </div>
-                <div>
-                  <p
-                    class="text-xs font-bold text-[#5a6275] uppercase tracking-widest mb-1"
-                  >
-                    Direct Inquiries
-                  </p>
-                  <a
-                    href="mailto:rei.nhard3367@gmail.com"
-                    class="text-white font-bold hover:text-[#d4af37] transition-colors"
-                    >rei.nhard3367@gmail.com</a
-                  >
-                </div>
-              </div>
+            <div class="border-t-2 border-dashed border-zinc-900 pt-4">
+              <span class="text-[10px] font-bold text-amber-800 uppercase tracking-widest block mb-1">
+                Direct Contact
+              </span>
+              <a
+                href="mailto:rei.nhard3367@gmail.com"
+                class="text-xs font-black text-zinc-900 hover:text-amber-700 underline font-hand"
+              >
+                rei.nhard3367@gmail.com
+              </a>
             </div>
           </div>
 
+          <!-- Doodle Booking Form -->
           <div
-            class="bg-white/[0.02] border border-white/10 rounded-[2.5rem] p-8 md:p-10"
+            class="bg-white border-3 border-zinc-900 rounded-[28px] p-6 shadow-[6px_6px_0px_0px_#18181b] space-y-4"
           >
-            <div class="space-y-6">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-2">
-                  <label
-                    class="text-xs font-bold text-[#5a6275] uppercase tracking-widest ml-1"
-                    >Your Name</label
-                  >
-                  <input
-                    v-model="bookingForm.name"
-                    type="text"
-                    placeholder="John Doe"
-                    class="w-full bg-[#10151f] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#d4af37]/50 transition-all placeholder:text-white/20"
-                  />
-                </div>
-                <div class="space-y-2">
-                  <label
-                    class="text-xs font-bold text-[#5a6275] uppercase tracking-widest ml-1"
-                    >Preferred Date / Time</label
-                  >
-                  <input
-                    v-model="bookingForm.preferredTime"
-                    type="text"
-                    placeholder="e.g., Friday Afternoon"
-                    class="w-full bg-[#10151f] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#d4af37]/50 transition-all placeholder:text-white/20"
-                  />
-                </div>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-bold text-zinc-800 mb-1">Your Name</label>
+                <input
+                  v-model="bookingForm.name"
+                  type="text"
+                  placeholder="John Doe"
+                  class="w-full bg-amber-50/40 border-2 border-zinc-900 rounded-xl text-zinc-900 text-xs p-2.5 outline-none focus:bg-white font-medium shadow-[2px_2px_0px_0px_#18181b]"
+                />
               </div>
-              <div class="space-y-2">
-                <label
-                  class="text-xs font-bold text-[#5a6275] uppercase tracking-widest ml-1"
-                  >Message / Specifications</label
-                >
+
+              <div>
+                <label class="block text-xs font-bold text-zinc-800 mb-1">Preferred Schedule</label>
+                <input
+                  v-model="bookingForm.preferredTime"
+                  type="text"
+                  placeholder="e.g., Friday Afternoon"
+                  class="w-full bg-amber-50/40 border-2 border-zinc-900 rounded-xl text-zinc-900 text-xs p-2.5 outline-none focus:bg-white font-medium shadow-[2px_2px_0px_0px_#18181b]"
+                />
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-zinc-800 mb-1">Project Notes / Requirements</label>
                 <textarea
                   v-model="bookingForm.message"
-                  rows="4"
-                  placeholder="Tell me more about your business needs or customization requests..."
-                  class="w-full bg-[#10151f] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#d4af37]/50 transition-all placeholder:text-white/20 resize-none"
+                  rows="3"
+                  placeholder="Describe your goals or customization needs..."
+                  class="w-full bg-amber-50/40 border-2 border-zinc-900 rounded-xl text-zinc-900 text-xs p-2.5 outline-none focus:bg-white font-medium shadow-[2px_2px_0px_0px_#18181b] resize-none"
                 ></textarea>
               </div>
 
               <button
                 @click="openBookingGmail"
-                class="group relative flex items-center justify-center gap-3 w-full py-5 bg-[#d4af37] text-[#080b12] rounded-xl font-bold hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-[#d4af37]/10 overflow-hidden"
+                class="w-full py-2.5 bg-amber-300 hover:bg-amber-400 border-2 border-zinc-900 rounded-xl font-black text-xs text-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_0px_#18181b] transition-all cursor-pointer flex items-center justify-center gap-2 font-hand"
               >
-                <div
-                  class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-                ></div>
-                <span class="relative z-10 flex items-center gap-2">
-                  Request Demo
-                  <Send class="w-4 h-4" />
-                </span>
+                <span>Submit Demo Request</span>
+                <Send class="w-4 h-4" />
               </button>
-
-              <p
-                class="text-[10px] text-[#5a6275] text-center uppercase tracking-widest mt-4"
-              >
-                Clicking will open a new tab with your booking details ready.
-              </p>
             </div>
           </div>
         </div>
       </section>
-    </div>
 
-    <transition name="lightbox-fade">
-      <div
-        v-if="isLightboxOpen"
-        class="fixed inset-0 z-50 flex flex-col justify-between p-6 bg-[#04060b]/98 backdrop-blur-md"
-        @click.self="closeLightbox"
-      >
+      <!-- Lightbox Modal -->
+      <transition name="lightbox-fade">
         <div
-          class="flex items-center justify-between text-white/60 max-w-7xl mx-auto w-full select-none"
+          v-if="isLightboxOpen"
+          class="fixed inset-0 z-50 flex flex-col justify-between p-4 sm:p-8 bg-zinc-900/80 backdrop-blur-sm"
+          @click.self="closeLightbox"
         >
-          <span class="font-mono text-sm tracking-wider uppercase">
-            {{ project.name }} <span class="text-[#d4af37] mx-2">//</span> Frame
-            {{ activeIndex + 1 }}
-          </span>
-          <button
-            @click="closeLightbox"
-            class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white transition-all duration-200"
-            aria-label="Close Lightbox"
+          <div
+            class="flex items-center justify-between text-white max-w-6xl mx-auto w-full select-none"
           >
-            <X class="w-6 h-6" />
-          </button>
-        </div>
+            <span class="font-hand text-sm font-bold text-amber-300">
+              {{ project.name }} — Frame {{ activeIndex + 1 }}
+            </span>
+            <button
+              @click="closeLightbox"
+              class="p-2 rounded-xl bg-amber-300 border-2 border-zinc-900 text-zinc-900 font-black shadow-[2px_2px_0px_0px_#18181b] hover:bg-amber-400"
+              aria-label="Close Lightbox"
+            >
+              <X class="w-5 h-5" />
+            </button>
+          </div>
 
-        <div
-          class="flex-1 flex items-center justify-center relative max-w-7xl mx-auto w-full px-12"
-        >
-          <button
-            v-if="project.images.length > 1"
-            @click="prevImage"
-            class="absolute left-0 p-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:border-[#d4af37] transition-all duration-300"
+          <div
+            class="flex-1 flex items-center justify-center relative max-w-6xl mx-auto w-full px-8"
           >
-            <ChevronLeft />
-          </button>
+            <button
+              v-if="project.images.length > 1"
+              @click="prevImage"
+              class="absolute left-0 p-3 rounded-xl bg-amber-200 border-2 border-zinc-900 text-zinc-900 hover:bg-amber-300 shadow-[2px_2px_0px_0px_#18181b]"
+            >
+              <ChevronLeft class="w-6 h-6" />
+            </button>
 
-          <img
-            :src="'/' + project.images[activeIndex].replace('public/', '')"
-            :alt="project.name"
-            class="max-w-full max-h-[75vh] object-contain rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] border border-white/5 transition-all duration-500"
-          />
-
-          <button
-            v-if="project.images.length > 1"
-            @click="nextImage"
-            class="absolute right-0 p-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:border-[#d4af37] transition-all duration-300"
-          >
-            <ChevronRight />
-          </button>
-        </div>
-
-        <div
-          v-if="project.images.length > 1"
-          class="flex justify-center gap-2 overflow-x-auto py-4 select-none"
-        >
-          <button
-            v-for="(image, index) in project.images"
-            :key="'lb-' + index"
-            @click="setActiveImage(index)"
-            class="relative flex-shrink-0 w-16 aspect-[16/9] rounded-md overflow-hidden border transition-all duration-200"
-            :class="
-              activeIndex === index
-                ? 'border-[#d4af37] scale-105 ring-2 ring-[#d4af37]/40 z-10'
-                : 'border-white/10 opacity-40 hover:opacity-100'
-            "
-          >
             <img
-              :src="'/' + image.replace('public/', '')"
-              class="w-full h-full object-cover"
-              alt="Thumbnail navigation"
+              :src="'/' + project.images[activeIndex].replace('public/', '')"
+              :alt="project.name"
+              class="max-w-full max-h-[75vh] object-contain rounded-2xl border-3 border-zinc-900 bg-white shadow-[8px_8px_0px_0px_#18181b]"
             />
-          </button>
+
+            <button
+              v-if="project.images.length > 1"
+              @click="nextImage"
+              class="absolute right-0 p-3 rounded-xl bg-amber-200 border-2 border-zinc-900 text-zinc-900 hover:bg-amber-300 shadow-[2px_2px_0px_0px_#18181b]"
+            >
+              <ChevronRight class="w-6 h-6" />
+            </button>
+          </div>
+
+          <div
+            v-if="project.images.length > 1"
+            class="flex justify-center gap-2 overflow-x-auto py-2 select-none"
+          >
+            <button
+              v-for="(image, index) in project.images"
+              :key="'lb-' + index"
+              @click="setActiveImage(index)"
+              class="relative flex-shrink-0 w-16 aspect-[16/9] rounded-lg overflow-hidden border-2 border-zinc-900 transition-all"
+              :class="
+                activeIndex === index
+                  ? 'ring-2 ring-amber-400 scale-105'
+                  : 'opacity-50 hover:opacity-100'
+              "
+            >
+              <img
+                :src="'/' + image.replace('public/', '')"
+                class="w-full h-full object-cover"
+                alt="Thumbnail"
+              />
+            </button>
+          </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+
+      <!-- Footer -->
+      <footer
+        class="text-center text-xs font-bold text-zinc-600 border-t-2 border-dashed border-zinc-400 pt-6 font-hand"
+      >
+        Hand-crafted by Reinhard Esteban © {{ new Date().getFullYear() }}
+      </footer>
+    </div>
   </div>
-  <div v-else class="bg-[#080b12] text-white text-center py-20">
-    <p>Project not found.</p>
+
+  <div v-else class="bg-[#fffef9] text-zinc-900 text-center py-20 font-hand">
+    <p class="text-lg">Project details not found.</p>
     <router-link
-      to="/home"
-      class="text-[#d4af37] hover:underline mt-4 inline-block"
-      >&larr; Back to Home</router-link
+      to="/"
+      class="text-amber-700 font-bold underline mt-4 inline-block"
+      >&larr; Back to Portfolio</router-link
     >
   </div>
 </template>
@@ -464,13 +449,13 @@ const formattedDetailsHtml = computed(() => {
 
     if (cleanLine.startsWith("•") || cleanLine.startsWith("-")) {
       if (!inList) {
-        htmlResult += '<ul class="space-y-4 my-6 pl-1">';
+        htmlResult += '<ul class="space-y-3 my-4 pl-1">';
         inList = true;
       }
       const itemContent = cleanLine.replace(/^[•-]\s*/, "");
       htmlResult += `
         <li class="flex items-start">
-          <span class="text-[#d4af37] mr-3 mt-1.5 select-none text-sm">◆</span>
+          <span class="text-amber-600 mr-2 select-none text-xs">✏️</span>
           <span>${itemContent}</span>
         </li>`;
     } else {
@@ -478,7 +463,7 @@ const formattedDetailsHtml = computed(() => {
         htmlResult += "</ul>";
         inList = false;
       }
-      htmlResult += `<p class="mb-6">${cleanLine}</p>`;
+      htmlResult += `<p class="mb-4">${cleanLine}</p>`;
     }
   }
 
@@ -491,24 +476,32 @@ const formattedDetailsHtml = computed(() => {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Kalam:wght@400;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap");
+
+.font-hand {
+  font-family: "Kalam", cursive;
+}
+
+.font-doodle {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
 .gallery-fade-enter-active,
 .gallery-fade-leave-active {
-  transition:
-    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .gallery-fade-enter-from {
   opacity: 0;
-  transform: scale(0.975);
+  transform: scale(0.98);
 }
 .gallery-fade-leave-to {
   opacity: 0;
-  transform: scale(1.025);
+  transform: scale(1.02);
 }
 
 .lightbox-fade-enter-active,
 .lightbox-fade-leave-active {
-  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.2s ease;
 }
 .lightbox-fade-enter-from,
 .lightbox-fade-leave-to {
@@ -516,16 +509,13 @@ const formattedDetailsHtml = computed(() => {
 }
 
 .scrollbar-thin::-webkit-scrollbar {
-  height: 4px;
+  height: 6px;
 }
 .scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: #d4cebe;
   border-radius: 9999px;
-}
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.4);
 }
 </style>
