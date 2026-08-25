@@ -10,9 +10,9 @@ const routes = [
     component: Home,
   },
   {
-    path: "/contact",
-    name: "Contact",
-    component: Contact,
+    path: "/home",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/project/:slug",
