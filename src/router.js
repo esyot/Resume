@@ -6,7 +6,7 @@ import Project from "./components/Project.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "",
     component: Home,
   },
   {
