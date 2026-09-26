@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import { useToast } from "vue-toastification";
 import {
   Globe,
   Palette,
@@ -33,12 +34,18 @@ import {
   Linkedin,
   ExternalLink,
   CheckCircle2,
-  Send
+  Send,
 } from "lucide-vue-next";
 
 import { projects } from "../data/projects.js";
 
+// Import your custom components
+import CursorTail from "./CursorTail.vue";
+import AnimatedCounter from "./AnimatedCounter.vue";
+
+const toast = useToast();
 const isShowPopup = ref(false);
+
 const togglePopup = () => {
   isShowPopup.value = !isShowPopup.value;
 };
@@ -50,14 +57,24 @@ const form = ref({
 });
 
 const openGmail = () => {
-  const subject = encodeURIComponent(
-    `Inquiry from ${form.value.name || "Portfolio Visitor"}`
-  );
-  const body = encodeURIComponent(
-    `${form.value.message}\n\nFrom: ${form.value.name}\nEmail: ${form.value.email}`
-  );
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=rei.nhard3367@gmail.com&su=${subject}&body=${body}`;
-  window.open(gmailUrl, "_blank");
+  if (!form.value.name || !form.value.message) {
+    toast.error("Please fill in your name and message so we can connect!");
+    return;
+  }
+
+  toast.success("Preparing your email draft...");
+
+  setTimeout(() => {
+    const subject = encodeURIComponent(`Inquiry from ${form.value.name}`);
+    const body = encodeURIComponent(
+      `${form.value.message}\n\nFrom: ${form.value.name}\nEmail: ${form.value.email}`,
+    );
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=rei.nhard3367@gmail.com&su=${subject}&body=${body}`;
+    window.open(gmailUrl, "_blank");
+
+    // Reset form
+    form.value = { name: "", email: "", message: "" };
+  }, 1000);
 };
 
 let observer = null;
@@ -67,12 +84,20 @@ onMounted(() => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0");
-          entry.target.classList.remove("opacity-0", "translate-y-10");
+          entry.target.classList.add(
+            "opacity-100",
+            "translate-y-0",
+            "scale-100",
+          );
+          entry.target.classList.remove(
+            "opacity-0",
+            "translate-y-8",
+            "scale-95",
+          );
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.1 },
   );
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 });
@@ -84,28 +109,90 @@ onUnmounted(() => {
 });
 
 const skills = [
-  { name: "HTML5", rating: 4, icon: Globe },
-  { name: "CSS", rating: 4, icon: Palette },
-  { name: "JavaScript", rating: 4, icon: Zap },
-  { name: "TypeScript", rating: 4, icon: Code2 },
-  { name: "GIT", rating: 4, icon: GitBranch },
-  { name: "Flutter", rating: 4, icon: Smartphone },
-  { name: "JAVA", rating: 4, icon: Coffee },
-  { name: "PHP", rating: 4, icon: Server },
-  { name: "Blade", rating: 4, icon: Settings },
-  { name: "Vue", rating: 4, icon: Layers },
-  { name: "Python", rating: 3, icon: Terminal },
-  { name: "React", rating: 4, icon: Atom },
-  { name: "React Native", rating: 4, icon: Tablet },
-  { name: "Tailwind CSS", rating: 4, icon: Wind },
-  { name: "Laravel", rating: 4, icon: Box },
-  { name: "SQL", rating: 4, icon: Database },
-  { name: "Firebase", rating: 4, icon: Flame },
-  { name: "Next.js", rating: 4, icon: ChevronUp },
-  { name: "Node.js", rating: 3, icon: Cpu },
-  { name: "Inertia", rating: 4, icon: LinkIcon },
-  { name: "Nuxt.js", rating: 3, icon: Lightbulb },
-  { name: "WordPress", rating: 3, icon: FileText },
+  {
+    name: "HTML5",
+    rating: 4,
+    icon: Globe,
+    color: "text-orange-500",
+    bg: "bg-orange-100",
+  },
+  {
+    name: "CSS",
+    rating: 4,
+    icon: Palette,
+    color: "text-blue-500",
+    bg: "bg-blue-100",
+  },
+  {
+    name: "JavaScript",
+    rating: 4,
+    icon: Zap,
+    color: "text-yellow-500",
+    bg: "bg-yellow-100",
+  },
+  {
+    name: "TypeScript",
+    rating: 4,
+    icon: Code2,
+    color: "text-blue-600",
+    bg: "bg-blue-100",
+  },
+  {
+    name: "GIT",
+    rating: 4,
+    icon: GitBranch,
+    color: "text-red-500",
+    bg: "bg-red-100",
+  },
+  {
+    name: "Flutter",
+    rating: 4,
+    icon: Smartphone,
+    color: "text-cyan-500",
+    bg: "bg-cyan-100",
+  },
+  {
+    name: "JAVA",
+    rating: 4,
+    icon: Coffee,
+    color: "text-red-600",
+    bg: "bg-red-100",
+  },
+  {
+    name: "PHP",
+    rating: 4,
+    icon: Server,
+    color: "text-indigo-500",
+    bg: "bg-indigo-100",
+  },
+  {
+    name: "Vue",
+    rating: 4,
+    icon: Layers,
+    color: "text-emerald-500",
+    bg: "bg-emerald-100",
+  },
+  {
+    name: "React",
+    rating: 4,
+    icon: Atom,
+    color: "text-sky-500",
+    bg: "bg-sky-100",
+  },
+  {
+    name: "Tailwind CSS",
+    rating: 4,
+    icon: Wind,
+    color: "text-teal-500",
+    bg: "bg-teal-100",
+  },
+  {
+    name: "Laravel",
+    rating: 4,
+    icon: Box,
+    color: "text-rose-500",
+    bg: "bg-rose-100",
+  },
 ];
 
 const careerHistory = [
@@ -128,35 +215,6 @@ const careerHistory = [
     description:
       "Built intelligent systems powering local industries including AI integrations, custom enterprise software, and automated workflows for utilities and educational institutions.",
   },
-  {
-    title: "Web Developer",
-    company: "Brandetize",
-    link: "https://brandetize.com",
-    employment_type: "Contract Based",
-    period: "Dec 2025 - Mar 2026",
-    duration: "4 months",
-    description: `Engineered seamless marketing funnels, scaled lead generation systems, and maintained digital architectures for client web assets.`,
-  },
-  {
-    title: "Web Developer",
-    company: "Onda Fit",
-    link: "https://onda.fit",
-    employment_type: "Contract Based",
-    period: "Jun 2025 - Dec 2025",
-    duration: "7 months",
-    description:
-      "Co-created the primary management platform for Philippine sports hubs, streamlining scheduling, membership retention, and digital payments via GCash and Maya.",
-  },
-  {
-    title: "Software Developer (Thesis Project)",
-    company: "Mater Dei College - Bohol",
-    link: "",
-    employment_type: "On The Job Training",
-    period: "Jan 2025 - Apr 2025",
-    duration: "4 months",
-    description:
-      "Engineered an enterprise platform featuring asset management, leave automation, and teacher performance evaluation workflows.",
-  },
 ];
 
 const years = new Date().getFullYear() - 2021;
@@ -169,9 +227,9 @@ const personalDetails = {
 };
 
 const stats = [
-  { value: `${years}+`, label: "Years Exp." },
+  { value: years, label: "Years Experience" },
   { value: projects.length, label: "Projects Built" },
-  { value: skills.length, label: "Skills & Tools" },
+  { value: skills.length, label: "Tools Mastered" },
 ];
 
 const toSlug = (name) => {
@@ -183,78 +241,108 @@ const toSlug = (name) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#fffef9] text-zinc-900 font-doodle p-4 sm:p-8 md:p-12 selection:bg-amber-200 selection:text-zinc-900 relative overflow-x-hidden">
-    <!-- Grid Doodle Pattern Background -->
-    <div class="fixed inset-0 pointer-events-none bg-[radial-gradient(#d4cebe_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-60 z-0"></div>
+  <div
+    class="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-purple-200 selection:text-purple-900 overflow-x-hidden relative"
+  >
+    <!-- Animated Cursor Tail Component -->
+    <CursorTail />
 
-    <!-- Hand-drawn Visual Doodles -->
-     <div class="fixed top-10 left-8 w-24 h-24 bg-amber-200/40 rounded-full blur-xl pointer-events-none"></div>
-       <div class="fixed bottom-10 right-8 w-24 h-24 bg-amber-200/40 rounded-full blur-xl pointer-events-none"></div>
+    <!-- Modern Animated Gradients Background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div
+        class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-purple-300/20 blur-[120px] mix-blend-multiply"
+      ></div>
+      <div
+        class="absolute top-[20%] -right-[10%] w-[40vw] h-[40vw] rounded-full bg-blue-300/20 blur-[120px] mix-blend-multiply"
+      ></div>
+      <div
+        class="absolute -bottom-[20%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-emerald-300/10 blur-[120px] mix-blend-multiply"
+      ></div>
+    </div>
 
-    <div class="max-w-[960px] mx-auto w-full relative z-10 space-y-12">
-
-      <!-- Header Card with Tape Effects -->
-      <header class="bg-white border-3 border-zinc-900 rounded-[30px] p-6 sm:p-10 shadow-[6px_6px_0px_0px_#18181b] relative transform -rotate-1">
-        <!-- Masking Tape Doodle -->
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-6 bg-amber-100/80 border-y border-zinc-400 rotate-2 opacity-90 pointer-events-none shadow-sm"></div>
-
-        <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
-          
+    <div
+      class="max-w-5xl mx-auto w-full p-4 sm:p-8 md:p-12 space-y-16 relative z-10"
+    >
+      <!-- Header Section -->
+      <header
+        class="bg-white/70 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/80 reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 ease-out"
+      >
+        <div
+          class="flex flex-col md:flex-row gap-10 items-center md:items-start"
+        >
           <!-- Avatar Frame -->
           <div class="relative flex-shrink-0 group">
-            <div class="w-36 h-36 p-2 bg-amber-100 border-3 border-zinc-900 rounded-[24px] shadow-[4px_4px_0px_0px_#18181b] rotate-2">
+            <div
+              class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-[2.5rem] rotate-6 group-hover:rotate-12 transition-transform duration-500 opacity-20 blur-lg"
+            ></div>
+            <div
+              class="w-40 h-40 rounded-[2rem] overflow-hidden border-4 border-white shadow-xl relative z-10 transition-transform duration-500 group-hover:scale-105"
+            >
               <img
                 :src="'/assets/images/' + personalDetails.img"
                 alt="Reinhard Esteban"
-                class="w-full h-full object-cover rounded-[16px] border-2 border-zinc-900 filter contrast-105"
+                class="w-full h-full object-cover"
               />
             </div>
-            <!-- Star SVG Annotation -->
-            <div class="absolute -top-3 -right-3 text-amber-500 font-hand text-xl rotate-12">✦</div>
           </div>
 
           <!-- Main Info -->
-          <div class="flex-1 text-center md:text-left space-y-3">
-            <div class="inline-flex items-center gap-1.5 bg-sky-200 border-2 border-zinc-900 px-3 py-1 text-xs font-bold rounded-lg shadow-[2px_2px_0px_0px_#18181b] -rotate-1">
-              <Rocket :size="14" /> Software Developer
+          <div class="flex-1 text-center md:text-left space-y-5 pt-2">
+            <div
+              class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 px-4 py-1.5 text-sm font-bold rounded-full border border-purple-200/50 shadow-sm"
+            >
+              <Rocket :size="16" class="text-purple-600 animate-pulse" /> Open
+              to Opportunities
             </div>
 
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-zinc-900 font-hand">
+            <h1
+              class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-700"
+            >
               {{ personalDetails.name }}
             </h1>
 
-            <p class="text-zinc-600 font-bold text-base">
+            <p class="text-purple-600 font-bold text-xl md:text-2xl">
               {{ personalDetails.title }}
             </p>
 
-            <p class="text-zinc-700 text-sm leading-relaxed max-w-xl font-medium">
-              "{{ personalDetails.tagline }}"
+            <p
+              class="text-slate-600 text-lg leading-relaxed max-w-2xl font-medium"
+            >
+              {{ personalDetails.tagline }}
             </p>
 
-            <div class="pt-2 flex flex-wrap gap-4 justify-center md:justify-start">
+            <div
+              class="pt-2 flex flex-wrap gap-4 justify-center md:justify-start"
+            >
               <button
                 @click="togglePopup"
-                class="bg-emerald-300 hover:bg-emerald-400 text-zinc-900 font-bold px-4 py-2 rounded-xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_0px_#18181b] transition-all text-xs flex items-center gap-2 cursor-pointer"
+                class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-6 py-3 rounded-full border border-slate-200 shadow-[0_4px_14px_0_rgb(0,0,0,0.05)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all text-sm flex items-center gap-2 cursor-pointer"
               >
-                <HelpCircle :size="16" /> What is Full-Stack?
+                <HelpCircle :size="18" class="text-blue-500" /> What is
+                Full-Stack?
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Quick Stats Banner -->
-        <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-4 border-t-3 border-zinc-900 pt-6">
+        <!-- Quick Stats -->
+        <div
+          class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-slate-200/60 pt-8"
+        >
           <div
-            v-for="(stat, idx) in stats"
+            v-for="stat in stats"
             :key="stat.label"
-            :class="[
-              'p-3 sm:p-4 rounded-2xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] text-center',
-              idx === 0 ? 'bg-amber-100 -rotate-1' : idx === 1 ? 'bg-sky-100 rotate-1' : 'bg-rose-100 -rotate-1'
-            ]"
+            class="text-center md:text-left group"
           >
-            <div class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-700">{{ stat.label }}</div>
-            <div class="text-xl sm:text-3xl font-black text-zinc-900 mt-1 font-hand">
-              {{ stat.value }}
+            <div
+              class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-blue-600"
+            >
+              <AnimatedCounter :value="stat.value" />
+            </div>
+            <div
+              class="text-sm font-bold tracking-wider text-slate-500 mt-2 uppercase"
+            >
+              {{ stat.label }}
             </div>
           </div>
         </div>
@@ -262,113 +350,194 @@ const toSlug = (name) => {
 
       <!-- Popup Modal -->
       <Teleport to="body">
-        <div
-          v-if="isShowPopup"
-          class="fixed inset-0 bg-zinc-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4 text-sm font-doodle"
-        >
-          <div class="bg-white border-3 border-zinc-900 rounded-[28px] p-6 sm:p-8 max-w-lg w-full shadow-[8px_8px_0px_0px_#18181b] space-y-4 relative transform rotate-1">
-            <div class="flex justify-between items-center border-b-2 border-zinc-900 pb-3">
-              <h3 class="text-base font-black text-zinc-900 flex items-center gap-2 font-hand">
-                <Sparkles :size="18" class="text-amber-500" /> Doodle Note: Full-Stack
-              </h3>
-              <button @click="togglePopup" class="text-zinc-900 font-black px-2.5 py-0.5 bg-amber-200 border-2 border-zinc-900 rounded-lg shadow-[2px_2px_0px_0px_#18181b] hover:bg-amber-300 cursor-pointer">✕</button>
-            </div>
-            
-            <p class="text-zinc-700 leading-relaxed font-medium">
-              A full-stack developer designs user interfaces, manages database backends, and connects the entire software puzzle from end to end!
-            </p>
-            
-            <div class="pt-2 flex justify-end">
-              <button
-                @click="togglePopup"
-                class="bg-amber-300 hover:bg-amber-400 text-zinc-900 font-bold px-5 py-2 rounded-xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] transition-all text-xs cursor-pointer"
-              >
-                Got It!
-              </button>
+        <transition name="modal">
+          <div
+            v-if="isShowPopup"
+            class="fixed inset-0 bg-slate-900/20 backdrop-blur-md flex items-center justify-center z-[100] p-4"
+          >
+            <div
+              class="bg-white/90 backdrop-blur-xl rounded-[2.5rem] p-8 max-w-lg w-full shadow-2xl border border-white space-y-6 transform transition-all"
+            >
+              <div class="flex justify-between items-center">
+                <div
+                  class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center"
+                >
+                  <Sparkles :size="24" class="text-purple-600" />
+                </div>
+                <button
+                  @click="togglePopup"
+                  class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition-colors cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-3">
+                  Full-Stack Defined
+                </h3>
+                <p class="text-slate-600 leading-relaxed text-base font-medium">
+                  A full-stack developer designs intuitive user interfaces,
+                  manages robust database backends, and connects the entire
+                  software puzzle from end to end, ensuring scalable and
+                  reliable architecture.
+                </p>
+              </div>
+
+              <div class="pt-4 flex justify-end">
+                <button
+                  @click="togglePopup"
+                  class="bg-slate-900 hover:bg-slate-800 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-sm cursor-pointer w-full sm:w-auto"
+                >
+                  Got it, thanks!
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </transition>
       </Teleport>
 
-      <!-- About Me -->
-      <section class="space-y-4">
-        <h2 class="text-2xl font-black text-zinc-900 tracking-tight flex items-center gap-2 font-hand">
-          <User :size="22" class="text-amber-600" /> About Me
+      <!-- About Me Section -->
+      <section
+        class="space-y-6 reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 ease-out delay-100"
+      >
+        <h2
+          class="text-2xl font-black text-slate-900 flex items-center gap-3 ml-2"
+        >
+          <div class="p-2 bg-blue-100 rounded-xl">
+            <User :size="24" class="text-blue-600" />
+          </div>
+          Professional Summary
         </h2>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="md:col-span-2 bg-white border-3 border-zinc-900 rounded-[24px] p-6 shadow-[5px_5px_0px_0px_#18181b] space-y-3 text-zinc-800 text-sm leading-relaxed">
+          <div
+            class="md:col-span-2 bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 shadow-sm border border-white/80 space-y-5 text-slate-700 text-lg leading-relaxed font-medium"
+          >
             <p>
-              I’m a software developer with <strong class="text-zinc-900 font-bold bg-amber-200 px-1 rounded">{{ years }}+ years</strong> of experience crafting web, mobile, and desktop applications.
+              I am a software engineer with over
+              <span
+                class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600"
+                ><AnimatedCounter :value="years" /> years</span
+              >
+              of experience in full-cycle software development. I specialize in
+              crafting performant web, mobile, and desktop applications using
+              modern architectural patterns.
             </p>
             <p>
-              Whether structuring robust backend architectures or designing playful UIs, I love turning complex logic into accessible, reliable software.
+              From structuring robust backend APIs to designing intuitive user
+              interfaces, my primary goal is to translate complex business
+              requirements into accessible, reliable, and scalable software
+              solutions.
             </p>
-            
-            <div class="flex gap-3 pt-3">
-              <a href="https://github.com/esyot" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-amber-100 border-2 border-zinc-900 text-xs font-bold text-zinc-900 shadow-[2px_2px_0px_0px_#18181b] hover:bg-amber-200 transition-all flex items-center gap-1.5">
-                <Github :size="14" /> GitHub
+
+            <div class="flex flex-wrap gap-4 pt-4">
+              <a
+                href="https://github.com/esyot"
+                target="_blank"
+                class="px-6 py-3 rounded-full bg-slate-900 text-white text-sm font-semibold shadow-lg hover:shadow-xl hover:bg-slate-800 hover:-translate-y-0.5 transition-all flex items-center gap-2"
+              >
+                <Github :size="18" /> GitHub
               </a>
-              <a href="https://www.linkedin.com/in/reinhard-esteban/" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-sky-100 border-2 border-zinc-900 text-xs font-bold text-zinc-900 shadow-[2px_2px_0px_0px_#18181b] hover:bg-sky-200 transition-all flex items-center gap-1.5">
-                <Linkedin :size="14" /> LinkedIn
+              <a
+                href="https://www.linkedin.com/in/reinhard-esteban/"
+                target="_blank"
+                class="px-6 py-3 rounded-full bg-[#0a66c2] text-white text-sm font-semibold shadow-lg hover:shadow-xl hover:bg-[#004182] hover:-translate-y-0.5 transition-all flex items-center gap-2"
+              >
+                <Linkedin :size="18" /> LinkedIn
               </a>
             </div>
           </div>
 
-          <!-- Highlight Sticky Note -->
-          <div class="bg-amber-50 border-3 border-zinc-900 rounded-[24px] p-5 shadow-[5px_5px_0px_0px_#18181b] space-y-3 text-xs rotate-1 relative">
-            <div class="space-y-0.5">
-              <span class="text-amber-700 font-bold uppercase text-[10px]">Location</span>
-              <span class="text-zinc-900 font-black block text-sm font-hand">Philippines 🇵🇭</span>
-            </div>
-            <div class="border-t-2 border-dashed border-zinc-800 pt-2 space-y-0.5">
-              <span class="text-amber-700 font-bold uppercase text-[10px]">Core Focus</span>
-              <span class="text-zinc-900 font-black block text-sm font-hand">Full-Stack Web & Mobile</span>
-            </div>
-            <div class="border-t-2 border-dashed border-zinc-800 pt-2 space-y-0.5">
-              <span class="text-amber-700 font-bold uppercase text-[10px]">Toolkit</span>
-              <span class="text-zinc-900 font-black block text-xs">PHP · JS/TS · Node · Vue/React</span>
+          <!-- Quick Details Sidebar -->
+          <div
+            class="bg-gradient-to-br from-purple-500 to-blue-600 rounded-[2rem] p-8 shadow-lg text-white space-y-6 relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"
+            ></div>
+            <div class="relative z-10 space-y-6">
+              <div>
+                <span
+                  class="text-purple-100 font-bold uppercase text-xs tracking-wider"
+                  >Location</span
+                >
+                <span class="text-white font-bold text-lg block mt-1"
+                  >Philippines</span
+                >
+              </div>
+              <div class="border-t border-white/20 pt-4">
+                <span
+                  class="text-purple-100 font-bold uppercase text-xs tracking-wider"
+                  >Focus Areas</span
+                >
+                <span class="text-white font-bold text-lg block mt-1"
+                  >Full-Stack Web & Mobile</span
+                >
+              </div>
+              <div class="border-t border-white/20 pt-4">
+                <span
+                  class="text-purple-100 font-bold uppercase text-xs tracking-wider"
+                  >Core Stack</span
+                >
+                <span class="text-white font-bold text-lg block mt-1"
+                  >PHP, JS/TS, Node, Vue/React</span
+                >
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Featured Projects -->
-      <section class="space-y-4">
-        <h2 class="text-2xl font-black text-zinc-900 tracking-tight flex items-center gap-2 font-hand">
-          <Rocket :size="22" class="text-sky-600" /> Featured Projects
+      <section
+        class="space-y-6 reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 ease-out"
+      >
+        <h2
+          class="text-2xl font-black text-slate-900 flex items-center gap-3 ml-2"
+        >
+          <div class="p-2 bg-emerald-100 rounded-xl">
+            <Box :size="24" class="text-emerald-600" />
+          </div>
+          Featured Projects
         </h2>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div
             v-for="(project, idx) in projects"
             :key="project.name"
-            :class="[
-              'bg-white border-3 border-zinc-900 rounded-[24px] p-5 shadow-[5px_5px_0px_0px_#18181b] flex flex-col justify-between hover:-translate-y-1 transition-all',
-              idx % 2 === 0 ? 'rotate-1' : '-rotate-1'
-            ]"
+            class="bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] p-8 shadow-sm hover:shadow-xl flex flex-col justify-between hover:-translate-y-1 transition-all duration-300 group"
           >
             <div>
-              <div class="flex justify-between items-start mb-2 gap-2">
-                <h3 class="text-base font-black text-zinc-900 font-hand">
+              <div class="flex justify-between items-start mb-4 gap-2">
+                <h3
+                  class="text-xl font-bold text-slate-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-500 group-hover:to-teal-500 transition-all"
+                >
                   {{ project.name }}
                 </h3>
-                <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-100 border-2 border-zinc-900 text-zinc-900 font-bold shadow-[1.5px_1.5px_0px_0px_#18181b] flex items-center gap-1 shrink-0">
-                  <CheckCircle2 :size="10" /> {{ project.status }}
+                <span
+                  class="text-xs px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-bold flex items-center gap-1.5 shrink-0 shadow-sm"
+                >
+                  <span
+                    class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"
+                  ></span>
+                  {{ project.status }}
                 </span>
               </div>
 
-              <p class="text-zinc-700 text-xs mb-4 leading-relaxed font-medium">
+              <p
+                class="text-slate-600 text-base mb-6 leading-relaxed font-medium"
+              >
                 {{ project.description }}
               </p>
             </div>
 
             <div>
-              <div class="flex flex-wrap gap-1.5 mb-4">
+              <div class="flex flex-wrap gap-2 mb-6">
                 <span
                   v-for="tech in project.tech_stack"
                   :key="tech"
-                  class="text-[10px] bg-amber-50 text-zinc-900 border border-zinc-900 px-2 py-0.5 rounded-md font-bold shadow-[1px_1px_0px_0px_#18181b]"
+                  class="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full font-semibold shadow-sm"
                 >
                   {{ tech }}
                 </span>
@@ -376,9 +545,9 @@ const toSlug = (name) => {
 
               <router-link
                 :to="'/project/' + toSlug(project.name)"
-                class="inline-flex items-center gap-1 text-xs font-black text-zinc-900 hover:text-sky-600 underline"
+                class="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors bg-emerald-50 hover:bg-emerald-100 px-4 py-2 rounded-full"
               >
-                View Project Details <ExternalLink :size="12" />
+                View Documentation <ExternalLink :size="16" />
               </router-link>
             </div>
           </div>
@@ -386,27 +555,45 @@ const toSlug = (name) => {
       </section>
 
       <!-- Experience -->
-      <section class="space-y-4">
-        <h2 class="text-2xl font-black text-zinc-900 tracking-tight flex items-center gap-2 font-hand">
-          <Clock :size="22" class="text-rose-600" /> Work Experience
+      <section
+        class="space-y-6 reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 ease-out"
+      >
+        <h2
+          class="text-2xl font-black text-slate-900 flex items-center gap-3 ml-2"
+        >
+          <div class="p-2 bg-orange-100 rounded-xl">
+            <Clock :size="24" class="text-orange-600" />
+          </div>
+          Work History
         </h2>
 
         <div class="space-y-4">
           <div
             v-for="(job, idx) in careerHistory"
             :key="idx"
-            class="bg-white border-3 border-zinc-900 rounded-[24px] p-5 shadow-[5px_5px_0px_0px_#18181b] space-y-2 relative"
+            class="bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2rem] p-8 shadow-sm hover:shadow-md transition-shadow space-y-4"
           >
-            <div class="flex flex-wrap justify-between text-xs font-bold text-zinc-600 gap-2">
-              <span class="text-amber-800 bg-amber-100 px-2 py-0.5 border border-zinc-900 rounded-md shadow-[1.5px_1.5px_0px_0px_#18181b]">{{ job.period }}</span>
-              <span>{{ job.duration }}</span>
+            <div
+              class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3"
+            >
+              <h3 class="text-xl font-bold text-slate-900">
+                {{ job.title }}
+                <span
+                  class="text-orange-500 font-semibold block sm:inline mt-1 sm:mt-0"
+                  >@ {{ job.company }}</span
+                >
+              </h3>
+              <div
+                class="flex items-center gap-3 text-sm font-bold text-slate-500"
+              >
+                <span class="bg-slate-100 px-3 py-1.5 rounded-full shadow-sm">{{
+                  job.period
+                }}</span>
+                <span class="text-slate-400">{{ job.duration }}</span>
+              </div>
             </div>
-            
-            <h3 class="text-base font-black text-zinc-900 pt-1 font-hand">
-              {{ job.title }} <span class="text-zinc-600 font-semibold font-sans">@ {{ job.company }}</span>
-            </h3>
-            
-            <p class="text-xs text-zinc-700 leading-relaxed font-medium">
+
+            <p class="text-base text-slate-600 leading-relaxed font-medium">
               {{ job.description }}
             </p>
           </div>
@@ -414,102 +601,134 @@ const toSlug = (name) => {
       </section>
 
       <!-- Skills Grid -->
-      <section class="space-y-4">
-        <h2 class="text-2xl font-black text-zinc-900 tracking-tight flex items-center gap-2 font-hand">
-          <Zap :size="22" class="text-amber-500" /> Skills & Tools
+      <section
+        class="space-y-6 reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 ease-out"
+      >
+        <h2
+          class="text-2xl font-black text-slate-900 flex items-center gap-3 ml-2"
+        >
+          <div class="p-2 bg-rose-100 rounded-xl">
+            <Zap :size="24" class="text-rose-600" />
+          </div>
+          Core Technologies
         </h2>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           <div
             v-for="skill in skills"
             :key="skill.name"
-            class="bg-white border-2 border-zinc-900 rounded-xl p-3 shadow-[3px_3px_0px_0px_#18181b] flex items-center gap-2.5 hover:rotate-1 transition-transform"
+            class="bg-white/70 backdrop-blur-xl border border-white/80 rounded-[1.5rem] p-5 shadow-sm flex items-center gap-4 hover:-translate-y-1 hover:shadow-lg transition-all cursor-default"
           >
-            <component :is="skill.icon" :size="18" class="text-zinc-800 shrink-0" />
-            <span class="text-xs font-black text-zinc-900 font-hand truncate">{{ skill.name }}</span>
+            <div :class="[skill.bg, 'p-3 rounded-2xl shadow-inner']">
+              <component :is="skill.icon" :size="20" :class="skill.color" />
+            </div>
+            <span class="text-base font-bold text-slate-800 truncate">{{
+              skill.name
+            }}</span>
           </div>
         </div>
       </section>
 
       <!-- Contact Form -->
-      <section class="space-y-4">
-        <h2 class="text-2xl font-black text-zinc-900 tracking-tight flex items-center gap-2 font-hand">
-          <Mail :size="22" class="text-emerald-600" /> Send a Note
+      <section
+        class="space-y-6 reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 ease-out pb-12"
+      >
+        <h2
+          class="text-2xl font-black text-slate-900 flex items-center gap-3 ml-2"
+        >
+          <div class="p-2 bg-indigo-100 rounded-xl">
+            <Mail :size="24" class="text-indigo-600" />
+          </div>
+          Get in Touch
         </h2>
 
-        <div class="bg-white border-3 border-zinc-900 rounded-[28px] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#18181b]">
-          <form @submit.prevent="openGmail" class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-bold text-zinc-800 mb-1">Your Name</label>
+        <div
+          class="bg-white/70 backdrop-blur-xl border border-white/80 rounded-[2.5rem] p-8 sm:p-10 shadow-lg relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"
+          ></div>
+
+          <form @submit.prevent="openGmail" class="space-y-6 relative z-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label class="block text-sm font-bold text-slate-700 ml-2"
+                  >Full Name</label
+                >
                 <input
                   v-model="form.name"
                   type="text"
-                  placeholder="John Doe"
-                  class="w-full bg-amber-50/40 border-2 border-zinc-900 rounded-xl text-zinc-900 text-xs p-2.5 outline-none focus:bg-white font-medium shadow-[2px_2px_0px_0px_#18181b]"
+                  placeholder="Jane Doe"
+                  class="w-full bg-white/50 border border-slate-200 rounded-2xl text-slate-900 text-base p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 transition-all shadow-sm"
                 />
               </div>
-              <div>
-                <label class="block text-xs font-bold text-zinc-800 mb-1">Subject</label>
+              <div class="space-y-2">
+                <label class="block text-sm font-bold text-slate-700 ml-2"
+                  >Subject</label
+                >
                 <input
                   v-model="form.email"
                   type="text"
-                  placeholder="Project Inquiry"
-                  class="w-full bg-amber-50/40 border-2 border-zinc-900 rounded-xl text-zinc-900 text-xs p-2.5 outline-none focus:bg-white font-medium shadow-[2px_2px_0px_0px_#18181b]"
+                  placeholder="Project Consultation"
+                  class="w-full bg-white/50 border border-slate-200 rounded-2xl text-slate-900 text-base p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 transition-all shadow-sm"
                 />
               </div>
             </div>
 
-            <div>
-              <label class="block text-xs font-bold text-zinc-800 mb-1">Message</label>
+            <div class="space-y-2">
+              <label class="block text-sm font-bold text-slate-700 ml-2"
+                >Message</label
+              >
               <textarea
                 v-model="form.message"
-                rows="4"
-                placeholder="Let's build something awesome..."
-                class="w-full bg-amber-50/40 border-2 border-zinc-900 rounded-xl text-zinc-900 text-xs p-2.5 outline-none focus:bg-white font-medium shadow-[2px_2px_0px_0px_#18181b] resize-none"
+                rows="5"
+                placeholder="How can we collaborate?"
+                class="w-full bg-white/50 border border-slate-200 rounded-2xl text-slate-900 text-base p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 transition-all resize-none shadow-sm"
               ></textarea>
             </div>
 
-            <button
-              type="submit"
-              class="bg-amber-300 hover:bg-amber-400 text-zinc-900 font-black text-xs px-6 py-2.5 rounded-xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_0px_#18181b] transition-all cursor-pointer flex items-center gap-2"
-            >
-              <Send :size="14" /> Send Doodle Mail
-            </button>
+            <div class="pt-2">
+              <button
+                type="submit"
+                class="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-3 w-full sm:w-auto"
+              >
+                <Send :size="20" /> Send Message
+              </button>
+            </div>
           </form>
         </div>
       </section>
 
       <!-- Footer -->
-      <footer class="text-center text-xs font-bold text-zinc-600 border-t-2 border-dashed border-zinc-400 pt-6 font-hand">
-        Hand-crafted by Reinhard Esteban © {{ new Date().getFullYear() }}
+      <footer
+        class="text-center text-sm font-semibold text-slate-400 border-t border-slate-200 pt-8 pb-12"
+      >
+        © {{ new Date().getFullYear() }} Reinhard Esteban. All rights reserved.
       </footer>
-
     </div>
   </div>
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Kalam:wght@400;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
-.font-hand {
-  font-family: "Kalam", cursive;
+.font-sans {
+  font-family:
+    "Nunito",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
-.font-doodle {
-  font-family: "Plus Jakarta Sans", sans-serif;
+/* Modal scale and fade transition */
+.modal-enter-active,
+.modal-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
 }
 </style>
