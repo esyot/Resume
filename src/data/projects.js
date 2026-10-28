@@ -1,5 +1,33 @@
 export const projects = [
+  {
+    name: "Unified Multi-Branch POS & Business ERP System",
+    link: "",
+    description:
+      "An end-to-end, multi-tenant enterprise management platform designed to unify multi-branch retail operations, real-time stock synchronization, POS sales tracking, and tailored business workflows.",
+    tech_stack: ["Next.js", "Prisma", "Neon DB", "Tailwind CSS", "Shadcn/UI"],
+    full_details: `A high-performance enterprise resource and point-of-sale platform engineered to centralize fragmented retail operations into a single, unified server infrastructure. Designed for scalability and high availability, key features include:
 
+- **End-to-End Multi-Branch Synchronization**: Connects physical retail branches directly to a central cloud server, enabling real-time stock adjustments, inter-branch inventory transfers, and centralized sales auditing across all locations.
+- **Granular Inventory & Stock Tracking**: Tracks product variants, serial numbers, reorder thresholds, low-stock alerts, and batch lifecycles with automated stock reconciliation to prevent inventory leakage and over-selling.
+- **Unified POS & Sales Engine**: Fast, intuitive point-of-sale interface optimized for high-volume transactions, supporting digital receipts, split payments, customer loyalty tracking, and instant cloud sync with offline resiliency.
+- **Custom Modular Workflows**: Features an extensible architecture that allows businesses to plug in specialized operational modules (e.g., custom invoicing, consignment tracking, procurement pipelines, or localized tax reporting).
+- **Multi-User Access Control & RBAC**: Advanced role-based permissions framework featuring fine-grained resource access, secure onboarding pipelines, and comprehensive user action audit logs.
+
+Built with Next.js and Prisma ORM over a highly available Neon PostgreSQL database, this platform guarantees transactional integrity and millisecond latency across all branch endpoints.`,
+    status: "Shipped",
+    statusColor: "green",
+    images: [
+      "assets/images/projects/pos/1.png",
+      "assets/images/projects/pos/2.png",
+      "assets/images/projects/pos/3.png",
+      "assets/images/projects/pos/4.png",
+      "assets/images/projects/pos/5.png",
+      "assets/images/projects/pos/6.png",
+      "assets/images/projects/pos/7.png",
+      "assets/images/projects/pos/8.png",
+      "assets/images/projects/pos/9.png",
+    ],
+  },
   {
     name: "Chicky",
     link: "https://chicky-drab.vercel.app/",
@@ -19,19 +47,18 @@ Powered by Next.js and Prisma ORM over a relational PostgreSQL architecture, thi
     statusColor: "green",
   },
   {
-  name: "Buzyness",
-  link: "https://buzyness.netlify.app/",
-  description:
-    "A privacy-first multi-business financial dashboard that consolidates sales and expenses across multiple applications via read-only public APIs.",
-  tech_stack: [
-    "React",
-    "TanStack Start",
-    "Tailwind CSS",
-    "Shadcn/UI",
-    "Neon",
-
-  ],
-  full_details: `A centralized financial monitoring workspace designed for founders and multi-app operators to track revenue streams and operational costs without compromising sensitive data. Key features include:
+    name: "Buzyness",
+    link: "https://buzyness.netlify.app/",
+    description:
+      "A privacy-first multi-business financial dashboard that consolidates sales and expenses across multiple applications via read-only public APIs.",
+    tech_stack: [
+      "React",
+      "TanStack Start",
+      "Tailwind CSS",
+      "Shadcn/UI",
+      "Neon",
+    ],
+    full_details: `A centralized financial monitoring workspace designed for founders and multi-app operators to track revenue streams and operational costs without compromising sensitive data. Key features include:
 
 • **Unified Portfolio Dashboard**: Aggregates total net revenue, combined expenses, and active venture metrics into a single real-time overview.
 • **Privacy-First API Integration**: Connects directly via read-only public Sales and Expenses API endpoints, eliminating the need for database credentials or sensitive banking access.
@@ -40,9 +67,9 @@ Powered by Next.js and Prisma ORM over a relational PostgreSQL architecture, thi
 • **Streamlined 3-Step Setup**: Features a frictionless workflow to expose public endpoints, link API keys to workspace dashboards, and instantly view consolidated financial analytics.
 
 Built with TanStack Router, React, and Shadcn/UI components, the application delivers a modern, responsive interface with high-performance visualization capabilities.`,
-  status: "Shipped",
-  statusColor: "green",
-},
+    status: "Shipped",
+    statusColor: "green",
+  },
   {
     name: "ScratchSQL",
     link: "https://scratch-sql.vercel.app/",
@@ -96,15 +123,15 @@ Leveraging the Inertia.js monolith bridge, this platform delivers the lightning-
       "assets/images/projects/cgs-travellers-inn/8.png",
     ],
   },
-  // {
-  //   name: "C&G Trading POS & Warehousing",
-  //   link: "https://candg-pos.onrender.com/",
-  //   description:
-  //     "Architected the migration of a legacy COBOL-based enterprise system into a modern web ecosystem—unifying fragmented warehouse logistics and real-time point-of-sale into a secure, single source of truth.",
-  //   tech_stack: ["Laravel", "React", "Inertia"],
-  //   status: "Staging",
-  //   statusColor: "blue",
-  // },
+  {
+    name: "C&G Trading POS & Warehousing",
+    link: "",
+    description:
+      "Architected the migration of a legacy COBOL-based enterprise system into a modern web ecosystem—unifying fragmented warehouse logistics and real-time point-of-sale into a secure, single source of truth.",
+    tech_stack: ["Laravel", "React", "Inertia"],
+    status: "Staging",
+    statusColor: "blue",
+  },
 
   {
     name: "Keith Kurlander",

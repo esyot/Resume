@@ -217,7 +217,7 @@ const careerHistory = [
   },
 ];
 
-const years = new Date().getFullYear() - 2021;
+const years = new Date().getFullYear() - 2017;
 
 const personalDetails = {
   name: "Reinhard Esteban",
