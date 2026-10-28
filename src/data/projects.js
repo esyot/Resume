@@ -4,7 +4,7 @@ export const projects = [
     link: "",
     description:
       "An end-to-end, multi-tenant enterprise management platform designed to unify multi-branch retail operations, real-time stock synchronization, POS sales tracking, and tailored business workflows.",
-    tech_stack: ["Next.js", "Laravel", "Inertia.js", "Shadcn/UI"],
+    tech_stack: ["Laravel", "Inertia.js", "React", "TypeScript", "Shadcn/UI"],
     full_details: `A high-performance enterprise resource and point-of-sale platform engineered to centralize fragmented retail operations into a single, unified server infrastructure. Designed for scalability and high availability, key features include:
 
 - **End-to-End Multi-Branch Synchronization**: Connects physical retail branches directly to a central cloud server, enabling real-time stock adjustments, inter-branch inventory transfers, and centralized sales auditing across all locations.
