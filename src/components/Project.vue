@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="project"
-    class="min-h-screen bg-[#faf9f6] text-neutral-900 antialiased font-sans"
+    class="min-h-screen text-neutral-900 antialiased font-sans"
   >
     <!-- Thin top rule -->
     <div class="border-b border-neutral-200">
@@ -334,7 +334,7 @@
 
   <div
     v-else
-    class="min-h-screen flex flex-col items-center justify-center bg-[#faf9f6] text-neutral-900 p-8"
+    class="min-h-screen flex flex-col items-center justify-center bg-amber-50 text-neutral-900 p-8"
   >
     <p class="text-lg mb-6">Project not found.</p>
     <router-link

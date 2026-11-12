@@ -17,6 +17,8 @@ import {
   Send,
   ArrowUpRight,
   X,
+  Github,
+  Linkedin,
 } from "lucide-vue-next";
 
 import { projects } from "../data/projects.js";
@@ -108,7 +110,7 @@ const careerHistory = [
   },
 ];
 
-const years = new Date().getFullYear() - 2017;
+const years = 6;
 
 const personalDetails = {
   name: "Reinhard Esteban",
@@ -133,7 +135,7 @@ const toSlug = (name) =>
 <template>
   <div
     v-if="true"
-    class="min-h-screen bg-[#faf9f6] text-neutral-900 antialiased font-sans"
+    class="min-h-screen bg-[#f8f9fa] text-neutral-900 antialiased font-sans"
   >
     <!-- Thin top rule -->
     <div class="border-b border-neutral-200">
@@ -247,7 +249,7 @@ const toSlug = (name) =>
             class="fixed inset-0 bg-neutral-900/40 flex items-center justify-center z-[100] p-4"
           >
             <div
-              class="bg-[#faf9f6] border border-neutral-200 p-8 max-w-lg w-full"
+              class="bg-[#f8f9fa] border border-neutral-200 p-8 max-w-lg w-full"
             >
               <div class="flex justify-between items-start mb-6">
                 <span

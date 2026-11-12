@@ -1,19 +1,20 @@
 export const projects = [
   {
-    name: "Unified Multi-Branch POS & Business ERP System",
+    name: "Multi-Branch Business ERP & POS",
     link: "",
     description:
-      "An end-to-end, multi-tenant enterprise management platform designed to unify multi-branch retail operations, real-time stock synchronization, POS sales tracking, and tailored business workflows.",
+      "A multi-branch business ERP with an integrated POS, built on Laravel, Inertia, and React — where every branch runs independently on its own local server and syncs only its changes to the main hub whenever an internet connection is available.",
     tech_stack: ["Laravel", "Inertia.js", "React", "TypeScript", "Shadcn/UI"],
-    full_details: `A high-performance enterprise resource and point-of-sale platform engineered to centralize fragmented retail operations into a single, unified server infrastructure. Designed for scalability and high availability, key features include:
+    full_details: `A business ERP and point-of-sale platform engineered for multi-branch retail operations. Each branch runs a fully independent deployment on its own local server or PC, while a central main hub coordinates synchronization. Key features include:
 
-- **End-to-End Multi-Branch Synchronization**: Connects physical retail branches directly to a central cloud server, enabling real-time stock adjustments, inter-branch inventory transfers, and centralized sales auditing across all locations.
+- **Independent Branch Deployments**: Every branch operates on its own local server/PC with full offline capability, so sales, stock, and operations keep running even without internet access.
+- **Main Hub → Branch Integration**: A central main hub listens for incoming branch changes, receiving and reconciling updates from every branch location into a unified view.
+- **Dedicated Change-Sync Engine**: A sync engine inspired by SymmetricDS uses triggers that capture only changed rows. When a branch PC regains internet connectivity, it waits for the connection and then sends only those changes as a query to the main hub — minimizing bandwidth and avoiding full re-syncs.
 - **Granular Inventory & Stock Tracking**: Tracks product variants, serial numbers, reorder thresholds, low-stock alerts, and batch lifecycles with automated stock reconciliation to prevent inventory leakage and over-selling.
-- **Unified POS & Sales Engine**: Fast, intuitive point-of-sale interface optimized for high-volume transactions, supporting digital receipts, split payments, customer loyalty tracking, and instant cloud sync with offline resiliency.
-- **Custom Modular Workflows**: Features an extensible architecture that allows businesses to plug in specialized operational modules (e.g., custom invoicing, consignment tracking, procurement pipelines, or localized tax reporting).
+- **Unified POS & Sales Engine**: A fast, intuitive point-of-sale interface optimized for high-volume transactions, supporting digital receipts, split payments, customer loyalty tracking, and local-first operation with deferred sync.
 - **Multi-User Access Control & RBAC**: Advanced role-based permissions framework featuring fine-grained resource access, secure onboarding pipelines, and comprehensive user action audit logs.
 
-Built with Next.js and Prisma ORM over a highly available Neon PostgreSQL database, this platform guarantees transactional integrity and millisecond latency across all branch endpoints.`,
+Built with Laravel, Inertia.js, and React over a relational database, the platform delivers a reactive single-page experience while guaranteeing transactional integrity at each branch and reliable, change-only synchronization to the main hub.`,
     status: "Shipped",
     statusColor: "green",
     images: [
@@ -122,15 +123,6 @@ Leveraging the Inertia.js monolith bridge, this platform delivers the lightning-
       "assets/images/projects/cgs-travellers-inn/7.png",
       "assets/images/projects/cgs-travellers-inn/8.png",
     ],
-  },
-  {
-    name: "C&G Trading POS & Warehousing",
-    link: "",
-    description:
-      "Architected the migration of a legacy COBOL-based enterprise system into a modern web ecosystem—unifying fragmented warehouse logistics and real-time point-of-sale into a secure, single source of truth.",
-    tech_stack: ["Laravel", "React", "Inertia"],
-    status: "Staging",
-    statusColor: "blue",
   },
 
   {
