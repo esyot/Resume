@@ -2,13 +2,13 @@ export const projects = [
   {
     name: "Multi-Branch Business ERP & POS",
     live: "",
-    private: true, // no public link — case study only
+    private: true,
     repo: null,
     featured: true,
     thumbnail: "assets/images/projects/pos/1.png",
     role: "Sole developer / architect",
     duration: "8 months",
-    // TODO: replace with your real numbers
+
     metrics: [
       "9 branches synced",
       "Change-only sync (SymmetricDS-inspired)",
@@ -42,9 +42,49 @@ Built with Laravel, Inertia.js, and React over a relational database, the platfo
     ],
   },
   {
+    name: "CG's Travellers Inn",
+    live: "",
+    private: true,
+    repo: null,
+    featured: true,
+    thumbnail: "assets/images/projects/cgs-travellers-inn/1.png",
+    role: "Full-stack developer",
+    duration: "3 months",
+    metrics: [
+      "24/7 direct bookings",
+      "PayMongo & GCash integration",
+      "Automated guest reviews",
+    ],
+    description:
+      "All-in-one reservation and property management platform with integrated local payment gateways, smart date filtering, and real-time support.",
+    tech_stack: ["Laravel", "Vue", "Inertia"],
+    full_details: `An all-in-one reservation and property management system built to transition a traditional inn into a modern, self-service hospitality hub. Key features include:
+
+• **Multi-Service Reservation Engine**: A unified checkout flow that allows guests to book Rooms, guided local Tours (like the Bohol Countryside & Panglao Tour), and bundled vacation Packages seamlessly.
+• **Smart Date Filtering (Anti-Double Booking)**: A real-time availability algorithm that dynamically checks booked dates and locks out occupied slots, guaranteeing zero booking conflicts.
+• **Integrated Payment Gateways (PayMongo)**: Secure online payment integrations enabling guests to pay instantly using local e-wallets (GCash, PayMaya, GrabPay) and major credit cards to secure their slots.
+• **Real-Time Chat Support**: An instant messaging system that connects website visitors directly with the staff to resolve inquiries on the spot and drive conversions.
+• **Automated Review System**: Guests can leave verified star ratings and feedback on specific rooms post-stay, building social proof for future bookings.
+• **Robust Admin Panel**: A centralized dashboard designed for property owners to manage active reservations, handle customer messages in real-time, adjust room availability, and view performance analytics.
+
+Leveraging the Inertia.js monolith bridge, this platform delivers the lightning-fast, reactive user experience of a single-page Vue application alongside the robust security and database integrity of Laravel.`,
+    status: "Shipped",
+    statusColor: "green",
+    images: [
+      "assets/images/projects/cgs-travellers-inn/1.png",
+      "assets/images/projects/cgs-travellers-inn/2.png",
+      "assets/images/projects/cgs-travellers-inn/3.png",
+      "assets/images/projects/cgs-travellers-inn/4.png",
+      "assets/images/projects/cgs-travellers-inn/5.png",
+      "assets/images/projects/cgs-travellers-inn/6.png",
+      "assets/images/projects/cgs-travellers-inn/7.png",
+      "assets/images/projects/cgs-travellers-inn/8.png",
+    ],
+  },
+  {
     name: "ScratchSQL",
     live: "https://scratch-sql.vercel.app/",
-    repo: null, // TODO: link if public
+    repo: null,
     featured: true,
     thumbnail: "assets/images/projects/scratch-sql/1.png",
     role: "Full-stack developer",
