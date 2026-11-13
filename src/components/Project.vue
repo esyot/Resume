@@ -3,7 +3,6 @@
     v-if="project"
     class="min-h-screen text-neutral-900 antialiased font-sans"
   >
-    <!-- Thin top rule -->
     <div class="border-b border-neutral-200">
       <div
         class="max-w-4xl mx-auto w-full px-6 sm:px-10 py-5 flex items-center justify-between"
@@ -16,14 +15,12 @@
         </router-link>
         <span
           class="text-xs uppercase tracking-[0.18em] text-neutral-400 font-mono"
+          >Project</span
         >
-          Project
-        </span>
       </div>
     </div>
 
     <div class="max-w-4xl mx-auto w-full px-6 sm:px-10">
-      <!-- Header -->
       <header class="pt-16 sm:pt-24 pb-14 sm:pb-20">
         <p
           class="text-xs uppercase tracking-[0.22em] text-neutral-500 font-medium mb-8"
@@ -32,12 +29,20 @@
         </p>
 
         <h1
-          class="font-display text-4xl sm:text-6xl md:text-7xl tracking-tight leading-[1.02] text-neutral-900 mb-8"
+          class="font-display text-4xl sm:text-6xl md:text-7xl tracking-tight leading-[1.02] text-neutral-900 mb-6"
         >
           {{ project.name }}
         </h1>
 
-        <div class="flex flex-wrap gap-x-3 gap-y-2 mb-10">
+        <div
+          v-if="project.role || project.duration"
+          class="flex flex-wrap gap-x-6 gap-y-2 mb-6 text-[12px] font-mono uppercase tracking-widest text-neutral-500"
+        >
+          <span v-if="project.role">Role: {{ project.role }}</span>
+          <span v-if="project.duration">Duration: {{ project.duration }}</span>
+        </div>
+
+        <div class="flex flex-wrap gap-x-3 gap-y-2 mb-8">
           <span
             v-for="(tech, i) in project.tech_stack"
             :key="tech"
@@ -52,28 +57,54 @@
           </span>
         </div>
 
-        <a
-          v-if="project.link"
-          :href="project.link"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 border-b border-neutral-900 pb-0.5 hover:gap-3 transition-all"
+        <div
+          v-if="project.metrics?.length"
+          class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
         >
-          Visit live site
-          <ExternalLink class="w-3.5 h-3.5" />
-        </a>
+          <div
+            v-for="m in project.metrics"
+            :key="m"
+            class="border border-neutral-200 px-4 py-3"
+          >
+            <p class="text-[13px] text-neutral-700 leading-snug">{{ m }}</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a
+            v-if="project.live"
+            :href="project.live"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 border-b border-neutral-900 pb-0.5 hover:gap-3 transition-all"
+          >
+            Visit live site <ExternalLink class="w-3.5 h-3.5" />
+          </a>
+          <a
+            v-if="project.repo"
+            :href="project.repo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 border-b border-neutral-300 hover:border-neutral-900 pb-0.5 transition-colors"
+          >
+            <Github class="w-3.5 h-3.5" /> View source
+          </a>
+          <span
+            v-if="project.private && !project.live"
+            class="text-sm text-neutral-500 italic"
+          >
+            Private / client deployment — walkthrough on request.
+          </span>
+        </div>
       </header>
 
-      <!-- Overview -->
       <section class="border-t border-neutral-200 py-14 sm:py-20">
         <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-8 md:gap-16">
-          <div>
-            <p
-              class="text-xs uppercase tracking-[0.18em] text-neutral-400 font-medium sticky top-6"
-            >
-              Overview
-            </p>
-          </div>
+          <p
+            class="text-xs uppercase tracking-[0.18em] text-neutral-400 font-medium sticky top-6"
+          >
+            Overview
+          </p>
           <div
             v-html="formattedDetailsHtml"
             class="text-[15px] leading-[1.75] text-neutral-700 [&_strong]:text-neutral-900 [&_strong]:font-semibold"
@@ -81,22 +112,17 @@
         </div>
       </section>
 
-      <!-- Gallery -->
       <section
         v-if="project.images && project.images.length > 0"
         class="border-t border-neutral-200 py-14 sm:py-20"
       >
         <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-8 md:gap-16">
-          <div>
-            <p
-              class="text-xs uppercase tracking-[0.18em] text-neutral-400 font-medium"
-            >
-              Plates
-            </p>
-          </div>
-
+          <p
+            class="text-xs uppercase tracking-[0.18em] text-neutral-400 font-medium"
+          >
+            Plates
+          </p>
           <div class="space-y-5">
-            <!-- Main stage -->
             <figure
               @click="openLightbox"
               class="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 border border-neutral-200 cursor-zoom-in group"
@@ -109,14 +135,12 @@
                   class="w-full h-full object-cover"
                 />
               </transition>
-
               <figcaption
                 class="absolute bottom-3 left-3 text-[11px] font-mono uppercase tracking-widest text-white bg-neutral-900/70 px-2 py-1"
               >
                 Plate {{ String(activeIndex + 1).padStart(2, "0") }} —
                 {{ String(project.images.length).padStart(2, "0") }}
               </figcaption>
-
               <div
                 v-if="project.images.length > 1"
                 class="absolute inset-y-0 inset-x-3 flex items-center justify-between pointer-events-none"
@@ -138,7 +162,6 @@
               </div>
             </figure>
 
-            <!-- Thumbs -->
             <div
               v-if="project.images.length > 1"
               class="flex gap-3 overflow-x-auto pb-2 scrollbar-thin"
@@ -168,14 +191,11 @@
       <!-- Demo Request -->
       <section class="border-t border-neutral-200 py-14 sm:py-20">
         <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-8 md:gap-16">
-          <div>
-            <p
-              class="text-xs uppercase tracking-[0.18em] text-neutral-400 font-medium"
-            >
-              Walkthrough
-            </p>
-          </div>
-
+          <p
+            class="text-xs uppercase tracking-[0.18em] text-neutral-400 font-medium"
+          >
+            Walkthrough
+          </p>
           <div class="space-y-10">
             <div class="max-w-lg space-y-4">
               <p class="text-[15px] leading-relaxed text-neutral-700">
@@ -192,14 +212,12 @@
               </p>
             </div>
 
-            <!-- Underlined form, editorial style -->
             <form @submit.prevent="openBookingGmail" class="max-w-lg space-y-6">
               <div>
                 <label
                   class="block text-[11px] uppercase tracking-[0.18em] text-neutral-500 font-medium mb-2"
+                  >Name</label
                 >
-                  Name
-                </label>
                 <input
                   v-model="bookingForm.name"
                   type="text"
@@ -207,13 +225,11 @@
                   class="w-full bg-transparent border-0 border-b border-neutral-300 text-neutral-900 text-[15px] py-2.5 outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400"
                 />
               </div>
-
               <div>
                 <label
                   class="block text-[11px] uppercase tracking-[0.18em] text-neutral-500 font-medium mb-2"
+                  >Preferred schedule</label
                 >
-                  Preferred schedule
-                </label>
                 <input
                   v-model="bookingForm.preferredTime"
                   type="text"
@@ -221,13 +237,11 @@
                   class="w-full bg-transparent border-0 border-b border-neutral-300 text-neutral-900 text-[15px] py-2.5 outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400"
                 />
               </div>
-
               <div>
                 <label
                   class="block text-[11px] uppercase tracking-[0.18em] text-neutral-500 font-medium mb-2"
+                  >Notes</label
                 >
-                  Notes
-                </label>
                 <textarea
                   v-model="bookingForm.message"
                   rows="3"
@@ -235,31 +249,27 @@
                   class="w-full bg-transparent border-0 border-b border-neutral-300 text-neutral-900 text-[15px] py-2.5 outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 resize-none"
                 ></textarea>
               </div>
-
               <button
                 type="submit"
                 class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-700 transition-colors"
               >
-                Submit request
-                <Send class="w-3.5 h-3.5" />
+                Submit request <Send class="w-3.5 h-3.5" />
               </button>
             </form>
           </div>
         </div>
       </section>
 
-      <!-- Footer -->
       <footer
         class="border-t border-neutral-200 py-10 flex items-center justify-between text-xs text-neutral-400 font-mono"
       >
         <span>© {{ new Date().getFullYear() }} Reinhard Esteban</span>
-        <router-link to="/" class="hover:text-neutral-900 transition-colors">
-          Return to index →
-        </router-link>
+        <router-link to="/" class="hover:text-neutral-900 transition-colors"
+          >Return to index →</router-link
+        >
       </footer>
     </div>
 
-    <!-- Lightbox -->
     <transition name="lightbox-fade">
       <div
         v-if="isLightboxOpen"
@@ -269,10 +279,10 @@
         <div
           class="flex items-center justify-between px-6 py-5 text-neutral-300 font-mono text-xs uppercase tracking-widest border-b border-neutral-800"
         >
-          <span>
-            {{ project.name }} — Plate
-            {{ String(activeIndex + 1).padStart(2, "0") }}
-          </span>
+          <span
+            >{{ project.name }} — Plate
+            {{ String(activeIndex + 1).padStart(2, "0") }}</span
+          >
           <button
             @click="closeLightbox"
             class="w-8 h-8 flex items-center justify-center hover:text-white transition-colors"
@@ -281,7 +291,6 @@
             <X class="w-4 h-4" />
           </button>
         </div>
-
         <div class="flex-1 flex items-center justify-center relative px-6 py-6">
           <button
             v-if="project.images.length > 1"
@@ -290,13 +299,11 @@
           >
             <ChevronLeft class="w-5 h-5" />
           </button>
-
           <img
             :src="resolveImagePath(project.images[activeIndex])"
             :alt="project.name"
             class="max-w-full max-h-[80vh] object-contain"
           />
-
           <button
             v-if="project.images.length > 1"
             @click.stop="nextImage"
@@ -305,7 +312,6 @@
             <ChevronRight class="w-5 h-5" />
           </button>
         </div>
-
         <div
           v-if="project.images.length > 1"
           class="flex justify-center gap-2 px-6 py-4 border-t border-neutral-800 overflow-x-auto"
@@ -340,9 +346,8 @@
     <router-link
       to="/"
       class="text-sm uppercase tracking-widest border-b border-neutral-900 pb-1"
+      >Return to index</router-link
     >
-      Return to index
-    </router-link>
   </div>
 </template>
 
@@ -358,6 +363,7 @@ import {
   Send,
   X,
   ArrowLeft,
+  Github,
 } from "lucide-vue-next";
 
 const route = useRoute();
@@ -366,7 +372,6 @@ const slug = route.params.slug;
 
 const activeIndex = ref(0);
 const isLightboxOpen = ref(false);
-
 const bookingForm = ref({ name: "", preferredTime: "", message: "" });
 
 const resolveImagePath = (path) => {
@@ -417,26 +422,19 @@ const prevImage = () => {
     (activeIndex.value - 1 + project.value.images.length) %
     project.value.images.length;
 };
-
 const nextImage = () => {
   if (!project.value?.images?.length) return;
   activeIndex.value = (activeIndex.value + 1) % project.value.images.length;
 };
-
-const setActiveImage = (i) => {
-  activeIndex.value = i;
-};
-
+const setActiveImage = (i) => (activeIndex.value = i);
 const openLightbox = () => {
   isLightboxOpen.value = true;
   document.body.style.overflow = "hidden";
 };
-
 const closeLightbox = () => {
   isLightboxOpen.value = false;
   document.body.style.overflow = "";
 };
-
 const handleGlobalKeydown = (e) => {
   if (["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
   if (!project.value?.images || project.value.images.length <= 1) return;
@@ -451,10 +449,8 @@ onUnmounted(() => {
   document.body.style.overflow = "";
 });
 
-// Cleaner overview parser — numbered items with hairline dividers, no emoji
 const formattedDetailsHtml = computed(() => {
   if (!project.value?.full_details) return "";
-
   let rawText = project.value.full_details;
   rawText = rawText.replace(
     /analytics\.Leveraging/g,
@@ -463,10 +459,9 @@ const formattedDetailsHtml = computed(() => {
   rawText = rawText.replace(/([^\n])•/g, "$1\n•");
 
   const lines = rawText.split("\n");
-  let html = "";
-  let inList = false;
-  let counter = 0;
-
+  let html = "",
+    inList = false,
+    counter = 0;
   const flushList = () => {
     if (inList) {
       html += "</ul>";
@@ -478,9 +473,7 @@ const formattedDetailsHtml = computed(() => {
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed) continue;
-
     const clean = trimmed.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-
     if (clean.startsWith("•") || clean.startsWith("-")) {
       if (!inList) {
         html +=
@@ -489,11 +482,10 @@ const formattedDetailsHtml = computed(() => {
       }
       counter += 1;
       const item = clean.replace(/^[•-]\s*/, "");
-      html += `
-        <li class="grid grid-cols-[2.5rem_1fr] py-3 items-baseline">
-          <span class="text-[11px] font-mono text-neutral-400">${String(counter).padStart(2, "0")}</span>
-          <span class="text-[15px] leading-[1.7] text-neutral-700">${item}</span>
-        </li>`;
+      html += `<li class="grid grid-cols-[2.5rem_1fr] py-3 items-baseline">
+        <span class="text-[11px] font-mono text-neutral-400">${String(counter).padStart(2, "0")}</span>
+        <span class="text-[15px] leading-[1.7] text-neutral-700">${item}</span>
+      </li>`;
     } else {
       flushList();
       html += `<p class="mb-5 text-[15px] leading-[1.75] text-neutral-700">${clean}</p>`;
@@ -505,12 +497,10 @@ const formattedDetailsHtml = computed(() => {
 </script>
 
 <style scoped>
-/* Serif display face for the title — no inline style needed */
 .font-display {
   font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
   font-weight: 400;
 }
-
 .plate-enter-active,
 .plate-leave-active {
   transition: opacity 0.25s ease;
@@ -519,7 +509,6 @@ const formattedDetailsHtml = computed(() => {
 .plate-leave-to {
   opacity: 0;
 }
-
 .lightbox-fade-enter-active,
 .lightbox-fade-leave-active {
   transition: opacity 0.2s ease;
@@ -528,7 +517,6 @@ const formattedDetailsHtml = computed(() => {
 .lightbox-fade-leave-to {
   opacity: 0;
 }
-
 .scrollbar-thin::-webkit-scrollbar {
   height: 4px;
 }
