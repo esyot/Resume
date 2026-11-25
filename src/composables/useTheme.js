@@ -1,12 +1,5 @@
 import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 
-/**
- * Shared light/dark theme for every page.
- * - Follows the OS setting until the visitor picks one, then remembers it.
- * - Module-level state, so the choice carries across route changes.
- * - Components apply `themeClass` (pf-theme-dark | pf-theme-light) on their
- *   root; tokens live in ../assets/theme.css.
- */
 const STORAGE_KEY = "portfolio-theme";
 const DARK_BG = "#060b14";
 const LIGHT_BG = "#f4f5f6";
@@ -21,7 +14,7 @@ const readStored = () => {
 
 const systemPrefersDark = () =>
   typeof window !== "undefined" &&
-  !!window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+  !!window.matchMedia?.("(prefers-color-scheme: light)").matches;
 
 const stored = readStored();
 const isDark = ref(stored ? stored === "dark" : systemPrefersDark());

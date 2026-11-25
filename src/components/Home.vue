@@ -55,10 +55,10 @@ const readStoredTheme = () => {
 };
 const systemPrefersDark = () =>
   typeof window !== "undefined" &&
-  !!window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+  !!window.matchMedia?.("(prefers-color-scheme: light)").matches;
 
 const storedTheme = readStoredTheme();
-const isDark = ref(storedTheme ? storedTheme === "dark" : systemPrefersDark());
+const isDark = ref(storedTheme ? storedTheme === "light" : systemPrefersDark());
 const isBooting = ref(false);
 const themeClass = computed(() =>
   isDark.value ? "pf-theme-dark" : "pf-theme-light",
