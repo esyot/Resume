@@ -11,7 +11,6 @@ import {
   Mail,
   MapPin,
   Briefcase,
-  RotateCcw,
   Sun,
   Moon,
 } from "lucide-vue-next";
@@ -55,10 +54,10 @@ const readStoredTheme = () => {
 };
 const systemPrefersDark = () =>
   typeof window !== "undefined" &&
-  !!window.matchMedia?.("(prefers-color-scheme: light)").matches;
+  !!window.matchMedia?.("(prefers-color-scheme: dark)").matches;
 
 const storedTheme = readStoredTheme();
-const isDark = ref(storedTheme ? storedTheme === "light" : systemPrefersDark());
+const isDark = ref(storedTheme ? storedTheme === "dark" : systemPrefersDark());
 const isBooting = ref(false);
 const themeClass = computed(() =>
   isDark.value ? "pf-theme-dark" : "pf-theme-light",
@@ -66,11 +65,12 @@ const themeClass = computed(() =>
 
 let themeMedia = null;
 let bootTimer = null;
+let layoutTimer = null;
 
 const syncDocumentTheme = (dark) => {
   const el = document.documentElement;
   el.style.colorScheme = dark ? "dark" : "light";
-  el.style.backgroundColor = dark ? "#060b14" : "";
+  el.style.backgroundColor = dark ? "#060b14" : "#f4f5f6";
 };
 
 const toggleTheme = () => {
@@ -156,17 +156,6 @@ const submitContact = async () => {
 
 /* ------------------------------------------------------------------ *
  * Camera choreography
- *
- * Each page stage owns one camera pose. The first four numbers are the
- * ORIGINAL keyframes (theta / phi / radius / offsetX) so the model keeps
- * exactly the same orbit and position. `panX` / `panY` are new: a
- * screen-space pan (meters) that slides the model away from whichever side
- * the stage's panels sit on.
- *   panX > 0 → model slides LEFT on screen, panX < 0 → RIGHT.
- *
- * Poses are blended by where each real section sits relative to the middle
- * of the viewport, so the camera lands on a pose exactly when its section
- * is centered (instead of a global 0-1 scroll guess).
  * ------------------------------------------------------------------ */
 const STAGES = [
   {
@@ -262,6 +251,14 @@ const computeLayout = () => {
     const r = el.getBoundingClientRect();
     return r.top + window.scrollY + r.height / 2;
   });
+};
+
+const scheduleLayout = () => {
+  clearTimeout(layoutTimer);
+  layoutTimer = setTimeout(() => {
+    computeLayout();
+    computeTargetFromScroll();
+  }, 120);
 };
 
 const computeTargetFromScroll = () => {
@@ -387,28 +384,19 @@ const onUserCameraChange = (event) => {
   const mv = modelViewerRef.value;
   if (mv && typeof mv.getCameraOrbit === "function") {
     const o = mv.getCameraOrbit();
-    // Zoom is disabled, so radius never changes by hand — only angles are synced.
-    cur.theta = ((o.theta || 0) * 180) / Math.PI;
-    cur.phi = ((o.phi || 0) * 180) / Math.PI;
+    if (typeof o?.theta === "number" && typeof o?.phi === "number") {
+      cur.theta = (o.theta * 180) / Math.PI;
+      cur.phi = (o.phi * 180) / Math.PI;
+    }
   }
 };
 
-const resetCamera = () => {
-  userUntil = 0;
-  computeTargetFromScroll();
-  cur = { ...tgt };
-  writeCamera(modelViewerRef.value, cur, 0, 0, true);
-};
-
 const onModelProgress = (e) => {
-  loadProgress.value = Math.round((e.detail.totalProgress || 0) * 100);
+  loadProgress.value = Math.round((e.detail?.totalProgress || 0) * 100);
 };
 
 /* ------------------------------------------------------------------ *
  * 3D-anchored annotation tags (model-viewer hotspots)
- * `f` = [x, y, z] as a fraction of the model's bounding box, measured from
- * its center (y: -0.5 feet … +0.5 top of head). Tags sit on the side
- * opposite the stage's panels.
  * ------------------------------------------------------------------ */
 const hotspots = computed(() => [
   {
@@ -466,7 +454,6 @@ const placeHotspots = (mv) => {
         position: `${x.toFixed(3)}m ${y.toFixed(3)}m ${z.toFixed(3)}m`,
       });
     });
-    // Hologram projector base sits at the model's feet and follows the camera.
     mv.updateHotspot({
       name: "hotspot-base",
       position: `${c.x.toFixed(3)}m ${(c.y - d.y / 2).toFixed(3)}m ${c.z.toFixed(3)}m`,
@@ -479,9 +466,6 @@ const placeHotspots = (mv) => {
 
 /* ------------------------------------------------------------------ *
  * Hologram material pass (dark mode only, fully reversible)
- * Tints the baked textures blue and adds a blue emissive lift. Set
- * HOLO_ALPHA below 1 (e.g. 0.85) for see-through; it switches materials to
- * BLEND, which can show sorting artifacts on hair/eyelashes, so it's off.
  * ------------------------------------------------------------------ */
 const HOLO_TINT = [0.38, 0.78, 1, 1];
 const HOLO_EMISSIVE = [0.02, 0.26, 0.6];
@@ -540,7 +524,6 @@ const onModelLoad = () => {
   computeLayout();
   computeTargetFromScroll();
 
-  // Entrance: start wide and off-axis, then glide into the retained hero pose.
   cur = reduceMotion
     ? { ...tgt }
     : {
@@ -622,11 +605,11 @@ onMounted(() => {
   cur = { ...tgt };
   lastScrollY = window.scrollY;
 
-  window.addEventListener("resize", computeLayout, { passive: true });
+  window.addEventListener("resize", scheduleLayout, { passive: true });
   window.addEventListener("keydown", onKeydown);
 
   if (typeof ResizeObserver !== "undefined" && mainRef.value) {
-    layoutObserver = new ResizeObserver(computeLayout);
+    layoutObserver = new ResizeObserver(scheduleLayout);
     layoutObserver.observe(mainRef.value);
   }
 
@@ -645,10 +628,11 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("resize", computeLayout);
+  window.removeEventListener("resize", scheduleLayout);
   window.removeEventListener("keydown", onKeydown);
   themeMedia?.removeEventListener?.("change", onSystemThemeChange);
   clearTimeout(bootTimer);
+  clearTimeout(layoutTimer);
   document.documentElement.style.colorScheme = "";
   document.documentElement.style.backgroundColor = "";
   if (rafId) cancelAnimationFrame(rafId);
@@ -656,7 +640,6 @@ onUnmounted(() => {
   layoutObserver?.disconnect();
 });
 
-// New project cards appear when "View all" is toggled — observe them too.
 watch(showAllProjects, () => nextTick(observeReveals));
 
 watch(isDark, (dark) => {
@@ -834,7 +817,6 @@ const toSlug = (name) =>
             : 'scale-100 opacity-75'
         "
       >
-        <!-- Inner ring counter-rotates with the camera azimuth -->
         <div
           class="absolute inset-7 rounded-full border border-dashed border-neutral-300/70 will-change-transform"
           :style="{ transform: `rotate(${72 - currentThetaDeg}deg)` }"
@@ -861,7 +843,7 @@ const toSlug = (name) =>
       class="fixed inset-0 z-20 flex items-center justify-center pointer-events-none"
     >
       <div
-        class="holo-wrap relative w-full h-full max-w-[920px] max-h-[92vh] translate-x-6 sm:translate-x-12 pointer-events-none"
+        class="holo-wrap relative w-full h-full max-w-[920px] max-h-[92vh] lg:translate-x-12 pointer-events-none"
         :class="{ 'is-booting': isBooting }"
       >
         <model-viewer
@@ -887,7 +869,6 @@ const toSlug = (name) =>
           @progress="onModelProgress"
           @camera-change="onUserCameraChange"
         >
-          <!-- 3D-anchored annotation tags: they orbit and pan with the camera -->
           <div
             v-for="h in hotspots"
             :key="h.id"
@@ -907,7 +888,6 @@ const toSlug = (name) =>
             </span>
           </div>
 
-          <!-- Hologram projector base (dark mode): anchored at the model's feet -->
           <div
             slot="hotspot-base"
             data-position="0m 0m 0m"
@@ -924,7 +904,6 @@ const toSlug = (name) =>
           </div>
         </model-viewer>
 
-        <!-- Hologram volume: scanlines + sweeping beam, masked to the model area -->
         <div class="holo-fx" aria-hidden="true">
           <span class="holo-lines"></span>
           <span class="holo-beam"></span>
@@ -986,7 +965,6 @@ const toSlug = (name) =>
         </nav>
       </div>
 
-      <!-- Scroll progress -->
       <div
         class="prog absolute bottom-0 left-0 h-px w-full origin-left bg-[color:var(--accent)]"
         style="transform: scaleX(var(--sp, 0))"
@@ -1012,19 +990,6 @@ const toSlug = (name) =>
         </span>
       </div>
     </Transition>
-
-    <!-- Camera readout -->
-    <div
-      class="hidden md:flex fixed bottom-6 left-10 z-40 pointer-events-none items-center gap-4 text-[10px] font-mono tracking-widest text-neutral-500"
-    >
-      <span>Az {{ azLabel }}°</span>
-      <span>El {{ elLabel }}°</span>
-      <Transition name="fade">
-        <span v-if="modelLoaded && !hasInteracted" class="text-neutral-400">
-          Drag the model to orbit
-        </span>
-      </Transition>
-    </div>
 
     <!-- Stage rail -->
     <nav
@@ -1057,7 +1022,6 @@ const toSlug = (name) =>
 
     <!-- =========================================================
          LAYER 30: SPATIAL FLOATING CONTENT LAYER
-         Panels carry --depth (parallax strength) and --i (stagger order).
     ========================================================== -->
     <main
       ref="mainRef"
@@ -1152,7 +1116,7 @@ const toSlug = (name) =>
         </div>
       </section>
 
-      <!-- 2. ABOUT STAGE (panel right → camera pans model left) -->
+      <!-- 2. ABOUT STAGE -->
       <section
         id="about"
         data-stage="about"
@@ -1260,7 +1224,7 @@ const toSlug = (name) =>
               >
                 <img
                   v-if="project.thumbnail"
-                  :src="'/' + project.thumbnail"
+                  :src="'/' + String(project.thumbnail).replace(/^\/+/, '')"
                   :alt="project.name"
                   loading="lazy"
                   class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
@@ -1420,7 +1384,7 @@ const toSlug = (name) =>
         </div>
       </section>
 
-      <!-- 5. TOOLSET STAGE (panel left → camera pans model right) -->
+      <!-- 5. TOOLSET STAGE -->
       <section
         id="toolset"
         data-stage="toolset"
@@ -1644,12 +1608,6 @@ const toSlug = (name) =>
 </template>
 
 <style>
-/* ------------------------------------------------------------------
-   Theme tokens. Unscoped on purpose: the modal is teleported to <body>
-   and still needs them. Dark mode also remaps Tailwind v4's neutral scale
-   (--color-neutral-*) so every existing text/border/divide utility flips
-   without touching the markup.
-------------------------------------------------------------------- */
 .pf-theme-light {
   color-scheme: light;
   --bg: #f4f5f6;
@@ -1764,7 +1722,6 @@ const toSlug = (name) =>
   --modal-card: rgba(8, 18, 34, 0.94);
   --modal-glow: 0 0 40px -8px rgba(56, 189, 248, 0.4);
 
-  /* Tailwind v4 neutral scale, remapped to a blue-tinted dark UI */
   --color-neutral-50: #0a1018;
   --color-neutral-100: #0f1826;
   --color-neutral-200: #1b2a40;
@@ -1780,6 +1737,11 @@ const toSlug = (name) =>
 </style>
 
 <style scoped>
+.pf-root,
+.floating-panel {
+  touch-action: pan-y;
+}
+
 .font-display {
   font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
   font-weight: 400;
@@ -1792,9 +1754,6 @@ const toSlug = (name) =>
     -1px 0 rgba(56, 200, 255, 0.22);
 }
 
-/* ------------------------------------------------------------------
-   Backdrop
-------------------------------------------------------------------- */
 .backdrop-wash {
   background: var(--wash);
 }
@@ -1829,9 +1788,6 @@ const toSlug = (name) =>
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.85);
 }
 
-/* ------------------------------------------------------------------
-   Buttons + modal
-------------------------------------------------------------------- */
 .btn-solid {
   background: var(--btn-bg);
   color: var(--btn-fg);
@@ -1852,19 +1808,10 @@ const toSlug = (name) =>
   box-shadow: var(--modal-glow);
 }
 
-/* ------------------------------------------------------------------
-   Floating panels
-   Three independent channels so nothing fights:
-     translate  → camera + scroll parallax (driven by --ox / --oy / --sv)
-     transform  → hover tilt (driven by --rx / --ry / --tz)
-     opacity / scale / filter → reveal (staggered by --i)
-------------------------------------------------------------------- */
 .floating-panel {
   --delay: calc(var(--i, 0) * 110ms);
 
   background-color: var(--panel);
-  /* glare + HUD corner brackets + hologram scan texture, all as background
-     layers so we never need position:relative (keeps Tailwind's sticky) */
   background-image:
     radial-gradient(
       380px circle at var(--mx, 50%) var(--my, 0%),
@@ -1933,9 +1880,6 @@ const toSlug = (name) =>
   filter: none;
 }
 
-/* ------------------------------------------------------------------
-   Model + hologram effects (dark mode)
-------------------------------------------------------------------- */
 .mv-stage {
   opacity: 0;
   transition:
@@ -1951,12 +1895,10 @@ const toSlug = (name) =>
   filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.38)) saturate(1.1);
 }
 
-/* Ambient flicker: rare, brief dips */
 .pf-theme-dark .mv-stage.is-loaded {
   animation: holo-idle 9s linear infinite;
 }
 
-/* Power-on flicker when the hologram switches on */
 .pf-theme-dark .holo-wrap.is-booting .mv-stage.is-loaded {
   animation: holo-boot 1.3s steps(1, end) 1;
 }
@@ -2003,7 +1945,6 @@ const toSlug = (name) =>
   }
 }
 
-/* Scanlines + sweeping beam, masked to an ellipse around the model */
 .holo-fx {
   position: absolute;
   inset: 0;
@@ -2071,7 +2012,6 @@ const toSlug = (name) =>
   }
 }
 
-/* Projector base: anchored at the model's feet; flattens with camera pitch */
 .holo-base {
   position: relative;
   width: 0;
@@ -2156,9 +2096,6 @@ const toSlug = (name) =>
   }
 }
 
-/* ------------------------------------------------------------------
-   3D-anchored annotation tags
-------------------------------------------------------------------- */
 .hs {
   position: relative;
   display: block;
@@ -2276,11 +2213,23 @@ const toSlug = (name) =>
   .hs {
     display: none;
   }
+
+  .holo-wrap {
+    transform: none;
+  }
+
+  .floating-panel {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    will-change: auto;
+  }
+
+  .holo-beam,
+  .holo-cone {
+    mix-blend-mode: normal;
+  }
 }
 
-/* ------------------------------------------------------------------
-   Transitions
-------------------------------------------------------------------- */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.4s ease;
