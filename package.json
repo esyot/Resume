@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/model-viewer": "^4.4.0",
     "@tailwindcss/cli": "^4.1.7",
     "@tailwindcss/vite": "^4.1.6",
     "lucide-vue-next": "^1.0.0",

@@ -1,0 +1,164 @@
+/* Shared theme tokens for the portfolio + project pages.
+   Import once per page component: import "../assets/theme.css";
+   Dark mode also remaps Tailwind v4's neutral scale (--color-neutral-*), so
+   existing text/border/divide utilities flip without touching the markup.
+   Unscoped on purpose so teleported UI (modals) inherits it too. */
+/* ------------------------------------------------------------------
+   Theme tokens. Unscoped on purpose: the modal is teleported to <body>
+   and still needs them. Dark mode also remaps Tailwind v4's neutral scale
+   (--color-neutral-*) so every existing text/border/divide utility flips
+   without touching the markup.
+------------------------------------------------------------------- */
+.pf-theme-light {
+  color-scheme: light;
+  --bg: #f4f5f6;
+  --chrome: rgba(248, 249, 250, 0.8);
+  --accent: #171717;
+  --sel-bg: #171717;
+  --sel-fg: #ffffff;
+  --chip-bg: rgba(255, 255, 255, 0.8);
+
+  --wash: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(244, 245, 246, 0.35) 55%,
+    rgba(235, 237, 240, 0.7) 100%
+  );
+  --grid: #d4d4d8;
+  --grid-opacity: 0.35;
+  --ring-glow: none;
+
+  --panel: rgba(248, 249, 250, 0.86);
+  --panel-tex: linear-gradient(transparent, transparent);
+  --panel-line: rgba(212, 212, 216, 0.9);
+  --panel-line-hover: rgba(161, 161, 170, 0.95);
+  --panel-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04), 0 18px 40px -18px rgba(23, 23, 23, 0.12);
+  --panel-shadow-hover:
+    0 1px 2px rgba(0, 0, 0, 0.05), 0 26px 48px -20px rgba(23, 23, 23, 0.2);
+  --bracket: #171717;
+  --glare-rgb: 255, 255, 255;
+
+  --btn-bg: #171717;
+  --btn-bg-hover: #404040;
+  --btn-fg: #ffffff;
+  --btn-line: #171717;
+  --btn-glow: none;
+
+  --hs-bg: rgba(248, 249, 250, 0.92);
+  --hs-line: rgba(212, 212, 216, 0.9);
+  --hs-ink: #171717;
+  --hs-sub: #737373;
+  --hs-halo: rgba(244, 245, 246, 0.9);
+  --hs-glow: none;
+
+  --scrim: rgba(23, 23, 23, 0.4);
+  --modal-card: #f8f9fa;
+  --modal-glow: none;
+
+  --cap-bg: rgba(23, 23, 23, 0.7);
+  --cap-fg: #ffffff;
+  --cap-line: transparent;
+  --plate-glow: none;
+
+  --lb-bg: #0a0a0a;
+  --lb-line: #262626;
+  --lb-text: #d4d4d4;
+  --lb-dim: #a3a3a3;
+  --lb-active: #ffffff;
+  --lb-idle: #404040;
+}
+
+.pf-theme-dark {
+  color-scheme: dark;
+  --bg: #060b14;
+  --chrome: rgba(6, 11, 20, 0.72);
+  --accent: #38bdf8;
+  --sel-bg: rgba(56, 189, 248, 0.45);
+  --sel-fg: #ffffff;
+  --chip-bg: rgba(14, 30, 54, 0.7);
+
+  --wash:
+    radial-gradient(
+      circle at 58% 50%,
+      rgba(18, 70, 140, 0.38) 0%,
+      rgba(6, 11, 20, 0) 62%
+    ),
+    radial-gradient(circle at center, #0a1424 0%, #060b14 100%);
+  --grid: rgba(56, 189, 248, 0.2);
+  --grid-opacity: 0.45;
+  --ring-glow:
+    0 0 40px -10px rgba(56, 189, 248, 0.45),
+    inset 0 0 40px -18px rgba(56, 189, 248, 0.3);
+
+  --panel: rgba(8, 18, 34, 0.62);
+  --panel-tex: repeating-linear-gradient(
+    to bottom,
+    rgba(125, 211, 252, 0.035) 0 1px,
+    transparent 1px 3px
+  );
+  --panel-line: rgba(56, 189, 248, 0.28);
+  --panel-line-hover: rgba(125, 211, 252, 0.72);
+  --panel-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.05), 0 0 28px -8px rgba(56, 189, 248, 0.3),
+    0 18px 40px -18px rgba(0, 0, 0, 0.65);
+  --panel-shadow-hover:
+    0 0 0 1px rgba(56, 189, 248, 0.12), 0 0 40px -6px rgba(56, 189, 248, 0.5),
+    0 24px 48px -20px rgba(0, 0, 0, 0.7);
+  --bracket: #7dd3fc;
+  --glare-rgb: 125, 211, 252;
+
+  --btn-bg: linear-gradient(
+    180deg,
+    rgba(56, 189, 248, 0.24),
+    rgba(37, 99, 235, 0.3)
+  );
+  --btn-bg-hover: linear-gradient(
+    180deg,
+    rgba(56, 189, 248, 0.38),
+    rgba(37, 99, 235, 0.46)
+  );
+  --btn-fg: #e6f6ff;
+  --btn-line: rgba(125, 211, 252, 0.55);
+  --btn-glow:
+    0 0 18px -4px rgba(56, 189, 248, 0.6),
+    inset 0 0 12px rgba(56, 189, 248, 0.15);
+
+  --hs-bg: rgba(6, 16, 32, 0.82);
+  --hs-line: rgba(56, 189, 248, 0.5);
+  --hs-ink: #e6f6ff;
+  --hs-sub: #7dd3fc;
+  --hs-halo: rgba(6, 11, 20, 0.9);
+  --hs-glow: 0 0 16px -2px rgba(56, 189, 248, 0.5);
+
+  --scrim: rgba(2, 6, 14, 0.7);
+  --modal-card: rgba(8, 18, 34, 0.94);
+  --modal-glow: 0 0 40px -8px rgba(56, 189, 248, 0.4);
+
+  --cap-bg: rgba(6, 16, 32, 0.82);
+  --cap-fg: #7dd3fc;
+  --cap-line: rgba(56, 189, 248, 0.5);
+  --plate-glow:
+    inset 0 0 40px -10px rgba(56, 189, 248, 0.35),
+    0 0 30px -10px rgba(56, 189, 248, 0.4);
+
+  --lb-bg: #040810;
+  --lb-line: rgba(56, 189, 248, 0.22);
+  --lb-text: #cfeaff;
+  --lb-dim: #7fa6c8;
+  --lb-active: #38bdf8;
+  --lb-idle: #1e3a5a;
+
+  /* Tailwind v4 neutral scale, remapped to a blue-tinted dark UI */
+  --color-neutral-50: #0a1018;
+  --color-neutral-100: #0f1826;
+  --color-neutral-200: #1b2a40;
+  --color-neutral-300: #26405f;
+  --color-neutral-400: #6f8fb5;
+  --color-neutral-500: #8aa5c6;
+  --color-neutral-600: #a3bad6;
+  --color-neutral-700: #c3d3e8;
+  --color-neutral-800: #dbe6f5;
+  --color-neutral-900: #eaf3ff;
+  --color-neutral-950: #f5faff;
+}
