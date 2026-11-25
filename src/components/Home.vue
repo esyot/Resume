@@ -34,7 +34,9 @@ const showAllProjects = ref(false);
 const rootRef = ref(null);
 const mainRef = ref(null);
 const modelViewerRef = ref(null);
+const enable3D = ref(true);
 const modelLoaded = ref(false);
+const modelError = ref(false);
 const loadProgress = ref(0);
 const activeStage = ref("intro");
 const hotspotsReady = ref(false);
@@ -329,7 +331,7 @@ const tick = (now) => {
   computeTargetFromScroll();
 
   const mv = modelViewerRef.value;
-  if (mv && modelLoaded.value && now > userUntil) {
+  if (mv && enable3D.value && modelLoaded.value && now > userUntil) {
     const rate = reduceMotion ? 60 : introPlaying ? 2.2 : 4.5;
     const k = 1 - Math.exp(-dt * rate);
 
@@ -393,6 +395,18 @@ const onUserCameraChange = (event) => {
 
 const onModelProgress = (e) => {
   loadProgress.value = Math.round((e.detail?.totalProgress || 0) * 100);
+};
+
+const onModelError = () => {
+  modelLoaded.value = false;
+  modelError.value = true;
+};
+
+const triggerLoad3D = () => {
+  modelError.value = false;
+  modelLoaded.value = false;
+  loadProgress.value = 0;
+  enable3D.value = true;
 };
 
 /* ------------------------------------------------------------------ *
@@ -537,6 +551,7 @@ const onModelLoad = () => {
   writeCamera(mv, cur, 0, 0, true);
   placeHotspots(mv);
   applyHologram(isDark.value);
+  modelError.value = false;
   modelLoaded.value = true;
   if (isDark.value) playBoot();
 };
@@ -595,6 +610,15 @@ const onKeydown = (e) => {
 
 onMounted(() => {
   reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const lowMem =
+    typeof navigator !== "undefined" &&
+    typeof navigator.deviceMemory === "number" &&
+    navigator.deviceMemory <= 4;
+  const saveData =
+    typeof navigator !== "undefined" && !!navigator.connection?.saveData;
+  const smallScreen = window.innerWidth < 1024;
+  enable3D.value = !(smallScreen && (lowMem || saveData));
 
   syncDocumentTheme(isDark.value);
   themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
