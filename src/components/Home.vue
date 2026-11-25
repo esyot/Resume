@@ -15,13 +15,11 @@ import {
   Moon,
 } from "lucide-vue-next";
 
-import "@google/model-viewer";
-import { ModelViewerElement } from "@google/model-viewer";
 import portraitModelUrl from "../assets/models/model.glb?url";
 import { projects } from "../data/projects.js";
 import AnimatedCounter from "./AnimatedCounter.vue";
 
-ModelViewerElement.meshoptDecoderLocation =
+const MESHOPT_DECODER_URL =
   "https://unpkg.com/meshoptimizer@0.17.0/meshopt_decoder.js";
 
 const toast = useToast();
@@ -34,7 +32,8 @@ const showAllProjects = ref(false);
 const rootRef = ref(null);
 const mainRef = ref(null);
 const modelViewerRef = ref(null);
-const enable3D = ref(true);
+const enable3D = ref(false);
+const modelViewerReady = ref(false);
 const modelLoaded = ref(false);
 const modelError = ref(false);
 const loadProgress = ref(0);
@@ -42,6 +41,29 @@ const activeStage = ref("intro");
 const hotspotsReady = ref(false);
 const hasInteracted = ref(false);
 const isDesktop = ref(true);
+
+let modelViewerModulePromise = null;
+
+const ensureModelViewerLoaded = async () => {
+  if (modelViewerReady.value) return true;
+  try {
+    if (!modelViewerModulePromise) {
+      modelViewerModulePromise = import("@google/model-viewer");
+    }
+    const mod = await modelViewerModulePromise;
+    const ElementClass =
+      mod?.ModelViewerElement ||
+      (typeof window !== "undefined" ? window.ModelViewerElement : null);
+    if (ElementClass && !ElementClass.meshoptDecoderLocation) {
+      ElementClass.meshoptDecoderLocation = MESHOPT_DECODER_URL;
+    }
+    modelViewerReady.value = true;
+    return true;
+  } catch {
+    modelError.value = true;
+    return false;
+  }
+};
 
 /* ------------------------------------------------------------------ *
  * Theme: follows the OS until the visitor picks one, then remembers it.
@@ -70,9 +92,13 @@ let bootTimer = null;
 let layoutTimer = null;
 
 const syncDocumentTheme = (dark) => {
-  const el = document.documentElement;
-  el.style.colorScheme = dark ? "dark" : "light";
-  el.style.backgroundColor = dark ? "#060b14" : "#f4f5f6";
+  try {
+    const el = document.documentElement;
+    el.style.colorScheme = dark ? "dark" : "light";
+    el.style.backgroundColor = dark ? "#060b14" : "#f4f5f6";
+  } catch {
+    /* ignore document style errors */
+  }
 };
 
 const toggleTheme = () => {
@@ -85,7 +111,7 @@ const toggleTheme = () => {
 };
 
 const onSystemThemeChange = (e) => {
-  if (!readStoredTheme()) isDark.value = e.matches;
+  if (!readStoredTheme()) isDark.value = Boolean(e?.matches);
 };
 
 // Short "power-on" flicker whenever the hologram switches on.
@@ -93,14 +119,18 @@ const playBoot = () => {
   if (reduceMotion) return;
   isBooting.value = true;
   clearTimeout(bootTimer);
-  bootTimer = setTimeout(() => (isBooting.value = false), 1500);
+  bootTimer = setTimeout(() => {
+    isBooting.value = false;
+  }, 1500);
 };
 
 // Live camera readout (72deg / 82deg = the original front view)
 const currentThetaDeg = ref(72);
 const currentPhiDeg = ref(82);
 
-const togglePopup = () => (isShowPopup.value = !isShowPopup.value);
+const togglePopup = () => {
+  isShowPopup.value = !isShowPopup.value;
+};
 
 /* ------------------------------------------------------------------ *
  * Contact
@@ -246,9 +276,11 @@ let lastScrollY = 0;
 let scrollVel = 0;
 
 const computeLayout = () => {
+  if (typeof window === "undefined") return;
   isDesktop.value = window.innerWidth >= 1024;
+  const scope = rootRef.value || document;
   stageCenters = STAGES.map((s) => {
-    const el = document.querySelector(`[data-stage="${s.id}"]`);
+    const el = scope.querySelector(`[data-stage="${s.id}"]`);
     if (!el) return 0;
     const r = el.getBoundingClientRect();
     return r.top + window.scrollY + r.height / 2;
@@ -289,22 +321,24 @@ const computeTargetFromScroll = () => {
 
 const writeCamera = (mv, o, sway = 0, swayPhi = 0, force = false) => {
   if (!mv) return;
-  const th = (o.theta * Math.PI) / 180;
+  try {
+    const th = (o.theta * Math.PI) / 180;
+    const tx = baseTarget.x + o.offsetX + o.panX * Math.cos(th);
+    const ty = baseTarget.y + o.panY;
+    const tz = baseTarget.z - o.panX * Math.sin(th);
 
-  // Screen-space pan: slide the target along the camera's right vector.
-  const tx = baseTarget.x + o.offsetX + o.panX * Math.cos(th);
-  const ty = baseTarget.y + o.panY;
-  const tz = baseTarget.z - o.panX * Math.sin(th);
+    const orbit = `${(o.theta + sway).toFixed(2)}deg ${clamp(o.phi + swayPhi, 10, 170).toFixed(2)}deg ${o.radius.toFixed(1)}%`;
+    const target = `${tx.toFixed(3)}m ${ty.toFixed(3)}m ${tz.toFixed(3)}m`;
+    const key = `${orbit}|${target}`;
 
-  const orbit = `${(o.theta + sway).toFixed(2)}deg ${clamp(o.phi + swayPhi, 10, 170).toFixed(2)}deg ${o.radius.toFixed(1)}%`;
-  const target = `${tx.toFixed(3)}m ${ty.toFixed(3)}m ${tz.toFixed(3)}m`;
-  const key = `${orbit}|${target}`;
-
-  if (force || key !== lastAppliedKey) {
-    lastAppliedKey = key;
-    mv.cameraOrbit = orbit;
-    mv.cameraTarget = target;
-    if (typeof mv.jumpCameraToGoal === "function") mv.jumpCameraToGoal();
+    if (force || key !== lastAppliedKey) {
+      lastAppliedKey = key;
+      mv.cameraOrbit = orbit;
+      mv.cameraTarget = target;
+      if (typeof mv.jumpCameraToGoal === "function") mv.jumpCameraToGoal();
+    }
+  } catch {
+    /* ignore camera sync error */
   }
 };
 
@@ -313,7 +347,11 @@ const cssVars = {};
 const setVar = (name, value) => {
   if (cssVars[name] === value) return;
   cssVars[name] = value;
-  rootRef.value?.style.setProperty(name, value);
+  try {
+    rootRef.value?.style.setProperty(name, value);
+  } catch {
+    /* ignore style property error */
+  }
 };
 
 const tick = (now) => {
@@ -321,7 +359,6 @@ const tick = (now) => {
   const dt = lastT ? Math.min(0.05, (now - lastT) / 1000) : 0.016;
   lastT = now;
 
-  // Scroll velocity → panels trail the scroll slightly.
   const y = window.scrollY;
   const rawV = dt > 0 ? (y - lastScrollY) / dt : 0;
   lastScrollY = y;
@@ -331,7 +368,13 @@ const tick = (now) => {
   computeTargetFromScroll();
 
   const mv = modelViewerRef.value;
-  if (mv && enable3D.value && modelLoaded.value && now > userUntil) {
+  if (
+    mv &&
+    enable3D.value &&
+    modelViewerReady.value &&
+    modelLoaded.value &&
+    now > userUntil
+  ) {
     const rate = reduceMotion ? 60 : introPlaying ? 2.2 : 4.5;
     const k = 1 - Math.exp(-dt * rate);
 
@@ -350,7 +393,6 @@ const tick = (now) => {
       introPlaying = false;
     }
 
-    // Tiny idle breathing so the model never feels frozen.
     const live = !reduceMotion && !introPlaying;
     const sway = live ? Math.sin(now / 1700) * 1.1 : 0;
     const swayPhi = live ? Math.cos(now / 2300) * 0.45 : 0;
@@ -362,7 +404,6 @@ const tick = (now) => {
   const phiDeg = Math.round(cur.phi);
   if (currentPhiDeg.value !== phiDeg) currentPhiDeg.value = phiDeg;
 
-  // Camera → page: panels use these for depth parallax.
   const ox = clamp(angleDelta(72, cur.theta) / 48, -1.25, 1.25);
   const oy = clamp((cur.phi - 82) / 10, -1.25, 1.25);
   const max = Math.max(
@@ -371,7 +412,6 @@ const tick = (now) => {
   );
   setVar("--ox", ox.toFixed(3));
   setVar("--oy", oy.toFixed(3));
-  // Projector base flattens as the camera drops toward the horizon.
   const flat = clamp(Math.cos((cur.phi * Math.PI) / 180) * 1.6, 0.14, 0.5);
   setVar("--flat", flat.toFixed(3));
   setVar("--sv", scrollVel.toFixed(3));
@@ -402,11 +442,12 @@ const onModelError = () => {
   modelError.value = true;
 };
 
-const triggerLoad3D = () => {
+const triggerLoad3D = async () => {
   modelError.value = false;
   modelLoaded.value = false;
   loadProgress.value = 0;
   enable3D.value = true;
+  await ensureModelViewerLoaded();
 };
 
 /* ------------------------------------------------------------------ *
@@ -527,12 +568,16 @@ const onModelLoad = () => {
   const mv = modelViewerRef.value;
 
   if (mv && typeof mv.getCameraTarget === "function") {
-    const t = mv.getCameraTarget();
-    baseTarget = {
-      x: Number.isFinite(t?.x) ? t.x : 0,
-      y: Number.isFinite(t?.y) ? t.y : 0.8,
-      z: Number.isFinite(t?.z) ? t.z : 0,
-    };
+    try {
+      const t = mv.getCameraTarget();
+      baseTarget = {
+        x: Number.isFinite(t?.x) ? t.x : 0,
+        y: Number.isFinite(t?.y) ? t.y : 0.8,
+        z: Number.isFinite(t?.z) ? t.z : 0,
+      };
+    } catch {
+      /* keep default baseTarget */
+    }
   }
 
   computeLayout();
@@ -589,7 +634,8 @@ let layoutObserver = null;
 
 const observeReveals = () => {
   if (!revealObserver) return;
-  document.querySelectorAll(".reveal:not([data-obs])").forEach((el) => {
+  const scope = rootRef.value || document;
+  scope.querySelectorAll(".reveal:not([data-obs])").forEach((el) => {
     el.dataset.obs = "1";
     revealObserver.observe(el);
   });
@@ -608,21 +654,17 @@ const onKeydown = (e) => {
   if (e.key === "Escape" && isShowPopup.value) isShowPopup.value = false;
 };
 
-onMounted(() => {
-  reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+onMounted(async () => {
+  reduceMotion = Boolean(
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches,
+  );
 
-  const lowMem =
-    typeof navigator !== "undefined" &&
-    typeof navigator.deviceMemory === "number" &&
-    navigator.deviceMemory <= 4;
-  const saveData =
-    typeof navigator !== "undefined" && !!navigator.connection?.saveData;
-  const smallScreen = window.innerWidth < 1024;
-  enable3D.value = !(smallScreen && (lowMem || saveData));
+  const isSmallScreen = window.innerWidth < 1024;
+  enable3D.value = !isSmallScreen;
 
   syncDocumentTheme(isDark.value);
-  themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
-  themeMedia.addEventListener?.("change", onSystemThemeChange);
+  themeMedia = window.matchMedia?.("(prefers-color-scheme: dark)") || null;
+  themeMedia?.addEventListener?.("change", onSystemThemeChange);
 
   computeLayout();
   computeTargetFromScroll();
@@ -637,18 +679,28 @@ onMounted(() => {
     layoutObserver.observe(mainRef.value);
   }
 
-  revealObserver = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        e.target.classList.add("revealed");
-        revealObserver.unobserve(e.target);
-      }),
-    { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
-  );
-  observeReveals();
+  if (typeof IntersectionObserver !== "undefined") {
+    revealObserver = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("revealed");
+          revealObserver.unobserve(e.target);
+        }),
+      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
+    );
+    observeReveals();
+  } else {
+    rootRef.value?.querySelectorAll(".reveal").forEach((el) => {
+      el.classList.add("revealed");
+    });
+  }
 
   rafId = requestAnimationFrame(tick);
+
+  if (enable3D.value) {
+    await ensureModelViewerLoaded();
+  }
 });
 
 onUnmounted(() => {
@@ -657,8 +709,12 @@ onUnmounted(() => {
   themeMedia?.removeEventListener?.("change", onSystemThemeChange);
   clearTimeout(bootTimer);
   clearTimeout(layoutTimer);
-  document.documentElement.style.colorScheme = "";
-  document.documentElement.style.backgroundColor = "";
+  try {
+    document.documentElement.style.colorScheme = "";
+    document.documentElement.style.backgroundColor = "";
+  } catch {
+    /* ignore cleanup error */
+  }
   if (rafId) cancelAnimationFrame(rafId);
   revealObserver?.disconnect();
   layoutObserver?.disconnect();
@@ -871,6 +927,7 @@ const toSlug = (name) =>
         :class="{ 'is-booting': isBooting }"
       >
         <model-viewer
+          v-if="enable3D && modelViewerReady"
           ref="modelViewerRef"
           :src="portraitModelUrl"
           alt="Interactive 3D portrait model of Reinhard Esteban"
@@ -878,7 +935,7 @@ const toSlug = (name) =>
           disable-zoom
           disable-pan
           touch-action="pan-y"
-          loading="eager"
+          loading="lazy"
           interpolation-decay="0"
           :shadow-intensity="isDark ? '0' : '0.9'"
           shadow-softness="0.85"
@@ -891,6 +948,7 @@ const toSlug = (name) =>
           :class="{ 'is-loaded': modelLoaded }"
           @load="onModelLoad"
           @progress="onModelProgress"
+          @error="onModelError"
           @camera-change="onUserCameraChange"
         >
           <div
